@@ -36,3 +36,46 @@
     transform: rotate(360deg);
   }
 }
+
+/* styling navlist */ 
+#navlist { 
+  background-color: #0074D9; 
+  position: absolute; 
+  width: 100%; 
+} 
+    
+/* styling navlist anchor element */ 
+#navlist a { 
+  float:left; 
+  display: block; 
+  color: #f2f2f2; 
+  text-align: center; 
+  padding: 12px; 
+  text-decoration: none; 
+  font-size: 15px; 
+} 
+
+.navlist-right{ 
+  float:right; 
+} 
+
+/* hover effect of navlist anchor element */ 
+#navlist a:hover { 
+  background-color: #ddd; 
+  color: black; 
+} 
+
+.topnav-right {
+  float: right;
+}
+
+.course-card {
+  padding-right: 30px;
+  padding-left: 20px;
+  height: 350px;
+  width: 350px;
+}
+
+.course-card-text {
+  color: black;
+}
