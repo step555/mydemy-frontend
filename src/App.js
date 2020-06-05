@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import {fetchingCourses, fetchingUser} from './redux/actions'
+import {fetchingCourses, fetchingUser, fetchingUserCart} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -11,19 +11,14 @@ import Navbar from "./components/Navbar";
 import CourseContainer from "./courseComponents/CourseContainer";
 import Course from "./courseComponents/Course";
 import UserProfileContainer from "./userProfileComponents/UserProfileContainer";
-import Cart from "./components/Cart"
+import CartContainer from "./cartComponents/CartContainer"
 
 class App extends React.Component{
 
   componentDidMount(){
     this.props.fetchingCourses()
     this.props.fetchingUser()
-
-    // fetch('http://localhost:3000/courses')
-    // .then(resp => resp.json())
-    // .then(data => {
-    //   debugger
-    // })
+    this.props.fetchingUserCart()
   }
   render(){
   return (
@@ -35,7 +30,7 @@ class App extends React.Component{
         <Route path="/course-list/:courseId" component={Course}/>
         <Route path="/course-list" component={CourseContainer}/>
         <Route path="/profile" component={UserProfileContainer}/>
-        <Route path="/cart" component={Cart}/>
+        <Route path="/cart" component={CartContainer}/>
       </Switch>
 
     </div>
@@ -46,14 +41,16 @@ class App extends React.Component{
 const mapStateToProps = (state) => {
   return {
     courses: state.courses,
-    user: state.user
+    user: state.user,
+    cart: state.cart
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchingCourses: () => {dispatch( fetchingCourses() )},
-    fetchingUser: () => {dispatch( fetchingUser() )}
+    fetchingUser: () => {dispatch( fetchingUser() )},
+    fetchingUserCart: () => {dispatch( fetchingUserCart() )}
   }
 }
 

@@ -13,6 +13,7 @@ const Navbar = (props) => {
             <a href="#">Contact Us</a> 
             <div className="topnav-right">
             <Link to="/course-list">Courses</Link>
+            {/* dropdown for profile to display account and dashboard? */}
             <Link to="/profile">Profile</Link>
             <Link to="/cart">Cart</Link>
             </div>

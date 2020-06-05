@@ -19,9 +19,19 @@ const userReducer = (state = [], action) => {
     }
 }
 
+const cartReducer = (state = [], action) => {
+    switch (action.type) {
+        case "FETCHED_USER_CART":
+            return action.payload
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     courses: coursesReducer,
-    user: userReducer
+    user: userReducer,
+    cart: cartReducer
     // courseCompany: courseCompanyReducer
 //     searchText: searchTextReducer,
 //     paintings: paintingsReducer
