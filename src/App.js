@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import {fetchingCourses, fetchingUser, fetchingUserCart} from './redux/actions'
+import {fetchingCourses, fetchingUser, fetchingUserCart, cartTotal} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -21,6 +21,7 @@ class App extends React.Component{
     this.props.fetchingCourses()
     this.props.fetchingUser()
     this.props.fetchingUserCart()
+    this.props.cartTotal()
   }
   render(){
   return (
@@ -43,10 +44,12 @@ class App extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+  // debugger
   return {
     courses: state.courses,
     user: state.user,
-    cart: state.cart
+    cart: state.cart,
+    cartTotal: state.cartTotal
   };
 };
 
@@ -54,7 +57,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchingCourses: () => {dispatch( fetchingCourses() )},
     fetchingUser: () => {dispatch( fetchingUser() )},
-    fetchingUserCart: () => {dispatch( fetchingUserCart() )}
+    fetchingUserCart: () => {dispatch( fetchingUserCart() )},
+    cartTotal: () => {dispatch( cartTotal() )}
   }
 }
 

@@ -1,6 +1,5 @@
 const COURSES_URL = 'http://localhost:3000/courses'
 const USER_URL = 'http://localhost:3000/users/1'
-// let id
 
 function fetchedCourses(courses){
     return {type: "FETCHED_COURSES", payload: courses}
@@ -25,7 +24,6 @@ function fetchingUser(){
         fetch(USER_URL)
         .then(resp => resp.json())
         .then(user => {
-            // debugger
             dispatch(fetchedUser(user))
         })
     }
@@ -49,10 +47,19 @@ function fetchingUserCart(){
                     }
                 }
             }
-            // debugger
+            let total = 0
+            cart.forEach(item => total += item.price)
             dispatch(fetchedUserCart(cart))
+            dispatch(cartTotal(total))
+            // dispatch(fetchedUserCart(cart), cartTotal(total))
         })
     }
 }
 
-export { fetchingCourses, fetchingUser, fetchingUserCart }
+function cartTotal(total) {
+    // total is correct
+    console.log("TOTAL", total)
+    return { type: "CART_TOTAL", payload: total };
+}
+
+export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal }

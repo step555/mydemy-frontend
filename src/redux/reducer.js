@@ -9,7 +9,6 @@ const coursesReducer = (state = [], action) => {
     }
 }
 
-
 const userReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER":
@@ -28,13 +27,26 @@ const cartReducer = (state = [], action) => {
     }
 }
 
+const cartTotalReducer = (state = 0, action) => {
+    // debugger
+    switch (action.type){
+        case "CART_TOTAL":
+            // debugger
+            // return action.payload
+            return {
+                cartTotal: action.payload
+            }
+        default:
+            return state;
+    }
+}
+// debugger
 const rootReducer = combineReducers({
     courses: coursesReducer,
     user: userReducer,
-    cart: cartReducer
-    // courseCompany: courseCompanyReducer
-//     searchText: searchTextReducer,
-//     paintings: paintingsReducer
+    cart: cartReducer,
+    //cartTotal may not be needed
+    cartTotal: cartTotalReducer
   });
   
   export default rootReducer;
