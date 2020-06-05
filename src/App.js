@@ -12,6 +12,8 @@ import CourseContainer from "./courseComponents/CourseContainer";
 import Course from "./courseComponents/Course";
 import UserProfileContainer from "./userProfileComponents/UserProfileContainer";
 import CartContainer from "./cartComponents/CartContainer"
+import AccountInformation from "./userProfileComponents/AccountInformation"
+import Dashboard from "./userProfileComponents/Dashboard"
 
 class App extends React.Component{
 
@@ -31,6 +33,8 @@ class App extends React.Component{
         <Route path="/course-list" component={CourseContainer}/>
         <Route path="/profile" component={UserProfileContainer}/>
         <Route path="/cart" component={CartContainer}/>
+        <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/account" component={AccountInformation}/>
       </Switch>
 
     </div>
