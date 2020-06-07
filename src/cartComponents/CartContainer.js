@@ -11,32 +11,15 @@ class CartContainer extends React.Component{
         }
     }
 
-    componentDidMount(){
-        let totalPrice = 0
-        const cart = this.props.cart
-        // debugger
-        // cart.forEach(item => {
-        //     totalPrice += item.price})
-        // this.setState({total: totalPrice})
-        // debugger
-    }
-
     render(){
-
-        // let totalPrice = 0
-        // const cart = this.props.cart
-        // console.log("cart", cart)
-        // cart.forEach(item => totalPrice += item.price)
-        // this.setState({total: totalPrice})
-            // debugger
-        // console.log("price", this.totalPrice)
-        // console.log("price", this.state)
+        // debugger
         return !this.props.cart ? null : (
             // I could make columns like amazon. total price on right, cart items on left
             <div>
                 <h1>Shopping Cart</h1>
                 {this.props.cart.map(item => {
                     console.log(item)
+                    debugger
                         return ( 
                                 <CartItem key={item.id} item={item}/>
                         )
@@ -51,7 +34,7 @@ class CartContainer extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    // debugger
+    debugger
     return {
         // user: state.user,
         cart: state.cart,

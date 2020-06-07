@@ -1,26 +1,25 @@
 import React from 'react'
 import { connect } from "react-redux";
+import { Button } from "semantic-ui-react";
+import { addingToCart } from "../redux/actions";
 
 class Course extends React.Component{
-    // constructor(){
-    //     super()
-    //     this.state = {
-    //         institution: ""
-    //     }
-    // }
-
-    // componentDidMount(){
-
-    // }
+    
+    addToCart = (props) => {
+        console.log("adding to cart")
+        debugger
+        this.props.addingToCart(props.course)
+        // this.props.dispatch({ type: "ADD_TO_CART", payload: props.course})
+    }
 
     render(){
-        console.log(this.props.course)
+        // console.log(this.props.course)
 
         return !this.props.course ? null : (
             <div>
                 <h1>{this.props.course.name}</h1>
                 {/* cart picture? */}
-                <h5>Add to cart </h5> 
+                <Button onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
                 <br></br>
                 <br></br>
                 <h2>About this course</h2>
@@ -46,10 +45,18 @@ class Course extends React.Component{
 
 const mapStateToProps = (state, ownProps) => ({
     course: state.courses.find(c => {
-        // debugger
         return c.id === parseInt(ownProps.match.params.courseId)})
 })
 
-export default connect(mapStateToProps)(Course)
+const mapDispatchToProps = (dispatch) => {
+    // debugger
+    console.log("mapDispatchToProps")
+    return {
+      addingToCart: (info) => {dispatch( addingToCart(info) )}
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Course)
 
 // export default Course

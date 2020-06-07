@@ -21,7 +21,11 @@ const userReducer = (state = [], action) => {
 const cartReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER_CART":
+            debugger
             return action.payload
+        case "ADD_TO_CART":
+            let newState = [action.payload, ...state]
+            return newState
         default:
             return state;
     }
@@ -40,6 +44,7 @@ const cartTotalReducer = (state = 0, action) => {
             return state;
     }
 }
+
 // debugger
 const rootReducer = combineReducers({
     courses: coursesReducer,
