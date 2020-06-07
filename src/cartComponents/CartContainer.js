@@ -4,12 +4,12 @@ import CartItem from './CartItem'
 // import {cartTotal} from './redux/actions'
 
 class CartContainer extends React.Component{
-    constructor(){
-        super()
-        this.state = {
-            total: 0
-        }
-    }
+    // constructor(){
+    //     super()
+    //     this.state = {
+    //         total: 0
+    //     }
+    // }
 
     render(){
         // debugger
@@ -19,7 +19,7 @@ class CartContainer extends React.Component{
                 <h1>Shopping Cart</h1>
                 {this.props.cart.map(item => {
                     console.log(item)
-                    debugger
+                    // debugger
                         return ( 
                                 <CartItem key={item.id} item={item}/>
                         )
@@ -34,7 +34,7 @@ class CartContainer extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    debugger
+    // debugger
     return {
         // user: state.user,
         cart: state.cart,

@@ -6,8 +6,7 @@ import { addingToCart } from "../redux/actions";
 class Course extends React.Component{
     
     addToCart = (props) => {
-        console.log("adding to cart")
-        debugger
+        // debugger
         this.props.addingToCart(props.course)
         // this.props.dispatch({ type: "ADD_TO_CART", payload: props.course})
     }
