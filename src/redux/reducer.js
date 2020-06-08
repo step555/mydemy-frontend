@@ -12,6 +12,10 @@ const coursesReducer = (state = [], action) => {
 const userReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER":
+            // debugger
+            return action.payload
+        case "LOGGED_IN":
+            debugger
             return action.payload
         default:
             return state;
@@ -43,6 +47,8 @@ const cartTotalReducer = (state = 0, action) => {
             return state;
     }
 }
+
+
 
 const rootReducer = combineReducers({
     courses: coursesReducer,

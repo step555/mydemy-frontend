@@ -14,6 +14,7 @@ import UserProfileContainer from "./userProfileComponents/UserProfileContainer";
 import CartContainer from "./cartComponents/CartContainer"
 import AccountInformation from "./userProfileComponents/AccountInformation"
 import Dashboard from "./userProfileComponents/Dashboard"
+import LoginForm from "./components/LoginForm"
 
 class App extends React.Component{
 
@@ -37,6 +38,7 @@ class App extends React.Component{
         <Route path="/cart" component={CartContainer}/>
         <Route path="/dashboard" component={Dashboard}/>
         <Route path="/account" component={AccountInformation}/>
+        <Route path="/login" component={LoginForm}/>
       </Switch>
 
     </div>
@@ -60,6 +62,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchingUser: () => {dispatch( fetchingUser() )},
     fetchingUserCart: () => {dispatch( fetchingUserCart() )},
     cartTotal: () => {dispatch( cartTotal() )},
+
+    // login: () => {dispatch( login() )}
+    
     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
   }
 }

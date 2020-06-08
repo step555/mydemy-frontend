@@ -1,6 +1,7 @@
 const COURSES_URL = 'http://localhost:3000/courses'
-const USER_URL = 'http://localhost:3000/users/1'
+const USER_URL = 'http://localhost:3000/users/'
 const PURCHASES_URL = 'http://localhost:3000/purchases'
+const LOGIN_URL = 'http://localhost:3000/login'
 let currentUser
 
 function fetchedCourses(courses){
@@ -17,8 +18,23 @@ function fetchingCourses(){
     }
 }
 
+// function fetchedUser(user){
+//     return {type: "FETCHED_USER", payload: user}
+// }
+
+// function fetchingUser(){
+//     return (dispatch) => {
+//         fetch(USER_URL)
+//         .then(resp => resp.json())
+//         .then(user => {
+//             currentUser = user
+//             dispatch(fetchedUser(user))
+//         })
+//     }
+// }
+
 function fetchedUser(user){
-    return {type: "FETCHED_USER", payload: user}
+    return {type: "LOGGED_IN", payload: user}
 }
 
 function fetchingUser(){
@@ -30,6 +46,40 @@ function fetchingUser(){
             dispatch(fetchedUser(user))
         })
     }
+}
+
+// function loggingIn(email, password){
+//     return(dispatch, getState) => {
+//     let obj = {
+//         email: email,
+//         password: password
+//     }
+//     console.log("arrived at redux actions")
+//     // debugger
+//     fetch(LOGIN_URL, {
+//         method: "POST",
+//         headers: {
+//         "Content-Type" : "application/json",
+//         "Accept" : "application/json"
+//         },
+//         body: JSON.stringify(obj)
+//     }).then(resp => resp.json())
+//     .then(userData => {
+//         debugger
+//         dispatch(loggedIn(userData))
+//     })
+// }}
+
+// function loggedIn(userData){
+//     debugger
+//     return {
+//         type: "LOGGED_IN",
+//         payload: userData
+//     }
+// }
+
+function userPurchasedCourses(){
+
 }
 
 function fetchedUserCart(cart){
@@ -127,4 +177,71 @@ function checkedOutCart(updatedPurchase){
     }
 }
 
-export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart }
+function loggingIn(email, password){
+    return(dispatch, getState) => {
+    let obj = {
+        email: email,
+        password: password
+    }
+    console.log("arrived at redux actions")
+    // debugger
+    fetch(LOGIN_URL, {
+        method: "POST",
+        headers: {
+        "Content-Type" : "application/json",
+        "Accept" : "application/json"
+        },
+        body: JSON.stringify(obj)
+    }).then(resp => resp.json())
+    .then(userData => {
+        debugger
+        dispatch(loggedIn(userData))
+    })
+}}
+
+function loggedIn(userData){
+    debugger
+    return {
+        type: "LOGGED_IN",
+        payload: userData
+    }
+}
+
+
+// handleLoginSubmit = () => {
+//     console.log("attempting to log in")
+//     // fetch("http://localhost:3000/api/v1/login", {
+//     fetch("http://localhost:3000/login", {
+//       method:"POST",
+//       headers: {
+//         "Content-Type" : "application/json",
+//         "Accept" : "application/json"
+//       },
+//       body: JSON.stringify({
+//         email: this.state.email,
+//         password: this.state.password
+//         // if using postgres you would put match: this.state.match (that was changed via input) in here
+//       })
+//     }).then(res => res.json())
+//     .then(userData => {
+
+//       // if(this.state.match[0]._label !== userData.name || this.state.match[0]._label === undefined){
+//       //   this.setState({ error: "true" })
+//       //   alert("wrong face")
+//       // }
+//       console.log("response from the server", userData)
+//       // if this.state.faceMatcher.findBestMatch(descriptor) from vidInput returns name that matches userdata
+//       // alert(wrong person message)
+//       // debugger
+//       if(userData.error_message || this.state.match === undefined || this.state.match[0]._label !== userData.name){
+//         this.setState({ error: "true" })
+//         alert(userData.error_message)
+//       }else{
+//         this.setState({ error: "false" })
+//         this.props.updateCurrentUser(userData)
+//         // alert("Welcome To Bassy Jobs!")
+//       }
+//     })
+//   };
+
+export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, loggingIn }

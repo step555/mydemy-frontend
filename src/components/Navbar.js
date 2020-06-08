@@ -16,6 +16,7 @@ const Navbar = (props) => {
             {/* dropdown for profile to display account and dashboard? */}
             <Link to="/profile">Profile</Link>
             <Link to="/cart">Cart</Link>
+            <Link to="/login">Login</Link>
             </div>
 
         </div> 

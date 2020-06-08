@@ -10,7 +10,7 @@ class UserProfileContainer extends React.Component{
             <div>
                 Profile Container
                 <AccountInformation/>
-                <Dashboard/>
+                {/* <Dashboard/> */}
             </div>
         )
     }
