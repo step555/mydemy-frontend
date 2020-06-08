@@ -17,6 +17,8 @@ const userReducer = (state = [], action) => {
         case "GOT_PROFILE_FETCH":
             // return action.payload
             return {...state, currentUser: action.payload}
+        case "LOGOUT_USER":
+            return {...state, currentUser: null}
         default:
             return state;
     }

@@ -48,7 +48,6 @@ function fetchingUser(email, password){
         email: email,
         password: password
     }
-    // debugger
         fetch(LOGIN_URL, {
             method: "POST",
             headers: {
@@ -62,17 +61,9 @@ function fetchingUser(email, password){
                     alert(user.error_message)
                 }else{
                     localStorage.setItem("token", user.token)
-                    // token = user.token
                     currentUser = user.user
-                    currentUserId = user.id // above POST request is to retrieve user_id of logged in user
-                    // debugger
-                        // fetch(USER_URL + `/${currentUserId}`)
-                        // .then(resp => resp.json())
-                        // .then(user => { // includes user courses and user purchases
-                        //     debugger
-                        //     currentUser = user
+                    currentUserId = user.id
                     dispatch(fetchedUser(user.user))
-                        // })
             }
         })
     }
@@ -80,22 +71,18 @@ function fetchingUser(email, password){
 
 function gettingProfileFetch(){
     return dispatch => {
-        // const token = localStorage.token
-        // if(localStorage.getItem("token")) {
             if(localStorage.token) {
-                debugger
-            fetch(LOGIN_URL, {
+            fetch(LOGIN_URL, { // fetches user minus courses and purchases
                 // method: "GET",
                 headers: {"Authenticate": localStorage.token}
             })
             .then(resp => resp.json())
             .then(user =>{ 
-                debugger
                 currentUserId = user.id
                 if(user.message){
                     localStorage.removeItem("token")
                 }else{
-                fetch(USER_URL + `/${currentUserId}`)
+                fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(user => {
                     dispatch(gotProfileFetch(user))
@@ -110,19 +97,21 @@ function gotProfileFetch(user){
     return {type: "GOT_PROFILE_FETCH", payload: user}
 }
 
+function logoutUser(currentUser){
+    return {type: 'LOGOUT_USER', payload: currentUser}
+}
+
+
 
 function fetchedUserCart(cart){
-    debugger
     return {type: "FETCHED_USER_CART", payload: cart}
 }
 
 function fetchingUserCart(){
-    debugger
     return (dispatch) => {
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
         .then(purchases => {
-            debugger
             const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
             const userCart = userPurchases.filter(p => p.is_purchased === false)
             let total = 0
@@ -210,71 +199,4 @@ function checkedOutCart(updatedPurchase){
     }
 }
 
-// function loggingIn(email, password){
-//     return(dispatch, getState) => {
-//     let obj = {
-//         email: email,
-//         password: password
-//     }
-//     console.log("arrived at redux actions")
-//     // debugger
-//     fetch(LOGIN_URL, {
-//         method: "POST",
-//         headers: {
-//         "Content-Type" : "application/json",
-//         "Accept" : "application/json"
-//         },
-//         body: JSON.stringify(obj)
-//     }).then(resp => resp.json())
-//     .then(userData => {
-//         debugger
-//         dispatch(loggedIn(userData))
-//     })
-// }}
-
-// function loggedIn(userData){
-//     debugger
-//     return {
-//         type: "LOGGED_IN",
-//         payload: userData
-//     }
-// }
-
-
-// handleLoginSubmit = () => {
-//     console.log("attempting to log in")
-//     // fetch("http://localhost:3000/api/v1/login", {
-//     fetch("http://localhost:3000/login", {
-//       method:"POST",
-//       headers: {
-//         "Content-Type" : "application/json",
-//         "Accept" : "application/json"
-//       },
-//       body: JSON.stringify({
-//         email: this.state.email,
-//         password: this.state.password
-//         // if using postgres you would put match: this.state.match (that was changed via input) in here
-//       })
-//     }).then(res => res.json())
-//     .then(userData => {
-
-//       // if(this.state.match[0]._label !== userData.name || this.state.match[0]._label === undefined){
-//       //   this.setState({ error: "true" })
-//       //   alert("wrong face")
-//       // }
-//       console.log("response from the server", userData)
-//       // if this.state.faceMatcher.findBestMatch(descriptor) from vidInput returns name that matches userdata
-//       // alert(wrong person message)
-//       // debugger
-//       if(userData.error_message || this.state.match === undefined || this.state.match[0]._label !== userData.name){
-//         this.setState({ error: "true" })
-//         alert(userData.error_message)
-//       }else{
-//         this.setState({ error: "false" })
-//         this.props.updateCurrentUser(userData)
-//         // alert("Welcome To Bassy Jobs!")
-//       }
-//     })
-//   };
-
-export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch}
+export { logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch}
