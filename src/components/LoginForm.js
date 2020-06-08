@@ -2,8 +2,9 @@ import React from 'react'
 import { Button, Form, Segment, Message, Card, Grid, Header, Image } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { loggingIn } from "../redux/actions"
-
+// import { loggingIn } from "../redux/actions"
+import { fetchingUser } from "../redux/actions"
+// import {fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart} from './redux/actions'
 class LoginForm extends React.Component{
     constructor(){
         super()
@@ -18,10 +19,15 @@ class LoginForm extends React.Component{
         console.log(this.state)
     };
 
+    // componentDidMount(){
+    //     this.props.fetchingUser()
+    //     this.props.fetchingUserCart()
+    // }
+
     handleLoginSubmit = () => {
         console.log("logging in")
-        debugger
-        this.props.loggingIn(this.state.email, this.state.password)
+        // this.props.loggingIn(this.state.email, this.state.password)
+        this.props.fetchingUser(this.state.email, this.state.password)
     }
 
     render(){
@@ -61,7 +67,8 @@ const mapDispatchToProps = (dispatch) => {
     // debugger
     console.log("mapDispatchToProps")
     return {
-        loggingIn: (email, password) => {dispatch( loggingIn(email, password) )}
+        // loggingIn: (email, password) => {dispatch( loggingIn(email, password) )}
+        fetchingUser: (email, password) => {dispatch( fetchingUser(email, password) )}
     }
 }
 export default withRouter(connect(null, mapDispatchToProps)(LoginForm));

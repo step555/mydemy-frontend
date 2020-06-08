@@ -20,8 +20,8 @@ class App extends React.Component{
 
   componentDidMount(){
     this.props.fetchingCourses()
-    this.props.fetchingUser()
-    this.props.fetchingUserCart()
+    // this.props.fetchingUser()
+    // this.props.fetchingUserCart()
     this.props.cartTotal()
     // this.props.checkingOutCart() // ???
   }
@@ -64,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
     cartTotal: () => {dispatch( cartTotal() )},
 
     // login: () => {dispatch( login() )}
-    
+
     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
   }
 }

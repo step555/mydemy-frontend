@@ -12,11 +12,14 @@ const coursesReducer = (state = [], action) => {
 const userReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER":
-            // debugger
-            return action.payload
-        case "LOGGED_IN":
             debugger
-            return action.payload
+            // return action.payload
+
+            return {...state, currentUser: action.payload}
+
+        // case "LOGGED_IN":
+        //     debugger
+        //     return action.payload
         default:
             return state;
     }

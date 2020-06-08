@@ -21,7 +21,7 @@ class CartContainer extends React.Component{
 
     render(){
         // debugger
-        console.log("BEFORE ERROR", this.props.cart)
+        console.log("Cart contents", this.props.cart)
         
         return !this.props.cart || this.props.cart.length === undefined ? null : (
             // I could make columns like amazon. total price on right, cart items on left

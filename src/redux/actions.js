@@ -1,8 +1,13 @@
 const COURSES_URL = 'http://localhost:3000/courses'
-const USER_URL = 'http://localhost:3000/users/'
+const USER_URL = 'http://localhost:3000/users'
 const PURCHASES_URL = 'http://localhost:3000/purchases'
 const LOGIN_URL = 'http://localhost:3000/login'
+const COMPANY_URL = 'http://localhost:3000/company'
+
 let currentUser
+let currentUserId
+let allCourses
+// let 
 
 function fetchedCourses(courses){
     return {type: "FETCHED_COURSES", payload: courses}
@@ -13,6 +18,7 @@ function fetchingCourses(){
         fetch(COURSES_URL)
         .then(resp => resp.json())
         .then(courses => {
+            allCourses = courses
             dispatch(fetchedCourses(courses))
         })
     }
@@ -34,16 +40,37 @@ function fetchingCourses(){
 // }
 
 function fetchedUser(user){
-    return {type: "LOGGED_IN", payload: user}
+    return {type: "FETCHED_USER", payload: user}
 }
 
-function fetchingUser(){
+function fetchingUser(email, password){
     return (dispatch) => {
-        fetch(USER_URL)
-        .then(resp => resp.json())
-        .then(user => {
-            currentUser = user
-            dispatch(fetchedUser(user))
+    let obj = {
+        email: email,
+        password: password
+    }
+    // debugger
+        fetch(LOGIN_URL, {
+            method: "POST",
+            headers: {
+            "Content-Type" : "application/json",
+            "Accept" : "application/json"
+            },
+            body: JSON.stringify(obj)
+            }).then(resp => resp.json())
+            .then(user => { // user here does not include user courses and user purchases
+                if(user.error_message){
+                    alert(user.error_message)
+                }else{
+                    currentUserId = user.id // above POST request is to retrieve user_id of logged in user
+                        fetch(USER_URL + `/${currentUserId}`)
+                        .then(resp => resp.json())
+                        .then(user => { // includes user courses and user purchases
+
+                            currentUser = user
+                            dispatch(fetchedUser(user))
+                        })
+            }
         })
     }
 }
@@ -83,14 +110,17 @@ function userPurchasedCourses(){
 }
 
 function fetchedUserCart(cart){
+    debugger
     return {type: "FETCHED_USER_CART", payload: cart}
 }
 
 function fetchingUserCart(){
+    debugger
     return (dispatch) => {
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
         .then(purchases => {
+            debugger
             const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
             const userCart = userPurchases.filter(p => p.is_purchased === false)
             let total = 0

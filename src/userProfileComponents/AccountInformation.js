@@ -15,17 +15,20 @@ class AccountInformation extends React.Component{
 
     render(){
         console.log("account information", this.props)
-        return !this.props.user || this.props.user.courses === undefined ? null : (
+        debugger
+        return !this.props.user.currentUser || this.props.user.currentUser.courses === undefined ? null : (
+        // return !this.props.user.currentUser ? null : (
             <div>
                 <h1>Account information</h1>
                 <h4>Name</h4> 
-                    <p className="account-info">{this.props.user.name}</p>
+                    <p className="account-info">{this.props.user.currentUser.name}</p>
                 <h4>Email Address</h4>
-                    <p className="account-info">{this.props.user.email}</p>
+                    <p className="account-info">{this.props.user.currentUser.email}</p>
                 <h4>Courses</h4>
-                 {this.props.user.courses.map(course => {
-                    for(let i = 0; i < this.props.user.purchases.length; i++){
-                        if(course.id === this.props.user.purchases[i].course_id && this.props.user.purchases[i].is_purchased === false){
+                 {this.props.user.currentUser.courses.map(course => {
+                     debugger
+                    for(let i = 0; i < this.props.user.currentUser.purchases.length; i++){
+                        if(course.id === this.props.user.currentUser.purchases[i].course_id && this.props.user.currentUser.purchases[i].is_purchased === false){
                             return (
                                 <div>
                                     <PurchasedCourse course={course}/>
