@@ -7,7 +7,6 @@ const COMPANY_URL = 'http://localhost:3000/company'
 let currentUser
 let currentUserId
 let allCourses
-// let 
 
 function fetchedCourses(courses){
     return {type: "FETCHED_COURSES", payload: courses}
@@ -54,7 +53,7 @@ function fetchingUser(email, password){
             method: "POST",
             headers: {
             "Content-Type" : "application/json",
-            "Accept" : "application/json"
+            "Accept" : "application/json",
             },
             body: JSON.stringify(obj)
             }).then(resp => resp.json())
@@ -62,52 +61,55 @@ function fetchingUser(email, password){
                 if(user.error_message){
                     alert(user.error_message)
                 }else{
+                    localStorage.setItem("token", user.token)
+                    // token = user.token
+                    currentUser = user.user
                     currentUserId = user.id // above POST request is to retrieve user_id of logged in user
-                        fetch(USER_URL + `/${currentUserId}`)
-                        .then(resp => resp.json())
-                        .then(user => { // includes user courses and user purchases
-
-                            currentUser = user
-                            dispatch(fetchedUser(user))
-                        })
+                    // debugger
+                        // fetch(USER_URL + `/${currentUserId}`)
+                        // .then(resp => resp.json())
+                        // .then(user => { // includes user courses and user purchases
+                        //     debugger
+                        //     currentUser = user
+                    dispatch(fetchedUser(user.user))
+                        // })
             }
         })
     }
 }
 
-// function loggingIn(email, password){
-//     return(dispatch, getState) => {
-//     let obj = {
-//         email: email,
-//         password: password
-//     }
-//     console.log("arrived at redux actions")
-//     // debugger
-//     fetch(LOGIN_URL, {
-//         method: "POST",
-//         headers: {
-//         "Content-Type" : "application/json",
-//         "Accept" : "application/json"
-//         },
-//         body: JSON.stringify(obj)
-//     }).then(resp => resp.json())
-//     .then(userData => {
-//         debugger
-//         dispatch(loggedIn(userData))
-//     })
-// }}
-
-// function loggedIn(userData){
-//     debugger
-//     return {
-//         type: "LOGGED_IN",
-//         payload: userData
-//     }
-// }
-
-function userPurchasedCourses(){
-
+function gettingProfileFetch(){
+    return dispatch => {
+        // const token = localStorage.token
+        // if(localStorage.getItem("token")) {
+            if(localStorage.token) {
+                debugger
+            fetch(LOGIN_URL, {
+                // method: "GET",
+                headers: {"Authenticate": localStorage.token}
+            })
+            .then(resp => resp.json())
+            .then(user =>{ 
+                debugger
+                currentUserId = user.id
+                if(user.message){
+                    localStorage.removeItem("token")
+                }else{
+                fetch(USER_URL + `/${currentUserId}`)
+                .then(resp => resp.json())
+                .then(user => {
+                    dispatch(gotProfileFetch(user))
+                })
+                }
+            })
+        }
+    }
 }
+
+function gotProfileFetch(user){
+    return {type: "GOT_PROFILE_FETCH", payload: user}
+}
+
 
 function fetchedUserCart(cart){
     debugger
@@ -154,7 +156,8 @@ function addingToCart(course){
         fetch(PURCHASES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
-            "Accept": "application/json"},
+            "Accept": "application/json",
+        },
             body: JSON.stringify(obj)
         })
         .then(resp => resp.json())
@@ -207,35 +210,35 @@ function checkedOutCart(updatedPurchase){
     }
 }
 
-function loggingIn(email, password){
-    return(dispatch, getState) => {
-    let obj = {
-        email: email,
-        password: password
-    }
-    console.log("arrived at redux actions")
-    // debugger
-    fetch(LOGIN_URL, {
-        method: "POST",
-        headers: {
-        "Content-Type" : "application/json",
-        "Accept" : "application/json"
-        },
-        body: JSON.stringify(obj)
-    }).then(resp => resp.json())
-    .then(userData => {
-        debugger
-        dispatch(loggedIn(userData))
-    })
-}}
+// function loggingIn(email, password){
+//     return(dispatch, getState) => {
+//     let obj = {
+//         email: email,
+//         password: password
+//     }
+//     console.log("arrived at redux actions")
+//     // debugger
+//     fetch(LOGIN_URL, {
+//         method: "POST",
+//         headers: {
+//         "Content-Type" : "application/json",
+//         "Accept" : "application/json"
+//         },
+//         body: JSON.stringify(obj)
+//     }).then(resp => resp.json())
+//     .then(userData => {
+//         debugger
+//         dispatch(loggedIn(userData))
+//     })
+// }}
 
-function loggedIn(userData){
-    debugger
-    return {
-        type: "LOGGED_IN",
-        payload: userData
-    }
-}
+// function loggedIn(userData){
+//     debugger
+//     return {
+//         type: "LOGGED_IN",
+//         payload: userData
+//     }
+// }
 
 
 // handleLoginSubmit = () => {
@@ -274,4 +277,4 @@ function loggedIn(userData){
 //     })
 //   };
 
-export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, loggingIn }
+export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch}

@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link, NavLink, withRouter } from "react-router-dom";
+import {connect} from 'react-redux'
 // import Navbar from 'react-bootstrap/Navbar'
 
 const Navbar = (props) => {
 
+    console.log("navbar props", props)
+    // debugger
     return (
         <div id="navlist"> 
             <Link className="active" to="/">Mydemy</Link>
@@ -14,15 +17,32 @@ const Navbar = (props) => {
             <div className="topnav-right">
             <Link to="/course-list">Courses</Link>
             {/* dropdown for profile to display account and dashboard? */}
-            <Link to="/profile">Profile</Link>
-            <Link to="/cart">Cart</Link>
-            <Link to="/login">Login</Link>
+            {props.user.currentUser ? 
+                <div>
+                    <Link to="/profile">Profile</Link>
+                    <Link to="/cart">Cart</Link>
+                    <Link to="/">Log out</Link>
+                </div>
+                    : 
+                <div>
+                    <Link to="/login">Log in</Link>
+                </div> 
+
+            }
             </div>
 
         </div> 
     )
 }
 
-const NavbarWithRouter = withRouter(Navbar);
+// const NavbarWithRouter = withRouter(Navbar);
 
-export default NavbarWithRouter;
+const mapStateToProps = (state) => {
+    // debugger
+    return {
+      user: state.user,
+    };
+  };
+
+// export default NavbarWithRouter;
+export default withRouter(connect(mapStateToProps, null)(Navbar));

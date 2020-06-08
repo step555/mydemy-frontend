@@ -48,7 +48,6 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => {
-    // debugger
     console.log("mapDispatchToProps")
     return {
       addingToCart: (info) => {dispatch( addingToCart(info) )}
