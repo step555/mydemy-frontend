@@ -60,7 +60,9 @@ function cartTotal(total) {
     return { type: "CART_TOTAL", payload: total };
 }
 
-function addingToCart(course){ // GET for purchases
+function addingToCart(course){
+    // here check if user already has course in cart. if yes then return null? else do the below
+    // I may need to add a unique course code to the database for each course
     return (dispatch, getState) => {
         const obj = {
             course_id: course.id,
