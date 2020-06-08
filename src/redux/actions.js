@@ -1,6 +1,6 @@
 const COURSES_URL = 'http://localhost:3000/courses'
 const USER_URL = 'http://localhost:3000/users/1'
-const PURCHASES_URL = 'http://localhost:3000/purchases/'
+const PURCHASES_URL = 'http://localhost:3000/purchases'
 let currentUser
 
 function fetchedCourses(courses){
@@ -36,7 +36,7 @@ function fetchedUserCart(cart){
     return {type: "FETCHED_USER_CART", payload: cart}
 }
 
-function fetchingUserCart(){ // what if I instead fetch from purchases
+function fetchingUserCart(){
     return (dispatch) => {
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
@@ -48,8 +48,6 @@ function fetchingUserCart(){ // what if I instead fetch from purchases
             // dispatch(fetchedUserCart(userCart), cartTotal(total))
             dispatch(fetchedUserCart(userCart))
             dispatch(cartTotal(total))
-            debugger
-
         })
 
 
@@ -58,13 +56,12 @@ function fetchingUserCart(){ // what if I instead fetch from purchases
 
 function cartTotal(total) {
     // total is correct
-    // console.log("TOTAL", total)
+    console.log("TOTAL", total)
     return { type: "CART_TOTAL", payload: total };
 }
 
 function addingToCart(course){ // GET for purchases
     return (dispatch, getState) => {
-        debugger
         const obj = {
             course_id: course.id,
             user_id: currentUser.id,
@@ -72,7 +69,7 @@ function addingToCart(course){ // GET for purchases
             course: course, 
             user: currentUser
         }
-        fetch('http://localhost:3000/purchases', {
+        fetch(PURCHASES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
             "Accept": "application/json"},
@@ -87,17 +84,45 @@ function addingToCart(course){ // GET for purchases
 }
 
 function addedToCart(purchase){
-    debugger
+
     console.log("UPDATED CART", purchase)
     return { 
         type: "ADD_TO_CART", 
         payload: purchase}
 }
 
-// function addedToCart(addCourseToCart){
-//     debugger
-//     console.log("UPDATED CART", addCourseToCart)
-//     return { type: "ADD_TO_CART", payload: addCourseToCart}
-// }
+function checkingOutCart(cart){
+    return (dispatch, getState) => {
+    let i = 0
+    while(i < cart.length){
+        let obj = {
+            is_purchased: true,
+            course: cart[i].course
+        }
 
-export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart }
+        fetch(PURCHASES_URL + `/${cart[i].id}`, {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json",
+            "Accept": "application/json"},
+            body: JSON.stringify(obj)
+        })
+        .then(resp => resp.json())
+        .then(updated => {
+            for(let j = 0; j < cart.length; j++){
+                if(updated.course_id === cart[j].course.id)
+                    updated.course = cart[j].course
+            }
+            dispatch(checkedOutCart(updated))
+        })
+        i++
+    }}
+}
+
+function checkedOutCart(updatedPurchase){
+    return {
+        type: "CHECKOUT_CART",
+        payload: updatedPurchase
+    }
+}
+
+export { fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart }
