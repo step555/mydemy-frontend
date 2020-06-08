@@ -15,6 +15,7 @@ import CartContainer from "./cartComponents/CartContainer"
 import AccountInformation from "./userProfileComponents/AccountInformation"
 import Dashboard from "./userProfileComponents/Dashboard"
 import LoginForm from "./components/LoginForm"
+import CompanyLoginForm from "./components/CompanyLoginForm"
 
 class App extends React.Component{
 
@@ -42,6 +43,7 @@ class App extends React.Component{
         <Route path="/dashboard" component={Dashboard}/>
         <Route path="/account" component={AccountInformation}/>
         <Route path="/login" component={LoginForm}/>
+        <Route path="/company-login" component={CompanyLoginForm}/>
       </Switch>
 
     </div>

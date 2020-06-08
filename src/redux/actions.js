@@ -199,4 +199,9 @@ function checkedOutCart(updatedPurchase){
     }
 }
 
-export { logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch}
+function fetchingCompany(email, password){
+    console.log("GOT HERE")
+    
+}
+
+export { fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch}
