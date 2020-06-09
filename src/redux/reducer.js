@@ -19,6 +19,8 @@ const userReducer = (state = [], action) => {
             return {...state, currentUser: action.payload}
         case "LOGOUT_USER":
             return {...state, currentUser: null}
+        case "EDITED_USER_INFO":
+            return {...state, currentUser: action.payload}
         default:
             return state;
     }

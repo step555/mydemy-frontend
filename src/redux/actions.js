@@ -52,7 +52,7 @@ function fetchingUser(email, password){
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
                     currentUser = user.user
-                    currentUserId = user.id
+                    currentUserId = user.user.id
                     dispatch(fetchedUser(user.user))
             }
         })
@@ -88,6 +88,34 @@ function gettingProfileFetch(){
 
 function gotProfileFetch(user){
         return {type: "GOT_PROFILE_FETCH", payload: user}
+}
+
+function editingUserInfo(newUserInfo){
+    return dispatch => {
+    console.log("GOT TO EDIT USER INFO", newUserInfo)
+    let obj = {
+        name: newUserInfo.name,
+        email: newUserInfo.email
+    }
+    fetch(USER_URL + `/${currentUserId}`, {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json",
+        "Accept": "application/json"},
+        body: JSON.stringify(obj)
+    }).then(resp => resp.json())
+    .then(updatedUser => {
+        currentUser = updatedUser
+        fetch(USER_URL + `/${currentUserId}`)
+        .then(resp => resp.json())
+        .then(updatedWithCoursesAndPurchases => {
+            dispatch(editedUserInfo(updatedWithCoursesAndPurchases))
+            })
+        })
+    }
+}
+
+function editedUserInfo(updatedUser){
+    return {type: "EDITED_USER_INFO", payload: updatedUser}
 }
 
 function logoutUser(currentUser){
@@ -294,4 +322,4 @@ function gotCompanyProfileFetch(company){
     return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
 }
 
-export { removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
+export { editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}

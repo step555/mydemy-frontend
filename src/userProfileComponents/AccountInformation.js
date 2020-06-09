@@ -1,17 +1,27 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PurchasedCourse from './PurchasedCourse'
+import {Button} from 'semantic-ui-react'
+import {editingUserInfo} from '../redux/actions'
+import EditUserProfile from './EditUserProfile'
 
 class AccountInformation extends React.Component{
-    // constructor(){
-    //     super()
-    //     this.state = {
-    //         purchasedCourseArr: []
-    //     }
-    // }
+    constructor(){
+        super()
+        this.state = {
+            clickedEditButton: false
+        }
+    }
     // componentDidMount(){
     //     console.log("got here", this)
     // }
+
+    handleClick = () => {
+        console.log("editing profile", this.props.user)
+        this.setState({ clickedEditButton: !this.state.clickedEditButton})
+        console.log(this.state.clickedEditButton)
+        // editingUserInfo(this.props.user)
+    }
 
     render(){
         console.log("account information", this.props)
@@ -19,10 +29,18 @@ class AccountInformation extends React.Component{
         // return !this.props.user.currentUser ? null : (
             <div>
                 <h1>Account information</h1>
-                <h4>Name</h4> 
+                <h4>Name</h4>
                     <p className="account-info">{this.props.user.currentUser.name}</p>
                 <h4>Email Address</h4>
                     <p className="account-info">{this.props.user.currentUser.email}</p>
+                <Button onClick={this.handleClick}>Edit Profile Information</Button>
+                {this.state.clickedEditButton === true ? 
+                <div>
+                    <EditUserProfile user={this.props.user}/>
+                </div>
+                :
+                null
+                }
                 <h4>Courses</h4>
                  {this.props.user.currentUser.courses.map(course => {
                     for(let i = 0; i < this.props.user.currentUser.purchases.length; i++){
@@ -46,29 +64,13 @@ const mapStateToProps = (state, ownProps) => ({
     // userCourses: state.userCourses
 })
 
-export default connect(mapStateToProps)(AccountInformation)
+// const mapDispatchToProps = (dispatch) => {
+//     console.log("mapDispatchToProps")
+//     return {
+//       editingUserInfo: (info) => {dispatch( editingUserInfo(info) )}
+//     }
+// }
+
+export default connect(mapStateToProps, null)(AccountInformation)
 
 // export default AccountInformation
-
-// {this.props.user.courses.forEach(course => {
-//     const t = this
-//     for(let i = 0; i < this.props.user.purchases.length; i++){
-//         if(course.id === this.props.user.purchases[i].course_id && this.props.user.purchases[i].is_purchased === false)
-//              debugger
-//              console.log("is_purchased is false", this.props.user.purchases[i])
-//              console.log("is_purchased is false", course)
-//              debugger
-//              return (
-//                  <div>
-//                      <PurchasedCourse course={course}/>
-//                  </div>
-//              )
-//              return (
-//                  <div>
-//                     <p>AAASDFASDASDASFAF</p>
-//                     <p>{course.name}</p>
-//                  </div>
-//              )
-//          }
-//      }
-//  })}
