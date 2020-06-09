@@ -24,6 +24,21 @@ const userReducer = (state = [], action) => {
     }
 }
 
+const companyReducer = (state = [], action) => {
+    switch (action.type) {
+        case "FETCHED_COMPANY":
+            // return action.payload
+            return {...state, currentCompany: action.payload}
+        case "GOT_COMPANY_PROFILE_FETCH":
+            // return action.payload
+            return {...state, currentCompany: action.payload}
+        case "LOGOUT_USER":
+            return {...state, currentCompany: null}
+        default:
+            return state;
+    }
+}
+
 const cartReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER_CART":
@@ -58,7 +73,8 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     //cartTotal may not be needed
     cartTotal: cartTotalReducer,
-    checkoutCart: cartReducer
+    checkoutCart: cartReducer,
+    company: companyReducer
   });
   
   export default rootReducer;

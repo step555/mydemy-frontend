@@ -1,3 +1,48 @@
+// import React from 'react'
+// import { Link, NavLink, withRouter } from "react-router-dom";
+// import {connect} from 'react-redux'
+// import { logoutUser } from '../redux/actions'
+// // import Navbar from 'react-bootstrap/Navbar'
+
+// const Navbar = (props) => {
+
+//     const handleClick = (event) => {
+//         console.log("logging out")
+//         localStorage.removeItem("token")
+//         props.logoutUser()
+//     }
+
+//     console.log("navbar props", props)
+//     return (
+//         <div id="navlist"> 
+//             <Link className="active" to="/">Mydemy</Link>
+//             <a href="#">Our Products</a> 
+//             <a href="#">Careers</a> 
+//             <a href="#">About Us</a> 
+//             <a href="#">Contact Us</a> 
+//             <div className="topnav-right">
+//             <Link to="/course-list">Courses</Link>
+//             {/* dropdown for profile to display account and dashboard? */}
+//             {props.user.currentUser ? 
+//                 <div>
+//                     <Link to="/profile">Profile</Link>
+//                     {!props.user.currentUser ? null
+//                     :
+//                         <Link to="/cart">Cart</Link>
+//                     }
+//                     <Link to="/" onClick={handleClick}>Log out</Link>
+//                 </div>
+//                     : 
+//                 <div>
+//                     <Link to="/login">Log in</Link>
+//                 </div> 
+//             }
+//             </div>
+
+//         </div> 
+//     )
+// }
+
 import React from 'react'
 import { Link, NavLink, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
@@ -23,17 +68,23 @@ const Navbar = (props) => {
             <div className="topnav-right">
             <Link to="/course-list">Courses</Link>
             {/* dropdown for profile to display account and dashboard? */}
-            {props.user.currentUser ? 
+            {props.user.currentUser || props.company.currentCompany ? 
                 <div>
+                    {props.user.currentUser ? 
                     <Link to="/profile">Profile</Link>
-                    <Link to="/cart">Cart</Link>
+                    :
+                    <Link to="/company-profile">Company Profile</Link>
+                    }
+                    {!props.user.currentUser ? null
+                    :
+                        <Link to="/cart">Cart</Link>
+                    }
                     <Link to="/" onClick={handleClick}>Log out</Link>
                 </div>
                     : 
                 <div>
                     <Link to="/login">Log in</Link>
                 </div> 
-
             }
             </div>
 
@@ -46,7 +97,8 @@ const Navbar = (props) => {
 const mapStateToProps = (state) => {
     // debugger
     return {
-      user: state.user,
+      user: state.user, // send company here as well
+      company: state.company
     };
   };
 

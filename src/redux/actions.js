@@ -2,10 +2,13 @@ const COURSES_URL = 'http://localhost:3000/courses'
 const USER_URL = 'http://localhost:3000/users'
 const PURCHASES_URL = 'http://localhost:3000/purchases'
 const LOGIN_URL = 'http://localhost:3000/login'
-const COMPANY_URL = 'http://localhost:3000/company'
+const COMPANY_LOGIN_URL = 'http://localhost:3000/company-login'
+const COMPANY_URL = 'http://localhost:3000/companies'
 
 let currentUser
 let currentUserId
+let currentCompany
+let currentCompanyId
 let allCourses
 
 function fetchedCourses(courses){
@@ -56,11 +59,12 @@ function fetchingUser(email, password){
             },
             body: JSON.stringify(obj)
             }).then(resp => resp.json())
-            .then(user => { // user here does not include user courses and user purchases
+            .then(user => {
                 if(user.error_message){
                     alert(user.error_message)
                 }else{
                     localStorage.setItem("token", user.token)
+                    localStorage.setItem("user_or_company", "user")
                     currentUser = user.user
                     currentUserId = user.id
                     dispatch(fetchedUser(user.user))
@@ -71,13 +75,13 @@ function fetchingUser(email, password){
 
 function gettingProfileFetch(){
     return dispatch => {
-            if(localStorage.token) {
+            if(localStorage.token && localStorage.user_or_company === "user") {
             fetch(LOGIN_URL, { // fetches user minus courses and purchases
                 // method: "GET",
                 headers: {"Authenticate": localStorage.token}
             })
             .then(resp => resp.json())
-            .then(user =>{ 
+            .then(user => { 
                 currentUserId = user.id
                 if(user.message){
                     localStorage.removeItem("token")
@@ -85,7 +89,9 @@ function gettingProfileFetch(){
                 fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(user => {
-                    dispatch(gotProfileFetch(user))
+                    if(!user.status){
+                        dispatch(gotProfileFetch(user))
+                    }
                 })
                 }
             })
@@ -94,14 +100,19 @@ function gettingProfileFetch(){
 }
 
 function gotProfileFetch(user){
-    return {type: "GOT_PROFILE_FETCH", payload: user}
+    // if(user !== undefined && currentUser){
+        return {type: "GOT_PROFILE_FETCH", payload: user}
+    // }
 }
+
+// function gotProfileFetch(info){
+//     debugger
+//     // return {type: "GOT_PROFILE_FETCH", payload: user}
+// }
 
 function logoutUser(currentUser){
     return {type: 'LOGOUT_USER', payload: currentUser}
 }
-
-
 
 function fetchedUserCart(cart){
     return {type: "FETCHED_USER_CART", payload: cart}
@@ -120,8 +131,6 @@ function fetchingUserCart(){
             dispatch(fetchedUserCart(userCart))
             dispatch(cartTotal(total))
         })
-
-
     }
 }
 
@@ -200,8 +209,69 @@ function checkedOutCart(updatedPurchase){
 }
 
 function fetchingCompany(email, password){
-    console.log("GOT HERE")
-    
+    return (dispatch) => {
+        let obj = {
+            email: email,
+            password: password
+        }
+            fetch(COMPANY_LOGIN_URL, {
+                method: "POST",
+                headers: {
+                "Content-Type" : "application/json",
+                "Accept" : "application/json",
+                },
+                body: JSON.stringify(obj)
+                }).then(resp => resp.json())
+                .then(company => { 
+
+                    if(company.error_message){
+                        alert(company.error_message)
+                    }else{
+                        localStorage.setItem("token", company.token)
+                        localStorage.setItem("user_or_company", "company")
+                        currentCompany = company.company
+                        currentCompanyId = company.id
+                        dispatch(fetchedCompany(company.company))
+                }
+            })
+        }
 }
 
-export { fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch}
+function fetchedCompany(company){
+    return {type: "FETCHED_COMPANY", payload: company}
+}
+
+function gettingCompanyProfileFetch(){
+    return dispatch => {
+            if(localStorage.token && localStorage.user_or_company === "company") {
+            fetch(COMPANY_LOGIN_URL, { // fetches user minus courses and purchases
+                // method: "GET",
+                headers: {"Authenticate": localStorage.token}
+            })
+            .then(resp => resp.json())
+            .then(company =>{ 
+                currentCompanyId = company.id
+                if(company.message){
+                    localStorage.removeItem("token")
+                }else{
+                fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches user courses and purchases
+                .then(resp => resp.json())
+                .then(company => {
+                    dispatch(gotCompanyProfileFetch(company))
+                    // dispatch(gotProfileFetch(company))
+                })
+                }
+            })
+        }
+    }
+}
+
+function gotCompanyProfileFetch(company){
+    // debugger
+    // if(company !== undefined && currentCompany){
+    // if(currentCompany){
+        return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
+    // }
+}
+
+export { fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}

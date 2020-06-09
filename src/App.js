@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import {fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch} from './redux/actions'
+import {fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -13,9 +13,9 @@ import Course from "./courseComponents/Course";
 import UserProfileContainer from "./userProfileComponents/UserProfileContainer";
 import CartContainer from "./cartComponents/CartContainer"
 import AccountInformation from "./userProfileComponents/AccountInformation"
-import Dashboard from "./userProfileComponents/Dashboard"
 import LoginForm from "./components/LoginForm"
 import CompanyLoginForm from "./components/CompanyLoginForm"
+import CompanyProfileContainer from "./companyProfileComponents/CompanyProfileContainer"
 
 class App extends React.Component{
 
@@ -26,6 +26,7 @@ class App extends React.Component{
     this.props.cartTotal()
 
     this.props.gettingProfileFetch()
+    this.props.gettingCompanyProfileFetch()
 
     // this.props.checkingOutCart() // ???
   }
@@ -39,8 +40,8 @@ class App extends React.Component{
         <Route path="/course-list/:courseId" component={Course}/>
         <Route path="/course-list" component={CourseContainer}/>
         <Route path="/profile" component={UserProfileContainer}/>
+        <Route path="/company-profile" component={CompanyProfileContainer}/>
         <Route path="/cart" component={CartContainer}/>
-        <Route path="/dashboard" component={Dashboard}/>
         <Route path="/account" component={AccountInformation}/>
         <Route path="/login" component={LoginForm}/>
         <Route path="/company-login" component={CompanyLoginForm}/>
@@ -57,7 +58,8 @@ const mapStateToProps = (state) => {
     courses: state.courses,
     user: state.user,
     cart: state.cart,
-    cartTotal: state.cartTotal
+    cartTotal: state.cartTotal,
+    company: state.company
   };
 };
 
@@ -65,9 +67,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchingCourses: () => {dispatch( fetchingCourses() )},
     fetchingUser: () => {dispatch( fetchingUser() )},
+    fetchingCompany: () => {dispatch( fetchingCompany() )},
     fetchingUserCart: () => {dispatch( fetchingUserCart() )},
     cartTotal: () => {dispatch( cartTotal() )},
-    gettingProfileFetch: () => dispatch(gettingProfileFetch())
+    gettingProfileFetch: () => dispatch(gettingProfileFetch()),
+    gettingCompanyProfileFetch: () => dispatch(gettingCompanyProfileFetch())
     // login: () => {dispatch( login() )}
 
     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
