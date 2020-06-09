@@ -1,7 +1,6 @@
 import React from 'react'
 
 const CCourse = (props) => {
-    console.log("COURSE", props)
     return(
         <div>
             <h5 className="account-info">Name: {props.course.name}</h5>
@@ -12,7 +11,6 @@ const CCourse = (props) => {
 
         </div>
     )
-
 }
 
 // About this course

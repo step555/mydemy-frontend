@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import CCourse from './CCourse'
+import CPurchase from './CPurchase'
 
 class CompanyAccountInformation extends React.Component{
 
@@ -14,14 +15,17 @@ class CompanyAccountInformation extends React.Component{
                     <p className="account-info">{this.props.company.currentCompany.email}</p>
                 <h4>Courses owned by your organization</h4>
                 {this.props.company.currentCompany.courses.map(course => {
-                    for(let i = 0; i < this.props.company.currentCompany.courses.length; i++){
                             return (
                                 <div>
                                     <CCourse course={course}/>
                                 </div>
                             )
-                        }}
+                        }
                 )}
+                <h4>Total Revenue: ${this.props.totalRevenue}</h4>
+                <h4>User Purchases: </h4>
+                {/* some logic here to get all needed purchase information inside purchase.js. might take a while... */}
+                <CPurchase />
             </div>
         )
     }
@@ -31,7 +35,8 @@ class CompanyAccountInformation extends React.Component{
 const mapStateToProps = (state) => {
     // debugger
     return {
-      company: state.company
+      company: state.company,
+      totalRevenue: state.totalRevenue
     };
 };
 

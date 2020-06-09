@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import {fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
+import {totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -27,6 +27,7 @@ class App extends React.Component{
 
     this.props.gettingProfileFetch()
     this.props.gettingCompanyProfileFetch()
+    this.props.totalRevenue()
 
     // this.props.checkingOutCart() // ???
   }
@@ -59,7 +60,8 @@ const mapStateToProps = (state) => {
     user: state.user,
     cart: state.cart,
     cartTotal: state.cartTotal,
-    company: state.company
+    company: state.company,
+    totalRevenue: state.totalRevenue
   };
 };
 
@@ -70,8 +72,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchingCompany: () => {dispatch( fetchingCompany() )},
     fetchingUserCart: () => {dispatch( fetchingUserCart() )},
     cartTotal: () => {dispatch( cartTotal() )},
-    gettingProfileFetch: () => dispatch(gettingProfileFetch()),
-    gettingCompanyProfileFetch: () => dispatch(gettingCompanyProfileFetch())
+    gettingProfileFetch: () => {dispatch(gettingProfileFetch() )},
+    gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )},
+    totalRevenue: () => {dispatch(totalRevenue() )}
     // login: () => {dispatch( login() )}
 
     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???

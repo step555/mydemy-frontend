@@ -26,21 +26,6 @@ function fetchingCourses(){
     }
 }
 
-// function fetchedUser(user){
-//     return {type: "FETCHED_USER", payload: user}
-// }
-
-// function fetchingUser(){
-//     return (dispatch) => {
-//         fetch(USER_URL)
-//         .then(resp => resp.json())
-//         .then(user => {
-//             currentUser = user
-//             dispatch(fetchedUser(user))
-//         })
-//     }
-// }
-
 function fetchedUser(user){
     return {type: "FETCHED_USER", payload: user}
 }
@@ -105,11 +90,6 @@ function gotProfileFetch(user){
     // }
 }
 
-// function gotProfileFetch(info){
-//     debugger
-//     // return {type: "GOT_PROFILE_FETCH", payload: user}
-// }
-
 function logoutUser(currentUser){
     return {type: 'LOGOUT_USER', payload: currentUser}
 }
@@ -138,6 +118,31 @@ function cartTotal(total) {
     // total is correct
     console.log("TOTAL", total)
     return { type: "CART_TOTAL", payload: total };
+}
+
+function fetchedTotalCompanyRevenue(total){
+    return {type: "FETCHED_TOTAL_REVENUE", payload: total}
+}
+
+function totalRevenue(){
+    return(dispatch) => {
+        fetch(COURSES_URL)
+        .then(resp => resp.json())
+        .then(courses => {
+            let total = 0
+            // const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
+            // const userCart = userPurchases.filter(p => p.is_purchased === false)
+            const companyCourses = courses.filter(c => c.company_id === currentCompanyId)
+            const purchasedCourses = companyCourses.filter(c => {
+            for(let i = 0; i < c.purchases.length; i++){
+                if(c.purchases[i].is_purchased === true){
+                    total += c.price
+                }
+            }
+            })
+            dispatch(fetchedTotalCompanyRevenue(total))
+        })
+    }
 }
 
 function addingToCart(course){
@@ -274,4 +279,4 @@ function gotCompanyProfileFetch(company){
     // }
 }
 
-export { fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
+export { totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}

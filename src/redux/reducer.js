@@ -65,12 +65,24 @@ const cartTotalReducer = (state = 0, action) => {
     }
 }
 
+const totalRevenueReducer = (state = 0, action) => {
+    switch (action.type){
+        case "TOTAL_REVENUE":
+            return {
+                totalRevenue: action.payload
+            }
+        default:
+            return state;
+    }
+}
+
 
 
 const rootReducer = combineReducers({
     courses: coursesReducer,
     user: userReducer,
     cart: cartReducer,
+    totalRevenue: totalRevenueReducer,
     //cartTotal may not be needed
     cartTotal: cartTotalReducer,
     checkoutCart: cartReducer,
