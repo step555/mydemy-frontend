@@ -52,6 +52,9 @@ const cartReducer = (state = [], action) => {
             return newState
         case "CHECKOUT_CART":
             return action.payload
+        case "REMOVED_FROM_CART":
+            state = state.filter(p => p.id !== action.payload.id)
+            return state
         default:
             return state;
     }

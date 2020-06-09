@@ -24,8 +24,15 @@ class CompanyAccountInformation extends React.Component{
                 )}
                 <h4>Total Revenue: ${this.props.totalRevenue}</h4>
                 <h4>User Purchases: </h4>
-                {/* some logic here to get all needed purchase information inside purchase.js. might take a while... */}
-                <CPurchase />
+                {this.props.company.currentCompany.purchases.map(purchase => {
+                    if(purchase.is_purchased === true){
+                        return (
+                        <div>
+                            <CPurchase purchase={purchase}/>
+                        </div>
+                        )
+                    }
+                })}
             </div>
         )
     }

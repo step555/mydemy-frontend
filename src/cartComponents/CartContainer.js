@@ -21,7 +21,7 @@ class CartContainer extends React.Component{
 
     render(){
         // debugger
-        console.log("Cart contents", this.props.cart)
+        console.log("Cart contents", this.props)
         
         return !this.props.cart || this.props.cart.length === undefined ? null : (
             // I could make columns like amazon. total price on right, cart items on left
@@ -35,7 +35,10 @@ class CartContainer extends React.Component{
                         )
                     })}
                     {/* card here for checkout and total price */}
-                    <h3>Total: ${this.props.cartTotal.cartTotal}</h3>
+                    {/* <h3>Total: ${this.props.cartTotal.cartTotal}</h3> */}
+                    <h3>Total: ${this.props.cart.reduce((sum,item)=> {
+                        return sum + item.course.price
+                    },0)}</h3>
                     <button onClick={() => this.checkout(this.props.cart)}>Proceed to Checkout</button>
             </div>
         )

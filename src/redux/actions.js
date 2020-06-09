@@ -1,3 +1,4 @@
+const BASE_URL = 'http://localhost:3000'
 const COURSES_URL = 'http://localhost:3000/courses'
 const USER_URL = 'http://localhost:3000/users'
 const PURCHASES_URL = 'http://localhost:3000/purchases'
@@ -117,6 +118,25 @@ function cartTotal(total) {
     // total is correct
     console.log("TOTAL", total)
     return { type: "CART_TOTAL", payload: total };
+}
+
+function removingFromCart(item){
+    return (dispatch) => {
+    fetch(PURCHASES_URL + `/${item.id}`, {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json",
+        "Accept": "application/json"}
+    }).then(resp => resp.json())
+    .then(purchase => {
+        // purchase is error message
+        console.log(purchase)
+        dispatch(removedFromCart(purchase))
+        })
+    }
+}
+
+function removedFromCart(purchase){
+    return { type: "REMOVED_FROM_CART", payload: purchase}
 }
 
 function fetchedTotalCompanyRevenue(total){
@@ -274,8 +294,4 @@ function gotCompanyProfileFetch(company){
     return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
 }
 
-function fetchingCompanyPurchases(){
-
-}
-
-export { totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
+export { removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
