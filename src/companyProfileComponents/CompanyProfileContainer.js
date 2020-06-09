@@ -1,4 +1,5 @@
 import React from 'react'
+import CompanyAccountInformation from './CompanyAccountInformation'
 
 class CompanyProfileContainer extends React.Component{
     // constructor(){
@@ -10,7 +11,7 @@ class CompanyProfileContainer extends React.Component{
     render(){
         return(
             <div>
-                <h1>Company Profile</h1>
+                <CompanyAccountInformation/>
             </div>
         )
     }
