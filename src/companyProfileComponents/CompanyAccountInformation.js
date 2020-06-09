@@ -2,8 +2,21 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CCourse from './CCourse'
 import CPurchase from './CPurchase'
+import EditCompanyProfile from './EditCompanyProfile'
+import {Form, Button, ModalDescription} from 'semantic-ui-react'
 
 class CompanyAccountInformation extends React.Component{
+    constructor(){
+        super()
+        this.state = {
+            clickedEditButton: false
+        }
+    }
+
+    handleClick = () => {
+        this.setState({ clickedEditButton: !this.state.clickedEditButton})
+        console.log(this.state.clickedEditButton)
+    }
 
     render(){
         console.log("CACCOUNTINFO", this.props)
@@ -13,6 +26,16 @@ class CompanyAccountInformation extends React.Component{
                     <p className="account-info">{this.props.company.currentCompany.name}</p>
                 <h4>Email Address</h4>
                     <p className="account-info">{this.props.company.currentCompany.email}</p>
+
+                <Button onClick={this.handleClick}>Edit Profile Information</Button>
+                {this.state.clickedEditButton === true ? 
+                <div>
+                    <EditCompanyProfile company={this.props.company}/>
+                </div>
+                :
+                null
+                }
+
                 <h4>Courses owned by your organization</h4>
                 {this.props.company.currentCompany.courses.map(course => {
                             return (

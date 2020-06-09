@@ -118,6 +118,34 @@ function editedUserInfo(updatedUser){
     return {type: "EDITED_USER_INFO", payload: updatedUser}
 }
 
+function editingCompanyInfo(newCompanyInfo){
+    return dispatch => {
+        let obj = {
+            name: newCompanyInfo.name,
+            email: newCompanyInfo.email
+        }
+        fetch(COMPANY_URL + `/${currentCompanyId}`, {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json",
+            "Accept": "application/json"},
+            body: JSON.stringify(obj)
+        }).then(resp => resp.json())
+        .then(updatedCompany => {
+            currentCompany = updatedCompany
+        fetch(COMPANY_URL + `/${currentCompanyId}`)
+        .then(resp => resp.json())
+        .then(updatedWithCoursesAndPurchases => {
+            dispatch(editedCompanyInfo(updatedWithCoursesAndPurchases))
+            })
+
+        })
+    }
+}
+
+function editedCompanyInfo(updatedCompany){
+    return {type: "EDITED_COMPANY_INFO", payload: updatedCompany}
+}
+
 function logoutUser(currentUser){
     return {type: 'LOGOUT_USER', payload: currentUser}
 }
@@ -322,4 +350,4 @@ function gotCompanyProfileFetch(company){
     return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
 }
 
-export { editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
+export { editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
