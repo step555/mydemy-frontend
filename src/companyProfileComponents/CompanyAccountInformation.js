@@ -6,7 +6,7 @@ import CPurchase from './CPurchase'
 class CompanyAccountInformation extends React.Component{
 
     render(){
-        console.log(this.props)
+        console.log("CACCOUNTINFO", this.props)
         return !this.props.company.currentCompany || this.props.company.currentCompany.courses === undefined ? null : (
             <div>
                 <h4>Name</h4>

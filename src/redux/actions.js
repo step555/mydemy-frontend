@@ -62,11 +62,11 @@ function gettingProfileFetch(){
     return dispatch => {
             if(localStorage.token && localStorage.user_or_company === "user") {
             fetch(LOGIN_URL, { // fetches user minus courses and purchases
-                // method: "GET",
                 headers: {"Authenticate": localStorage.token}
             })
             .then(resp => resp.json())
             .then(user => { 
+                currentUser = user
                 currentUserId = user.id
                 if(user.message){
                     localStorage.removeItem("token")
@@ -74,6 +74,7 @@ function gettingProfileFetch(){
                 fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(user => {
+        
                     if(!user.status){
                         dispatch(gotProfileFetch(user))
                     }
@@ -85,9 +86,7 @@ function gettingProfileFetch(){
 }
 
 function gotProfileFetch(user){
-    // if(user !== undefined && currentUser){
         return {type: "GOT_PROFILE_FETCH", payload: user}
-    // }
 }
 
 function logoutUser(currentUser){
@@ -103,11 +102,11 @@ function fetchingUserCart(){
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
         .then(purchases => {
+
             const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
             const userCart = userPurchases.filter(p => p.is_purchased === false)
             let total = 0
             userCart.forEach(p => total += p.course.price)
-            // dispatch(fetchedUserCart(userCart), cartTotal(total))
             dispatch(fetchedUserCart(userCart))
             dispatch(cartTotal(total))
         })
@@ -165,6 +164,7 @@ function addingToCart(course){
         })
         .then(resp => resp.json())
         .then(purchase => {
+
             purchase.course = course // experimental change
             dispatch(addedToCart(purchase))
         })
@@ -263,7 +263,6 @@ function gettingCompanyProfileFetch(){
                 .then(resp => resp.json())
                 .then(company => {
                     dispatch(gotCompanyProfileFetch(company))
-                    // dispatch(gotProfileFetch(company))
                 })
                 }
             })
@@ -272,11 +271,11 @@ function gettingCompanyProfileFetch(){
 }
 
 function gotCompanyProfileFetch(company){
-    // debugger
-    // if(company !== undefined && currentCompany){
-    // if(currentCompany){
-        return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
-    // }
+    return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
+}
+
+function fetchingCompanyPurchases(){
+
 }
 
 export { totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}

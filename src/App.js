@@ -22,11 +22,15 @@ class App extends React.Component{
   componentDidMount(){
     this.props.fetchingCourses()
     // this.props.fetchingUser()
-    // this.props.fetchingUserCart()
-    this.props.cartTotal()
 
     this.props.gettingProfileFetch()
     this.props.gettingCompanyProfileFetch()
+
+    if(localStorage.token && localStorage.user_or_company === "user"){
+      this.props.fetchingUserCart()
+    }
+    this.props.cartTotal()
+
     this.props.totalRevenue()
 
     // this.props.checkingOutCart() // ???

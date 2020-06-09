@@ -34,6 +34,9 @@ const companyReducer = (state = [], action) => {
             return {...state, currentCompany: action.payload}
         case "LOGOUT_USER":
             return {...state, currentCompany: null}
+        case "COMPANY_FETCHED_PURCHASES":
+            debugger
+            return action.payload
         default:
             return state;
     }
