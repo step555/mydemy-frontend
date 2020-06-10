@@ -16,6 +16,7 @@ import AccountInformation from "./userProfileComponents/AccountInformation"
 import LoginForm from "./components/LoginForm"
 import CompanyLoginForm from "./components/CompanyLoginForm"
 import CompanyProfileContainer from "./companyProfileComponents/CompanyProfileContainer"
+import CreateNewCourse from "./companyProfileComponents/CreateNewCourse"
 
 class App extends React.Component{
 
@@ -50,6 +51,7 @@ class App extends React.Component{
         <Route path="/account" component={AccountInformation}/>
         <Route path="/login" component={LoginForm}/>
         <Route path="/company-login" component={CompanyLoginForm}/>
+        <Route path="/create-new-course" component={CreateNewCourse}/>
       </Switch>
 
     </div>

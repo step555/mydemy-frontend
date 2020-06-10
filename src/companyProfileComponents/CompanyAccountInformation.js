@@ -4,6 +4,7 @@ import CCourse from './CCourse'
 import CPurchase from './CPurchase'
 import EditCompanyProfile from './EditCompanyProfile'
 import {Form, Button, ModalDescription} from 'semantic-ui-react'
+import { Link, NavLink, withRouter } from "react-router-dom";
 
 class CompanyAccountInformation extends React.Component{
     constructor(){
@@ -35,6 +36,9 @@ class CompanyAccountInformation extends React.Component{
                 :
                 null
                 }
+                <br></br><br></br>
+                <Button><Link to="/create-new-course">Create new course</Link></Button>
+
 
                 <h4>Courses owned by your organization</h4>
                 {this.props.company.currentCompany.courses.map(course => {
