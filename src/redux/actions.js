@@ -360,10 +360,10 @@ function creatingNewCourse(courseInfo){
             video_preview: courseInfo.videoPreview,
             price: courseInfo.price,
             duration: courseInfo.duration,
-            subject: ,
-            difficulty_level: ,
-            content_covered: ,
-            picture: 
+            subject: courseInfo.subject,
+            difficulty_level: courseInfo.difficultyLevel,
+            content_covered: courseInfo.contentCovered,
+            picture: courseInfo.picture
         }
         // fetch(COURSES_URL, {
         //     method: "POST",

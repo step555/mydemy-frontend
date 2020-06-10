@@ -15,7 +15,7 @@ class CreateNewCourse extends React.Component {
             videoPreview: "",
             picture: "",
             individualContentCovered: "",
-            contentCovered: [],
+            contentCovered: null,
             numberOfContentCovered: [1]
         }
     }
@@ -30,18 +30,19 @@ class CreateNewCourse extends React.Component {
         }
 
         if(event.target.innerText === '1-3 weeks'){
-            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
-            this.setState({duration: cDuration})
+        //     cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: event.target.innerText})
         }else if(event.target.innerText === '3-6 weeks'){
-            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
-            this.setState({duration: cDuration})
+        //     cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: event.target.innerText})
         }else if (event.target.innerText === '6-9 weeks'){
-            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
-            this.setState({duration: cDuration})
+        //     cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: event.target.innerText})
         }else if(event.target.innerText === '9-12 weeks'){
-            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
-            this.setState({duration: cDuration})
+        //     cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: event.target.innerText})
         }
+
         if(event.target.id === "contentCovered"){
             individualContentCovered = event.target.value // this state changes whenever you type something
             // this issue is dealt with by having contentCovered state be updated only after you click more
@@ -62,21 +63,31 @@ class CreateNewCourse extends React.Component {
     }
     
     edit = () => { 
-        // adds final index to contentCovered array
+        // below lines of code are to avoid content not interable error for content covered array
+        if(this.state.contentCovered === null){
+            return null
+        }else{
+            // adds final index to contentCovered array
         let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
  
+        // this.setState({
+        //     contentCovered: newContentCoveredArray 
+        // },() => {creatingNewCourse(this.state); }) // calls this function only AFTER state has been updated
         this.setState({
             contentCovered: newContentCoveredArray 
-        },() => {creatingNewCourse(this.state); }) // calls this function only AFTER state has been updated
+        },() => {
+            if(this.state.courseName !== "" && this.state.courseDescription !== "" && this.state.price !== "" && this.state.duration !== "" && this.state.subject !== "" && this.state.contentCovered !== null){
+                creatingNewCourse(this.state)}; }) // calls this function only AFTER state has been updated
+            }
     }
 
     render(){
         const durationOptions = [
             // {key: 'duration', text: 'duration', value: 0},
-            { key: '1-3 weeks', text: '1-3 weeks', value: 1 },
-            { key: '3-6 weeks', text: '3-6 weeks', value: 2 },
-            { key: '6-9 weeks', text: '6-9 weeks', value: 3 },
-            { key: '9-12 weeks', text: '9-12 weeks', value: 4 },
+            { key: '1-3', text: '1-3 weeks', value: 1 },
+            { key: '3-6', text: '3-6 weeks', value: 2 },
+            { key: '6-9', text: '6-9 weeks', value: 3 },
+            { key: '9-12', text: '9-12 weeks', value: 4 },
           ]
         return (
             <div>
