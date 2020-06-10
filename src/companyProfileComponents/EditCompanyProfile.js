@@ -51,6 +51,7 @@ class EditCompanyProfile extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     console.log("mapDispatchToProps")
+    
     return {
       editingCompanyInfo: (info) => {dispatch( editingCompanyInfo(info) )}
     }

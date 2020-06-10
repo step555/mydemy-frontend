@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import {removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
+import {creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -82,8 +82,9 @@ const mapDispatchToProps = (dispatch) => {
     gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )},
     totalRevenue: () => {dispatch(totalRevenue() )},
     // login: () => {dispatch( login() )}
-    removingFromCart: () => {dispatch(removingFromCart() )}
+    removingFromCart: () => {dispatch(removingFromCart() )},
     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
+    creatingNewCourse: () => {dispatch(creatingNewCourse() )}
   }
 }
 

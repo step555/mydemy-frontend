@@ -323,7 +323,7 @@ function fetchedCompany(company){
 }
 
 function gettingCompanyProfileFetch(){
-    return dispatch => {
+    return (dispatch) => {
             if(localStorage.token && localStorage.user_or_company === "company") {
             fetch(COMPANY_LOGIN_URL, { // fetches user minus courses and purchases
                 // method: "GET",
@@ -338,6 +338,7 @@ function gettingCompanyProfileFetch(){
                 fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(company => {
+                    currentCompany = company
                     dispatch(gotCompanyProfileFetch(company))
                 })
                 }
@@ -351,10 +352,9 @@ function gotCompanyProfileFetch(company){
 }
 
 function creatingNewCourse(courseInfo){
-    console.log("creating", courseInfo)
-    // return dispatch => {
-        debugger
-        let obj = {
+    console.log("before dispatch", courseInfo)
+    return (dispatch) => {
+        let obj = { // your object isn't done yet
             name: courseInfo.courseName,
             text_preview: courseInfo.courseDescription,
             video_preview: courseInfo.videoPreview,
@@ -363,32 +363,26 @@ function creatingNewCourse(courseInfo){
             subject: courseInfo.subject,
             difficulty_level: courseInfo.difficultyLevel,
             content_covered: courseInfo.contentCovered,
-            picture: courseInfo.picture
+            picture: courseInfo.picture,
+
+            company_id: currentCompanyId
         }
-        // fetch(COURSES_URL, {
-        //     method: "POST",
-        //     headers: {"Content-Type": "application/json",
-        //     "Accept": "application/json"},
-        //     body: JSON.stringify(obj)
-        // })
-    // }
+        debugger
+        fetch(COURSES_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+            "Accept": "application/json"},
+            body: JSON.stringify(obj)
+        }).then(resp => resp.json())
+        .then(course => {
+            debugger
+            dispatch(createdNewCourse(course))
+        })
+    }
 }
 
-// create_table "courses", force: :cascade do |t|
-// t.string "name"
-// t.string "text_preview"
-// t.string "video_preview"
-// t.float "price"
-// t.string "summary"
-// t.string "duration"
-// t.string "subject"
-// t.string "difficulty_level"
-// t.string "content_covered", default: [], array: true
-// t.string "picture"
-// t.integer "company_id"
-// t.datetime "created_at", precision: 6, null: false
-// t.datetime "updated_at", precision: 6, null: false
-// t.integer "course_code"
-// end
+function createdNewCourse(course){
+    return {type: "CREATED_NEW_COURSE", payload: course}
+}
 
-export { creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
+export { creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
