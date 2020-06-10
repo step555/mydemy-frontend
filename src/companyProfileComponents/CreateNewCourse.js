@@ -12,6 +12,7 @@ class CreateNewCourse extends React.Component {
             subject: "",
             videoPreview: "",
             picture: "",
+            individualContentCovered: "",
             contentCovered: [],
             numberOfContentCovered: [1]
         }
@@ -20,6 +21,9 @@ class CreateNewCourse extends React.Component {
     onChangeInformation = (event) => {
         console.log("event", event.target.value)
         let cDuration
+        let newContentCoveredIndex
+        let updatedContentCoveredArr
+        let individualContentCovered
         this.setState( { [event.target.id]: event.target.value } )
 
         if(event.target.innerText === '1-3 weeks'){
@@ -35,18 +39,26 @@ class CreateNewCourse extends React.Component {
             cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
             this.setState({duration: cDuration})
         }
+        if(event.target.id === "content-covered"){
+            individualContentCovered = event.target.value
+            // grab last element from this array
+            // updatedContentCoveredArr = [...this.state.contentCovered, newContentCoveredIndex]
+            // this.setState({contentCovered: updatedContentCoveredArr})
+            // updatedContentCoveredArr = [...this.state.contentCovered, newContentCoveredIndex]
+            this.setState({individualContentCovered: individualContentCovered})
+        }
     }
-
-    edit = () => {
-
-    }
-
+    
     addInputField = () => {
         // let newNumInput = this.state.numberOfContentCovered.push(1)
         let newNumInput = [...this.state.numberOfContentCovered, 1]
         this.setState({numberOfContentCovered: newNumInput})
-        // this.setState({ numberOfContentCovered: this.state.numberOfContentCovered.push(1) })
+        // on add input field, add individualContentCovered to contentCovered array
     }
+    
+        edit = () => {
+    
+        }
 
     render(){
         const durationOptions = [
