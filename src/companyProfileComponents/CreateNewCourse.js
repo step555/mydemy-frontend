@@ -2,6 +2,8 @@ import React from 'react'
 import {Form, Button} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {creatingNewCourse} from '../redux/actions'
+import {Link, Redirect} from 'react-router-dom'
+
 
 class CreateNewCourse extends React.Component {
     constructor(){
@@ -19,9 +21,14 @@ class CreateNewCourse extends React.Component {
             numberOfContentCovered: [1],
             difficultyLevel: "",
             finished: false,
+            wasSubmitted: false
         }
     }
        // I may need a componentdidmount to set these fields to their default (above) values. refresh messes things up
+
+    componentWillMount(){
+        this.setState({wasSubmitted: false})
+    }
 
     onChangeInformation = (event) => {
         let individualContentCovered
@@ -95,7 +102,9 @@ class CreateNewCourse extends React.Component {
 
     submit = () => {
         // if(this.state.courseName !== "" && this.state.courseDescription !== "" && this.state.price !== "" && this.state.duration !== "" && this.state.subject !== "" && this.state.contentCovered.length !== 0){
-            this.props.creatingNewCourse(this.state)
+        this.setState({wasSubmitted: true})
+        
+        this.props.creatingNewCourse(this.state)
         // }
     }
 
@@ -114,8 +123,14 @@ class CreateNewCourse extends React.Component {
             { key: 'a', text: 'advanced', value: 3 },
           ]
 
+          const redirectToProfile = this.state.wasSubmitted;
+          if (redirectToProfile === true) {
+              return <Redirect to="/company-profile" />
+          }
 
         return (
+            <div>
+                {this.state.wasSubmitted === false ? 
             <div>
                 <h3>New Course Creation Form</h3>
                 <Form>
@@ -166,7 +181,13 @@ class CreateNewCourse extends React.Component {
                         }
                     </Form>
             </div>
+            :
+            <h2>Your submission was successful. Redirecting to profile page.</h2>
+            // <h4></h4>
+            } 
+            </div>
         )
+        // ternary for was submitted starts at top. if false renders form. else renders success message
     }
 }
 

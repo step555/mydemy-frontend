@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import {creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
+import {selectingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -17,6 +17,7 @@ import LoginForm from "./components/LoginForm"
 import CompanyLoginForm from "./components/CompanyLoginForm"
 import CompanyProfileContainer from "./companyProfileComponents/CompanyProfileContainer"
 import CreateNewCourse from "./companyProfileComponents/CreateNewCourse"
+import ViewEditCourse from "./companyProfileComponents/ViewEditCourse"
 
 class App extends React.Component{
 
@@ -52,6 +53,7 @@ class App extends React.Component{
         <Route path="/login" component={LoginForm}/>
         <Route path="/company-login" component={CompanyLoginForm}/>
         <Route path="/create-new-course" component={CreateNewCourse}/>
+        <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/>
       </Switch>
 
     </div>
@@ -67,7 +69,9 @@ const mapStateToProps = (state) => {
     cart: state.cart,
     cartTotal: state.cartTotal,
     company: state.company,
-    totalRevenue: state.totalRevenue
+    totalRevenue: state.totalRevenue,
+
+
   };
 };
 
@@ -84,7 +88,9 @@ const mapDispatchToProps = (dispatch) => {
     // login: () => {dispatch( login() )}
     removingFromCart: () => {dispatch(removingFromCart() )},
     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
-    creatingNewCourse: () => {dispatch(creatingNewCourse() )}
+    creatingNewCourse: () => {dispatch(creatingNewCourse() )},
+
+    selectingCourse: () => {dispatch(selectingCourse() )}
   }
 }
 

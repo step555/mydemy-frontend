@@ -5,8 +5,9 @@ const coursesReducer = (state = [], action) => {
         case "FETCHED_COURSES":
             return action.payload
         case "CREATED_NEW_COURSE":
-            debugger
-            return action.payload
+            // debugger
+            let newState = [...state, action.payload]
+            return newState
         default:
             return state;
     }
@@ -40,7 +41,6 @@ const companyReducer = (state = [], action) => {
         case "LOGOUT_USER":
             return {...state, currentCompany: null}
         case "COMPANY_FETCHED_PURCHASES":
-            debugger
             return action.payload
         case "EDITED_COMPANY_INFO":
             return {...state, currentCompany: action.payload}
@@ -89,6 +89,16 @@ const totalRevenueReducer = (state = 0, action) => {
     }
 }
 
+const selectCourseReducer = (state = [], action) => {
+    switch (action.type){
+        case "EDIT_SELECTED_COURSE":
+            return {
+                course: action.payload
+            }
+        default:
+            return state;
+    }
+}
 
 
 const rootReducer = combineReducers({
@@ -99,7 +109,8 @@ const rootReducer = combineReducers({
     //cartTotal may not be needed
     cartTotal: cartTotalReducer,
     checkoutCart: cartReducer,
-    company: companyReducer
+    company: companyReducer,
+    selectedCourse: selectCourseReducer
   });
   
   export default rootReducer;

@@ -10,13 +10,13 @@ class CompanyAccountInformation extends React.Component{
     constructor(){
         super()
         this.state = {
-            clickedEditButton: false
+            clickedEditProfileButton: false
         }
     }
 
     handleClick = () => {
-        this.setState({ clickedEditButton: !this.state.clickedEditButton})
-        console.log(this.state.clickedEditButton)
+        this.setState({ clickedEditProfileButton: !this.state.clickedEditProfileButton})
+        console.log(this.state.clickedEditProfileButton)
     }
 
     render(){
@@ -49,7 +49,19 @@ class CompanyAccountInformation extends React.Component{
                             )
                         }
                 )}
-                <h4>Total Revenue: ${this.props.totalRevenue}</h4>
+                {/* {this.props.course.filter(course => {
+                    course.company_id === this.props.company.currentCompany.id
+                }.map({
+
+                })
+                    return (
+                            <div>
+                                <CCourse course={course}/>
+                            </div>
+                        )
+                    }
+                )} */}
+                <h4>Total Revenue: ${this.props.totalRevenue.totalRevenue}</h4>
                 <h4>User Purchases: </h4>
                 {this.props.company.currentCompany.purchases.map(purchase => {
                     if(purchase.is_purchased === true){
@@ -60,6 +72,13 @@ class CompanyAccountInformation extends React.Component{
                         )
                     }
                 })}
+                {this.state.clickedEditButton === true ? 
+                <div>
+                    <p>EDIT</p>
+                </div>
+            
+                : 
+                null}
             </div>
         )
     }
@@ -70,7 +89,8 @@ const mapStateToProps = (state) => {
     // debugger
     return {
       company: state.company,
-      totalRevenue: state.totalRevenue
+      totalRevenue: state.totalRevenue,
+    //   courses: state.courses
     };
 };
 

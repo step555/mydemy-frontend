@@ -339,6 +339,7 @@ function gettingCompanyProfileFetch(){
                 .then(resp => resp.json())
                 .then(company => {
                     currentCompany = company
+                    // debugger
                     dispatch(gotCompanyProfileFetch(company))
                 })
                 }
@@ -354,7 +355,9 @@ function gotCompanyProfileFetch(company){
 function creatingNewCourse(courseInfo){
     console.log("before dispatch", courseInfo)
     return (dispatch) => {
-        let obj = { // your object isn't done yet
+
+        // let contentCovered = `${courseInfo.contentCovered}`
+        let obj = {
             name: courseInfo.courseName,
             text_preview: courseInfo.courseDescription,
             video_preview: courseInfo.videoPreview,
@@ -363,11 +366,11 @@ function creatingNewCourse(courseInfo){
             subject: courseInfo.subject,
             difficulty_level: courseInfo.difficultyLevel,
             content_covered: courseInfo.contentCovered,
+            // content_covered: contentCovered,
             picture: courseInfo.picture,
 
             company_id: currentCompanyId
         }
-        debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -375,8 +378,8 @@ function creatingNewCourse(courseInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(course => {
-            debugger
             dispatch(createdNewCourse(course))
+            window.location.reload()
         })
     }
 }
@@ -385,4 +388,20 @@ function createdNewCourse(course){
     return {type: "CREATED_NEW_COURSE", payload: course}
 }
 
-export { creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+function selectingCourse(id){
+    // debugger
+    return (dispatch) => {
+    fetch(COURSES_URL + `/${id}`)
+    .then(resp => resp.json())
+    .then(course => {
+        dispatch(selectedCourse(course))
+        })
+    }
+}
+
+function selectedCourse(course){
+    return {type: "EDIT_SELECTED_COURSE", payload: course}
+}
+
+
+export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
