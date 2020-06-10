@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form, Button} from 'semantic-ui-react'
+// import {connect} from 'react-redux'
 
 class CreateNewCourse extends React.Component {
     constructor(){
@@ -50,15 +51,16 @@ class CreateNewCourse extends React.Component {
     }
     
     addInputField = () => {
-        // let newNumInput = this.state.numberOfContentCovered.push(1)
         let newNumInput = [...this.state.numberOfContentCovered, 1]
         this.setState({numberOfContentCovered: newNumInput})
         // on add input field, add individualContentCovered to contentCovered array
+        let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+        this.setState({contentCovered: newContentCoveredArray})
     }
     
-        edit = () => {
-    
-        }
+    edit = () => {
+
+    }
 
     render(){
         const durationOptions = [
@@ -112,5 +114,14 @@ class CreateNewCourse extends React.Component {
         )
     }
 }
+
+// const mapDispatchToProps = (dispatch) => {
+//     console.log("mapDispatchToProps")
+//     return {
+//       creatingNewCourse: (info) => {dispatch( creatingNewCourse(info) )}
+//     }
+// }
+
+// export default connect(null, mapDispatchToProps)(CreateNewCourse)
 
 export default CreateNewCourse
