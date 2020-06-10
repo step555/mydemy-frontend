@@ -1,6 +1,7 @@
 import React from 'react'
 import {Form, Button} from 'semantic-ui-react'
-// import {connect} from 'react-redux'
+import {connect} from 'react-redux'
+import {creatingNewCourse} from '../redux/actions'
 
 class CreateNewCourse extends React.Component {
     constructor(){
@@ -22,10 +23,11 @@ class CreateNewCourse extends React.Component {
     onChangeInformation = (event) => {
         console.log("event", event.target.value)
         let cDuration
-        let newContentCoveredIndex
-        let updatedContentCoveredArr
+        const regexforNumericInputOnly = /^[0-9\b]+$/;
         let individualContentCovered
-        this.setState( { [event.target.id]: event.target.value } )
+        if(event.target.id !== "contentCovered"){
+            this.setState( { [event.target.id]: event.target.value } )
+        }
 
         if(event.target.innerText === '1-3 weeks'){
             cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
@@ -40,17 +42,14 @@ class CreateNewCourse extends React.Component {
             cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
             this.setState({duration: cDuration})
         }
-        if(event.target.id === "content-covered"){
-            individualContentCovered = event.target.value
-            // grab last element from this array
-            // updatedContentCoveredArr = [...this.state.contentCovered, newContentCoveredIndex]
-            // this.setState({contentCovered: updatedContentCoveredArr})
-            // updatedContentCoveredArr = [...this.state.contentCovered, newContentCoveredIndex]
+        if(event.target.id === "contentCovered"){
+            individualContentCovered = event.target.value // this state changes whenever you type something
+            // this issue is dealt with by having contentCovered state be updated only after you click more
             this.setState({individualContentCovered: individualContentCovered})
         }
     }
     
-    addInputField = () => {
+    addInputField = () => { // this function does not render last element of new array when clicking submit btn
         let newNumInput = [...this.state.numberOfContentCovered, 1]
         this.setState({numberOfContentCovered: newNumInput})
         // on add input field, add individualContentCovered to contentCovered array
@@ -58,8 +57,13 @@ class CreateNewCourse extends React.Component {
         this.setState({contentCovered: newContentCoveredArray})
     }
     
-    edit = () => {
-
+    edit = () => { 
+        // adds final index to contentCovered array
+        let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+ 
+        this.setState({
+            contentCovered: newContentCoveredArray 
+        },() => {creatingNewCourse(this.state); }) // calls this function only AFTER state has been updated
     }
 
     render(){
@@ -75,13 +79,13 @@ class CreateNewCourse extends React.Component {
                 <h3>New Course Creation Form</h3>
                 <Form>
                         <Form.Group widths='equal'>
-                            <Form.Input fluid id="course-name" label='Course Name' placeholder='course name' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            <Form.Input fluid id="courseName" label='Course Name' placeholder='course name' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.TextArea fluid id="course-description" label='Course Description' placeholder='course description' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.Input fluid id="price" label='Price' placeholder='price' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
                             <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={""} onChange={this.onChangeInformation} required
@@ -91,7 +95,7 @@ class CreateNewCourse extends React.Component {
                             <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.Input fluid id="video-preview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
+                            <Form.Input fluid id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
                         {/* </Form.Group> */}
                         {/* <Form.Group widths="equal"> */}
                             <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
@@ -101,7 +105,7 @@ class CreateNewCourse extends React.Component {
                         return (
                             <div>
                                 <Form.Group widths="equal">
-                                    <Form.Input fluid id="content-covered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
+                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
                                 </Form.Group>
                             </div>
                         )}
@@ -115,13 +119,13 @@ class CreateNewCourse extends React.Component {
     }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     console.log("mapDispatchToProps")
-//     return {
-//       creatingNewCourse: (info) => {dispatch( creatingNewCourse(info) )}
-//     }
-// }
+const mapDispatchToProps = (dispatch) => {
+    console.log("mapDispatchToProps")
+    return {
+      creatingNewCourse: (info) => {dispatch( creatingNewCourse(info) )}
+    }
+}
 
-// export default connect(null, mapDispatchToProps)(CreateNewCourse)
+export default connect(null, mapDispatchToProps)(CreateNewCourse)
 
-export default CreateNewCourse
+// export default CreateNewCourse

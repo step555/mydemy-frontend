@@ -14,20 +14,4 @@ const CCourse = (props) => {
     )
 }
 
-// About this course
-// Placeholder text
-
-// picture
-// Institution: MIT
-// Subject: Computer Science
-// Price: $0
-// Duration: 6-9 weeks
-// Difficulty level: beginner
-// Content covered in this course:
-// Strings
-// Functions
-// Loops
-// Arrays
-// Objects
-
 export default CCourse

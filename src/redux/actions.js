@@ -350,4 +350,8 @@ function gotCompanyProfileFetch(company){
     return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
 }
 
-export { editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
+function creatingNewCourse(courseInfo){
+    console.log("creating", courseInfo)
+}
+
+export { creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
