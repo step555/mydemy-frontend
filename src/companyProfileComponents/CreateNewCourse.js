@@ -12,16 +12,40 @@ class CreateNewCourse extends React.Component {
             subject: "",
             videoPreview: "",
             picture: "",
-            contentCovered: []
+            contentCovered: [],
+            numberOfContentCovered: [1]
         }
     }
 
-    onChangeInformation = () => {
+    onChangeInformation = (event) => {
+        console.log("event", event.target.value)
+        let cDuration
+        this.setState( { [event.target.id]: event.target.value } )
 
+        if(event.target.innerText === '1-3 weeks'){
+            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: cDuration})
+        }else if(event.target.innerText === '3-6 weeks'){
+            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: cDuration})
+        }else if (event.target.innerText === '6-9 weeks'){
+            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: cDuration})
+        }else if(event.target.innerText === '9-12 weeks'){
+            cDuration = event.target.innerText.replace("weeks", "").replace(" ", "")
+            this.setState({duration: cDuration})
+        }
     }
 
     edit = () => {
 
+    }
+
+    addInputField = () => {
+        // let newNumInput = this.state.numberOfContentCovered.push(1)
+        let newNumInput = [...this.state.numberOfContentCovered, 1]
+        this.setState({numberOfContentCovered: newNumInput})
+        // this.setState({ numberOfContentCovered: this.state.numberOfContentCovered.push(1) })
     }
 
     render(){
@@ -58,9 +82,18 @@ class CreateNewCourse extends React.Component {
                         {/* <Form.Group widths="equal"> */}
                             <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
                         </Form.Group>
-                        <Form.Group widths="equal">
-                            <Form.Input fluid id="content-covered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
-                        </Form.Group>
+                        {this.state.numberOfContentCovered.map(input => {
+                        console.log(input)
+                        return (
+                            <div>
+                                <Form.Group widths="equal">
+                                    <Form.Input fluid id="content-covered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
+                                </Form.Group>
+                            </div>
+                        )}
+                        )}
+                            <button onClick={this.addInputField}>More</button>
+                            <br></br>
                         <Form.Field onClick={() => this.edit(this.props)} control={Button}>Submit</Form.Field>
                     </Form>
             </div>
