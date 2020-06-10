@@ -56,6 +56,13 @@ class App extends React.Component{
         <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/>
       </Switch>
 
+      {/* <Route exact path="/profile" render={() => <ProfileContainer 
+          user={this.state.user} 
+          applications={this.state.applications}
+          deleteAppFromState={this.deleteAppFromState}
+          currentJobListings={this.state.currentUserJobListings}
+        /> */}
+
     </div>
     )
   }

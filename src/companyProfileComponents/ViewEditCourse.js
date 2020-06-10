@@ -7,7 +7,19 @@ class ViewEditCourse extends React.Component{
     constructor(){
         super()
         this.state = {
-
+            courseName: "",
+            courseDescription: "",
+            price: "",
+            duration: "",
+            subject: "",
+            videoPreview: "",
+            picture: "",
+            individualContentCovered: "",
+            contentCovered: [],
+            numberOfContentCovered: [],
+            difficultyLevel: "",
+            finished: false,
+            wasSubmitted: false
         }
     }
 
@@ -16,18 +28,79 @@ class ViewEditCourse extends React.Component{
         // this.props.gettingCompanyProfileFetch()
         let courseId = parseInt(this.props.match.params.courseId)
         this.props.selectingCourse(courseId)
+
+       
+    }
+
+    componentDidMount(){
+        // console.log("component mounted", this.props)
+        // this.setState({ courseName: this.props.selectedCourse.course.name })
+    }
+
+    addInputField = () => { // this function does not render last element of new array when clicking submit btn
+        console.log("adding field")
+        
+        let newNumInput = [...this.state.numberOfContentCovered, 1]
+        this.setState({numberOfContentCovered: newNumInput})
+        // on add input field, add individualContentCovered to contentCovered array
+        let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+
+        this.setState({contentCovered: newContentCoveredArray})
+    }
+
+    onChangeInformation = (event) => {
+        let individualContentCovered
+        if(event.target.id !== "contentCovered"){
+            this.setState( { [event.target.id]: event.target.value } )
+        }
+
+        if(event.target.innerText === '1-3 weeks'){
+            this.setState({duration: event.target.innerText})
+        }else if(event.target.innerText === '3-6 weeks'){
+            this.setState({duration: event.target.innerText})
+        }else if (event.target.innerText === '6-9 weeks'){
+            this.setState({duration: event.target.innerText})
+        }else if(event.target.innerText === '9-12 weeks'){
+            this.setState({duration: event.target.innerText})
+        }
+
+        if(event.target.innerText === 'beginner'){
+            this.setState({difficultyLevel: event.target.innerText})
+        }else if(event.target.innerText === 'intermediate'){
+            this.setState({difficultyLevel: event.target.innerText})
+        }else if (event.target.innerText === 'advanced'){
+            this.setState({difficultyLevel: event.target.innerText})
+        }
+
+        if(event.target.id === "contentCovered"){
+            individualContentCovered = event.target.value // this state changes whenever you type something
+            // this issue is dealt with by having contentCovered state be updated only after you click more
+            this.setState({individualContentCovered: individualContentCovered})
+            // if(this.state.contentCovered.length < 0){
+            //     this.setState({contentCovered: individualContentCovered})
+            // }
+        }
+        if(event.target.id === "subject"){
+            let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
+            this.setState({subject: forcedCapitalization})
+        }
+    }
+
+    addingContentToState = (content) => {
+        console.log("FUNC")
+        this.setState({ contentCovered: [...this.state.contentCovered, content] })
     }
 
     render(){
+        
         const durationOptions = [
-            // {key: 'duration', text: 'duration', value: 0},
             { key: '1-3', text: '1-3 weeks', value: 1 },
             { key: '3-6', text: '3-6 weeks', value: 2 },
             { key: '6-9', text: '6-9 weeks', value: 3 },
             { key: '9-12', text: '9-12 weeks', value: 4 },
           ]
           
-          const difficultyOptions  =[
+          const difficultyOptions = [
             { key: 'b', text: 'beginner', value: 1 },
             { key: 'i', text: 'intermediate', value: 2 },
             { key: 'a', text: 'advanced', value: 3 },
@@ -36,6 +109,9 @@ class ViewEditCourse extends React.Component{
         console.log("VIEWEDITCOURSE", this.props)
         return !this.props.selectedCourse.course ? null : (
             <div>
+                {this.props.selectedCourse.course.content_covered.forEach(content => {
+                    this.addingContentToState(content)
+                })}
                 <h3>New Course Creation Form</h3>
                 <Form>
                         <Form.Group widths='equal'>
@@ -67,12 +143,22 @@ class ViewEditCourse extends React.Component{
                         {/* {this.state.numberOfContentCovered.map(input => {
                         return ( */}
                             <div>
+                                {this.props.selectedCourse.course.content_covered.map(content => {
+                                    return (                                    
+                                    <Form.Group widths="equal">
+                                        <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={content} onChange={this.onChangeInformation} required/>
+                                    </Form.Group>)
+                                    })}
+                            </div>
+                        {this.state.numberOfContentCovered.map(input => {
+                        return (
+                            <div>
                                 <Form.Group widths="equal">
-                                    {/* <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={this.props.selectedCourse.course.contentCovered[0]} onChange={this.onChangeInformation} required/> */}
+                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
                                 </Form.Group>
                             </div>
-                        {/* )}
-                        )} */}
+                        )}
+                        )}
                             <button onClick={this.addInputField}>More</button>
                             <br></br>
                         {this.state.finished === true ? 

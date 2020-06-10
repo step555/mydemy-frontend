@@ -11,7 +11,7 @@ class CompanyProfileContainer extends React.Component{
     render(){
         return(
             <div>
-                <CompanyAccountInformation/>
+                <CompanyAccountInformation />
             </div>
         )
     }

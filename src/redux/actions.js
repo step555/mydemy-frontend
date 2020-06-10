@@ -339,7 +339,6 @@ function gettingCompanyProfileFetch(){
                 .then(resp => resp.json())
                 .then(company => {
                     currentCompany = company
-                    // debugger
                     dispatch(gotCompanyProfileFetch(company))
                 })
                 }
@@ -389,7 +388,6 @@ function createdNewCourse(course){
 }
 
 function selectingCourse(id){
-    // debugger
     return (dispatch) => {
     fetch(COURSES_URL + `/${id}`)
     .then(resp => resp.json())

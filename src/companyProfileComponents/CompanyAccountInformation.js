@@ -4,7 +4,8 @@ import CCourse from './CCourse'
 import CPurchase from './CPurchase'
 import EditCompanyProfile from './EditCompanyProfile'
 import {Form, Button, ModalDescription} from 'semantic-ui-react'
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { Link, NavLink, withRouter, Route, Switch } from "react-router-dom";
+// import ViewEditCourse from "./ViewEditCourse"
 
 class CompanyAccountInformation extends React.Component{
     constructor(){
