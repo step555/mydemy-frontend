@@ -47,6 +47,10 @@ class CreateNewCourse extends React.Component {
             // this issue is dealt with by having contentCovered state be updated only after you click more
             this.setState({individualContentCovered: individualContentCovered})
         }
+        if(event.target.id === "subject"){
+            let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
+            this.setState({subject: forcedCapitalization})
+        }
     }
     
     addInputField = () => { // this function does not render last element of new array when clicking submit btn
@@ -69,10 +73,10 @@ class CreateNewCourse extends React.Component {
     render(){
         const durationOptions = [
             // {key: 'duration', text: 'duration', value: 0},
-            { key: '1-3', text: '1-3 weeks', value: 1 },
-            { key: '3-6', text: '3-6 weeks', value: 2 },
-            { key: '6-9', text: '6-9 weeks', value: 3 },
-            { key: '9-12', text: '9-12 weeks', value: 4 },
+            { key: '1-3 weeks', text: '1-3 weeks', value: 1 },
+            { key: '3-6 weeks', text: '3-6 weeks', value: 2 },
+            { key: '6-9 weeks', text: '6-9 weeks', value: 3 },
+            { key: '9-12 weeks', text: '9-12 weeks', value: 4 },
           ]
         return (
             <div>

@@ -352,6 +352,43 @@ function gotCompanyProfileFetch(company){
 
 function creatingNewCourse(courseInfo){
     console.log("creating", courseInfo)
+    // return dispatch => {
+        debugger
+        let obj = {
+            name: courseInfo.courseName,
+            text_preview: courseInfo.courseDescription,
+            video_preview: courseInfo.videoPreview,
+            price: courseInfo.price,
+            duration: courseInfo.duration,
+            subject: ,
+            difficulty_level: ,
+            content_covered: ,
+            picture: 
+        }
+        // fetch(COURSES_URL, {
+        //     method: "POST",
+        //     headers: {"Content-Type": "application/json",
+        //     "Accept": "application/json"},
+        //     body: JSON.stringify(obj)
+        // })
+    // }
 }
+
+// create_table "courses", force: :cascade do |t|
+// t.string "name"
+// t.string "text_preview"
+// t.string "video_preview"
+// t.float "price"
+// t.string "summary"
+// t.string "duration"
+// t.string "subject"
+// t.string "difficulty_level"
+// t.string "content_covered", default: [], array: true
+// t.string "picture"
+// t.integer "company_id"
+// t.datetime "created_at", precision: 6, null: false
+// t.datetime "updated_at", precision: 6, null: false
+// t.integer "course_code"
+// end
 
 export { creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch}
