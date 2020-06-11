@@ -247,3 +247,11 @@
   width:28em; 
   height:18em;
 }
+
+.course-card-info {
+  margin-top: -10px;
+}
+
+.course-card-info-last {
+  margin-top: -5px;
+}

@@ -16,8 +16,9 @@ class CourseListItem extends React.Component{
                         <Card className="course-card">
                             <Image classname="course-card-image" src={this.props.course.picture} />
                             <Card.Content>
-                                <h3 className="course-card-text">{this.props.course.name}</h3>
-                                <h5 className="course-card-text">{this.props.course.company.name}</h5>
+                                <h3 className="course-card-text course-card-info">{this.props.course.name}</h3>
+                                <h5 className="course-card-text course-card-info">{this.props.course.subject}</h5>
+                                <h5 className="course-card-text course-card-info-last">{this.props.course.company.name}</h5>
                             </Card.Content>
                         </Card>
                     </Card.Group>
