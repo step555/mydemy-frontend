@@ -43,7 +43,7 @@ class App extends React.Component{
     <div className="app">
 
       <Navbar />
-      <h1>MyDemy</h1>
+      <br></br>
       <Switch>
         <Route path="/course-list/:courseId" component={Course}/>
         <Route path="/course-list" component={CourseContainer}/>

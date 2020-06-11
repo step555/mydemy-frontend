@@ -71,13 +71,19 @@
 }
 
 .course-card {
-  padding-right: 30px;
-  padding-left: 20px;
-  height: 350px;
+  height: 150px;
+}
+
+.course-card-div {
   width: 350px;
+  /* padding-right: 50px; */
+  padding-left: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .course-card-text {
+  text-align: center;
   color: black;
 }
 

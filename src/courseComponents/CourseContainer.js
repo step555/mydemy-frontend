@@ -17,15 +17,17 @@ class CourseList extends React.Component{
                         component={CourseContainer}
                     />
                 </Switch> */}
-                <Grid relaxed columns={4}>
-                    {this.props.courses.map(course => {
-                        return ( 
-                            <Grid.Column>
-                                <CourseListItem key={course.id} course={course}/>
-                            </Grid.Column>
-                        )
-                    })}
-                </Grid>
+                <div className="course-container">
+                    <Grid relaxed columns={4}>
+                        {this.props.courses.map(course => {
+                            return ( 
+                                <Grid.Column>
+                                    <CourseListItem key={course.id} course={course}/>
+                                </Grid.Column>
+                            )
+                        })}
+                    </Grid>
+                </div>
             </div>
         )
     }
