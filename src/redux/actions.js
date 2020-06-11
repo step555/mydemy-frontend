@@ -383,8 +383,6 @@ function creatingNewCourse(courseInfo){
 
             dispatch(createdNewCourse(course))
             window.location.reload()
-
-
         })
     }
 }
@@ -397,19 +395,19 @@ function createdNewCompanyCourse(currentCompany){
     return {type: "CREATED_NEW_COMPANY_COURSE", payload: currentCompany}
 }
 
-// function selectingCourse(id){
-//     return (dispatch) => {
-//     fetch(COURSES_URL + `/${id}`)
-//     .then(resp => resp.json())
-//     .then(course => {
-//         dispatch(selectedCourse(course))
-//         })
-//     }
-// }
+function selectingCourse(id){
+    return (dispatch) => {
+    fetch(COURSES_URL + `/${id}`)
+    .then(resp => resp.json())
+    .then(course => {
+        dispatch(selectedCourse(course))
+        })
+    }
+}
 
-// function selectedCourse(course){
-//     return {type: "EDIT_SELECTED_COURSE", payload: course}
-// }
+function selectedCourse(course){
+    return {type: "EDIT_SELECTED_COURSE", payload: course}
+}
 
 function deletingCourse(courseId){
     return (dispatch) => {
@@ -440,5 +438,45 @@ function deletedCourse(course){
     return {type: "DELETED_COURSE", payload: course}
 }
 
+function editingCourse(courseInfo){
+    return (dispatch) => {
+        if(typeof(courseInfo.contentCovered) === "string"){
+            courseInfo.contentCovered = [courseInfo.contentCovered]
+        }
+        // let contentCovered = `${courseInfo.contentCovered}`
+        let obj = {
+            name: courseInfo.courseName,
+            text_preview: courseInfo.courseDescription,
+            video_preview: courseInfo.videoPreview,
+            price: courseInfo.price,
+            duration: courseInfo.duration,
+            subject: courseInfo.subject,
+            difficulty_level: courseInfo.difficultyLevel,
+            content_covered: courseInfo.contentCovered,
+            // content_covered: contentCovered,
+            picture: courseInfo.picture,
+
+            company_id: currentCompanyId
+        }
+        fetch(COURSES_URL + `/${courseInfo.courseId}`, {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json",
+            "Accept": "application/json"},
+            body: JSON.stringify(obj)
+        }).then(resp => resp.json())
+        .then(course => {
+            // debugger
+            // dispatch(editedCourse(course))
+
+            // dispatch(createdNewCourse(course))
+            window.location.reload()
+        })
+    }
+}
+
+// function editedCourse(course){
+//     return {type: "EDITED_COURSE", payload: course}
+// }
+
 // export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
-export { deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

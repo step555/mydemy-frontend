@@ -27,7 +27,7 @@ class CCourse extends React.Component{
     return(
         <div onClick={this.editCourse}>
             <Card>
-                {/* <Link to={`/company/${this.props.course.id}/view-and-edit-course`}> */}
+                <Link to={`/company/${this.props.course.id}/view-and-edit-course`}>
                     <h5 className="account-info">ID: {this.props.course.id}</h5>
                     <h5 className="account-info">Name: {this.props.course.name}</h5>
                     <h5 className="account-info">Subject: {this.props.course.subject}</h5>
@@ -35,10 +35,10 @@ class CCourse extends React.Component{
                     <h5 className="account-info">Duration: {this.props.course.duration}</h5>
                     <h5 className="account-info">Difficulty level: {this.props.course.difficulty_level}</h5>
                     {/* <button onclick={() => this.handleClick(this.props.course.id)}>Delete</button> */}
-                    <button onClick={() => this.handleClick(this.props.course.id)}>Delete</button>
-                    <br></br><br></br>
                 {/* {this.state.editing ?  */}
-                {/* </Link> */}
+                </Link>
+                    <button onClick={() => this.handleClick(this.props.course.id)}>Delete</button>
+                    <br></br>
             </Card>
             <br></br>
         </div>

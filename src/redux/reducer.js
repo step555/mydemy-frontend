@@ -99,16 +99,21 @@ const totalRevenueReducer = (state = 0, action) => {
     }
 }
 
-// const selectCourseReducer = (state = [], action) => {
-//     switch (action.type){
-//         case "EDIT_SELECTED_COURSE":
-//             return {
-//                 course: action.payload
-//             }
-//         default:
-//             return state;
-//     }
-// }
+const selectCourseReducer = (state = [], action) => {
+    switch (action.type){
+        case "EDIT_SELECTED_COURSE":
+            return {
+                course: action.payload
+            }
+        // case "EDITED_COURSE":
+        //     let updatedCourse = {selectedCourse: action.payload}
+        //     let updated = {...updatedCourse}
+        //     debugger
+        //     return updated
+        default:
+            return state;
+    }
+}
 
 
 const rootReducer = combineReducers({
@@ -120,7 +125,7 @@ const rootReducer = combineReducers({
     cartTotal: cartTotalReducer,
     checkoutCart: cartReducer,
     company: companyReducer,
-    // selectedCourse: selectCourseReducer
+    selectedCourse: selectCourseReducer
   });
   
   export default rootReducer;
