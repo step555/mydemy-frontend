@@ -484,7 +484,8 @@ function creatingNewUser(userInfo){
         let obj = {
             name: userInfo.name,
             email: userInfo.email, 
-            password: userInfo.password
+            password: userInfo.password,
+            password_confirmation: userInfo.password
         }
         fetch(USER_URL, {
             method: "POST",
@@ -535,5 +536,20 @@ function fetchedAllUsers(users){
     return {type: "FETCHED_ALL_USERS", payload: users}
 }
 
+// function inputtingSearch(text){
+//     return (dispatch) => {
+//         debugger
+//     }
+// }
+
+// function inputtedSearch(text){
+//     debugger
+//     return {type: "INPUTTED_SEARCH", payload: text}
+// }
+
+function changeSearchText(value) {
+    return { type: "CHANGE_SEARCH_TEXT", payload: value };
+  }
+
 // export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
-export { fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

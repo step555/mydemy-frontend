@@ -124,6 +124,14 @@ const selectCourseReducer = (state = [], action) => {
     }
 }
 
+const searchTextReducer = (state = "", action) => {
+    switch (action.type) {
+      case "CHANGE_SEARCH_TEXT":
+        return action.payload;
+      default:
+        return state;
+    }
+};
 
 const rootReducer = combineReducers({
     courses: coursesReducer,
@@ -135,7 +143,8 @@ const rootReducer = combineReducers({
     checkoutCart: cartReducer,
     company: companyReducer,
     selectedCourse: selectCourseReducer,
-    allUsers: allUsersReducer
+    allUsers: allUsersReducer,
+    searchText: searchTextReducer
   });
   
   export default rootReducer;

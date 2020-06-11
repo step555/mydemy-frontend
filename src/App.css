@@ -242,3 +242,8 @@
   background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
 }
 /* the above lines supposed to be inside CourseContainer */
+
+.course-image {
+  width:28em; 
+  height:18em;
+}

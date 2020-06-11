@@ -35,7 +35,7 @@ const Home = (props) => {
             </div>
             <br></br><br></br><br></br><br></br><br></br><br></br>
             <div>
-                <h2>Popular Subjects</h2>
+                
             </div>
         </div>
     )

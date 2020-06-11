@@ -18,6 +18,7 @@ class Course extends React.Component{
             <div className="course-div">
                 <Grid>
                     <Grid.Column width={9}>
+                        <br></br>
                     <h1>{this.props.course.name}</h1>
                     {/* cart picture? */}
                     {localStorage.user_or_company === "user" ? 
@@ -26,9 +27,8 @@ class Course extends React.Component{
                     null}
                     <br></br>
                     <br></br>
+                        <img src={this.props.course.picture} alt="picture" className="course-image"/>
                     <h2>About this course</h2>
-                        <img src={this.props.course.picture} alt="picture"/>
-                        <br></br><br></br>
                         <p>{this.props.course.text_preview}</p>
                     <h5>Institution: {this.props.course.company.name}</h5>
                     <h5>Subject: {this.props.course.subject}</h5>
