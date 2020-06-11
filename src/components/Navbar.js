@@ -57,7 +57,6 @@ const Navbar = (props) => {
         props.logoutUser()
     }
 
-    console.log("navbar props", props)
     return (
         <div id="navlist"> 
             <Link className="active" to="/">Mydemy</Link>

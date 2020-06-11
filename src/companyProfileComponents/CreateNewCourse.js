@@ -28,6 +28,7 @@ class CreateNewCourse extends React.Component {
 
     componentWillMount(){
         this.setState({wasSubmitted: false})
+        console.log(this.state.wasSubmitted)
     }
 
     onChangeInformation = (event) => {
@@ -58,7 +59,7 @@ class CreateNewCourse extends React.Component {
             individualContentCovered = event.target.value // this state changes whenever you type something
             // this issue is dealt with by having contentCovered state be updated only after you click more
             this.setState({individualContentCovered: individualContentCovered})
-            // if(this.state.contentCovered.length < 0){
+            // if(this.state.contentCovered.length === 0){
             //     this.setState({contentCovered: individualContentCovered})
             // }
         }
@@ -192,7 +193,6 @@ class CreateNewCourse extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    console.log("dispatch for create course", dispatch)
     return {
       creatingNewCourse: (info) => {dispatch( creatingNewCourse(info) )}
     }

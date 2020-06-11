@@ -15,6 +15,10 @@ class CompanyAccountInformation extends React.Component{
         }
     }
 
+    componentDidMount(){
+        this.setState({ clickedEditProfileButton: false})
+    }
+
     handleClick = () => {
         this.setState({ clickedEditProfileButton: !this.state.clickedEditProfileButton})
         console.log(this.state.clickedEditProfileButton)
@@ -22,6 +26,12 @@ class CompanyAccountInformation extends React.Component{
 
     render(){
         console.log("CACCOUNTINFO", this.props)
+
+        // let filteredCourses = this.props.courses.filter(course => {
+        //     debugger
+        //     return course.company_id === this.props.company.currentCompany.id
+        // })
+
         return !this.props.company.currentCompany || this.props.company.currentCompany.courses === undefined ? null : (
             <div>
                 <h4>Name</h4>
@@ -30,7 +40,7 @@ class CompanyAccountInformation extends React.Component{
                     <p className="account-info">{this.props.company.currentCompany.email}</p>
 
                 <Button onClick={this.handleClick}>Edit Profile Information</Button>
-                {this.state.clickedEditButton === true ? 
+                {this.state.clickedEditProfileButton === true ? 
                 <div>
                     <EditCompanyProfile company={this.props.company}/>
                 </div>
@@ -50,11 +60,7 @@ class CompanyAccountInformation extends React.Component{
                             )
                         }
                 )}
-                {/* {this.props.course.filter(course => {
-                    course.company_id === this.props.company.currentCompany.id
-                }.map({
-
-                })
+                {/* {this.filteredCourses.map(course => {
                     return (
                             <div>
                                 <CCourse course={course}/>
@@ -73,21 +79,12 @@ class CompanyAccountInformation extends React.Component{
                         )
                     }
                 })}
-                {this.state.clickedEditButton === true ? 
-                <div>
-                    <p>EDIT</p>
-                </div>
-            
-                : 
-                null}
             </div>
         )
     }
-
 }
 
 const mapStateToProps = (state) => {
-    // debugger
     return {
       company: state.company,
       totalRevenue: state.totalRevenue,

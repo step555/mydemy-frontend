@@ -5,9 +5,12 @@ const coursesReducer = (state = [], action) => {
         case "FETCHED_COURSES":
             return action.payload
         case "CREATED_NEW_COURSE":
-            // debugger
             let newState = [...state, action.payload]
-            return newState
+            return {...newState}
+        case "DELETED_COURSE":
+            let filtered = state.filter(c => c.id !== action.payload.id)
+            return filtered
+            // return action.payload
         default:
             return state;
     }
@@ -44,6 +47,13 @@ const companyReducer = (state = [], action) => {
             return action.payload
         case "EDITED_COMPANY_INFO":
             return {...state, currentCompany: action.payload}
+        case "DELETED_COURSE_FROM_COMPANY":
+            // let companyWithUpdatedCourses = action.payload.filter
+            let filteredState = {...state}
+            return filteredState
+        case "CREATED_NEW_COMPANY_COURSE":
+            let addedNewCourse = {...state}
+            return addedNewCourse
         default:
             return state;
     }
@@ -89,16 +99,16 @@ const totalRevenueReducer = (state = 0, action) => {
     }
 }
 
-const selectCourseReducer = (state = [], action) => {
-    switch (action.type){
-        case "EDIT_SELECTED_COURSE":
-            return {
-                course: action.payload
-            }
-        default:
-            return state;
-    }
-}
+// const selectCourseReducer = (state = [], action) => {
+//     switch (action.type){
+//         case "EDIT_SELECTED_COURSE":
+//             return {
+//                 course: action.payload
+//             }
+//         default:
+//             return state;
+//     }
+// }
 
 
 const rootReducer = combineReducers({
@@ -110,7 +120,7 @@ const rootReducer = combineReducers({
     cartTotal: cartTotalReducer,
     checkoutCart: cartReducer,
     company: companyReducer,
-    selectedCourse: selectCourseReducer
+    // selectedCourse: selectCourseReducer
   });
   
   export default rootReducer;

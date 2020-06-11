@@ -28,8 +28,6 @@ class CartContainer extends React.Component{
             <div>
                 <h1>Shopping Cart</h1>
                 {this.props.cart.map(item => {
-                    // console.log(item)
-                    // debugger
                         return ( 
                                 <CartItem key={item.id} item={item}/>
                         )

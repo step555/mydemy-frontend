@@ -184,7 +184,6 @@ function removingFromCart(item){
         "Accept": "application/json"}
     }).then(resp => resp.json())
     .then(purchase => {
-        // purchase is error message
         console.log(purchase)
         dispatch(removedFromCart(purchase))
         })
@@ -192,7 +191,7 @@ function removingFromCart(item){
 }
 
 function removedFromCart(purchase){
-    return { type: "REMOVED_FROM_CART", payload: purchase}
+    return {type: "REMOVED_FROM_CART", payload: purchase}
 }
 
 function fetchedTotalCompanyRevenue(total){
@@ -354,7 +353,9 @@ function gotCompanyProfileFetch(company){
 function creatingNewCourse(courseInfo){
     console.log("before dispatch", courseInfo)
     return (dispatch) => {
-
+        if(typeof(courseInfo.contentCovered) === "string"){
+            courseInfo.contentCovered = [courseInfo.contentCovered]
+        }
         // let contentCovered = `${courseInfo.contentCovered}`
         let obj = {
             name: courseInfo.courseName,
@@ -377,8 +378,13 @@ function creatingNewCourse(courseInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(course => {
+            currentCompany.courses.push(course)
+            dispatch(createdNewCompanyCourse(currentCompany))
+
             dispatch(createdNewCourse(course))
             window.location.reload()
+
+
         })
     }
 }
@@ -387,19 +393,52 @@ function createdNewCourse(course){
     return {type: "CREATED_NEW_COURSE", payload: course}
 }
 
-function selectingCourse(id){
+function createdNewCompanyCourse(currentCompany){
+    return {type: "CREATED_NEW_COMPANY_COURSE", payload: currentCompany}
+}
+
+// function selectingCourse(id){
+//     return (dispatch) => {
+//     fetch(COURSES_URL + `/${id}`)
+//     .then(resp => resp.json())
+//     .then(course => {
+//         dispatch(selectedCourse(course))
+//         })
+//     }
+// }
+
+// function selectedCourse(course){
+//     return {type: "EDIT_SELECTED_COURSE", payload: course}
+// }
+
+function deletingCourse(courseId){
     return (dispatch) => {
-    fetch(COURSES_URL + `/${id}`)
-    .then(resp => resp.json())
-    .then(course => {
-        dispatch(selectedCourse(course))
-        })
+        fetch(COURSES_URL + `/${courseId}`, {
+            method: "DELETE",
+            headers: {"Content-Type": "application/json",
+            "Accept": "application/json"}
+        }).then(resp => resp.json())
+        .then(course => {
+            console.log(course)
+            dispatch(deletedCourse(course))
+            let updatedCourses = currentCompany.courses.filter(course => {
+                return course.id !== courseId
+            })
+            // dispatch(deletedCourse(updatedCourses))
+            currentCompany.courses = updatedCourses
+            dispatch(deletedCompanyCourse(currentCompany))
+            // window.location.reload()
+            })
     }
 }
 
-function selectedCourse(course){
-    return {type: "EDIT_SELECTED_COURSE", payload: course}
+function deletedCompanyCourse(currentCompany){
+    return {type: "DELETED_COURSE_FROM_COMPANY", payload: currentCompany}
 }
 
+function deletedCourse(course){
+    return {type: "DELETED_COURSE", payload: course}
+}
 
-export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+// export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

@@ -66,7 +66,6 @@ class CompanyLoginForm extends React.Component{
 }
 
 const mapDispatchToProps = (dispatch) => {
-    // debugger
     console.log("mapDispatchToProps")
     return {
         // loggingIn: (email, password) => {dispatch( loggingIn(email, password) )}

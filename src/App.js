@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import {selectingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
+// import {selectingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
+import {deletingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -53,7 +54,7 @@ class App extends React.Component{
         <Route path="/login" component={LoginForm}/>
         <Route path="/company-login" component={CompanyLoginForm}/>
         <Route path="/create-new-course" component={CreateNewCourse}/>
-        <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/>
+        {/* <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/> */}
       </Switch>
 
       {/* <Route exact path="/profile" render={() => <ProfileContainer 
@@ -97,7 +98,9 @@ const mapDispatchToProps = (dispatch) => {
     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
     creatingNewCourse: () => {dispatch(creatingNewCourse() )},
 
-    selectingCourse: () => {dispatch(selectingCourse() )}
+    // selectingCourse: () => {dispatch(selectingCourse() )}
+
+    deletingCourse: () => {dispatch(deletingCourse() )}
   }
 }
 
