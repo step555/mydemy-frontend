@@ -124,6 +124,7 @@ function editingCompanyInfo(newCompanyInfo){
             name: newCompanyInfo.name,
             email: newCompanyInfo.email
         }
+        currentCompanyId = currentCompany.id // temporary fix
         fetch(COMPANY_URL + `/${currentCompanyId}`, {
             method: "PATCH",
             headers: {"Content-Type": "application/json",
@@ -479,44 +480,60 @@ function editingCourse(courseInfo){
 // }
 
 function creatingNewUser(userInfo){
-    return (dispatch) => {
+    // return (dispatch) => {
         let obj = {
             name: userInfo.name,
             email: userInfo.email, 
             password: userInfo.password
         }
-        debugger
         fetch(USER_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
                 "Accept": "application/json"},
-            Body: JSON.stringify(obj)
+            body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(user => {
             debugger
             fetchingUser(user.email, user.password)
         })
-    }
+    // }
 }
 
 function creatingNewCompany(companyInfo){
-    return (dispatch) => {
+    debugger
+    // return (dispatch) => {
         let obj = {
             name: companyInfo.name,
             email: companyInfo.email,
             password: companyInfo.password
         }
+        debugger
         fetch(COMPANY_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
                 "Accept": "application/json"},
-            Body: JSON.stringify(obj)
+            body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(company => {
+            debugger
             fetchingCompany(company.email, company.password)
+        })
+    // }
+}
+
+function fetchingAllUsers(){
+    return (dispatch) => {
+        fetch(USER_URL)
+        .then(resp => resp.json())
+        .then(users => {
+            dispatch(fetchedAllUsers(users))
         })
     }
 }
 
+function fetchedAllUsers(users){
+    return {type: "FETCHED_ALL_USERS", payload: users}
+}
+
 // export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
-export { creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

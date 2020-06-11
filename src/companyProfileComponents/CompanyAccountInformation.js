@@ -28,7 +28,7 @@ class CompanyAccountInformation extends React.Component{
         console.log("CACCOUNTINFO", this.props)
 
         // let filteredCourses = this.props.courses.filter(course => {
-        //     debugger
+        //     // debugger
         //     return course.company_id === this.props.company.currentCompany.id
         // })
 
@@ -78,13 +78,18 @@ class CompanyAccountInformation extends React.Component{
                         <h4>Total Revenue: ${this.props.totalRevenue.totalRevenue}</h4>
                         <h4>User Purchases: </h4>
                         {this.props.company.currentCompany.purchases.map(purchase => {
-                            if(purchase.is_purchased === true){
-                                return (
-                                <div>
-                                    <CPurchase purchase={purchase}/>
-                                </div>
-                                )
-                            }
+                            // this.props.courses.map(course => {
+                                // if(course.id === purchase.id && purchase.is_purchased === true){
+                                //         let cPurchase = purchase
+                                //         debugger
+                                    return (
+                                        <div>
+                                            <CPurchase purchase={purchase}/>
+                                            {/* <CPurchase course={course}/> */}
+                                        </div>
+                                    )
+                                // }
+                            // })
                         })}
                         </div>
                     </Grid.Column>
@@ -98,7 +103,8 @@ const mapStateToProps = (state) => {
     return {
       company: state.company,
       totalRevenue: state.totalRevenue,
-    //   courses: state.courses
+      courses: state.courses,
+    //   purchases: state.purchases // does not currently exist in store
     };
 };
 

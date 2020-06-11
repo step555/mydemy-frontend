@@ -33,6 +33,15 @@ const userReducer = (state = [], action) => {
     }
 }
 
+const allUsersReducer = (state = [], action) => {
+    switch(action.type) {
+        case "FETCHED_ALL_USERS":
+            return action.payload
+        default:
+            return state;
+    }
+}
+
 const companyReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_COMPANY":
@@ -125,7 +134,8 @@ const rootReducer = combineReducers({
     cartTotal: cartTotalReducer,
     checkoutCart: cartReducer,
     company: companyReducer,
-    selectedCourse: selectCourseReducer
+    selectedCourse: selectCourseReducer,
+    allUsers: allUsersReducer
   });
   
   export default rootReducer;

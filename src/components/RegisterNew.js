@@ -40,7 +40,7 @@ class RegisterNew extends React.Component{
     handleSubmit = () => {
         if(this.state.user_or_company === "user"){
             this.props.creatingNewUser(this.state)
-        }else if(this.state.user_or_company === "company"){
+        }else if(this.state.user_or_company === "organization"){
             this.props.creatingNewCompany(this.state)
         }
     }

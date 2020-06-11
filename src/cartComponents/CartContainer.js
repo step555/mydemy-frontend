@@ -33,6 +33,7 @@ class CartContainer extends React.Component{
                         <br></br>
                         <div className="cart-container-div">
                         {this.props.cart.map(item => {
+                            debugger
                             return ( 
                                     <CartItem key={item.id} item={item}/>
                             )
