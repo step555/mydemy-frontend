@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Button} from 'semantic-ui-react'
+import {Form, Button, Grid} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {selectingCourse, editingCourse} from '../redux/actions'
 
@@ -44,20 +44,6 @@ class ViewEditCourse extends React.Component{
         //     courseName: this.props.selectedCourse.course.name,
         //     courseDescription: this.props.selectedCourse.course.text_preview
         // })
-
-        // courseName: "",
-        // courseDescription: "",
-        // price: "",
-        // duration: "",
-        // subject: "",
-        // videoPreview: "",
-        // picture: "",
-        // individualContentCovered: "",
-        // contentCovered: [],
-        // numberOfContentCovered: [],
-        // difficultyLevel: "",
-        // finished: false,
-        // wasSubmitted: false
     }
 
     addInputField = () => { // this function does not render last element of new array when clicking submit btn
@@ -188,67 +174,66 @@ class ViewEditCourse extends React.Component{
 
         console.log("VIEWEDITCOURSE", this.props)
         return !this.props.selectedCourse.course ? null  : (
-            <div>
+            <div className="view-edit-course-div">
                 {/* {this.props.selectedCourse.course.content_covered.forEach(content => {
                     this.addingContentToState(content)
                 })} */}
-                <h3>New Course Creation Form</h3>
+                <h3>View and Edit this Course</h3>
                 <Form>
-                        <Form.Group widths='equal'>
-                            <Form.Input fluid id="courseName" label='Course Name' placeholder='course name' defaultValue={this.props.selectedCourse.course.name} onChange={this.onChangeInformation} required/>
-                        </Form.Group>
-                        <Form.Group widths="equal">
-                            <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={this.props.selectedCourse.course.text_preview} onChange={this.onChangeInformation} required/>
-                        </Form.Group>
-                        <Form.Group widths="equal">
-                            <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={this.props.selectedCourse.course.price} onChange={this.onChangeInformation} required/>
-                        </Form.Group>
-                        <Form.Group widths="equal">
-                            <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={this.props.selectedCourse.course.duration} onChange={this.onChangeInformation} required
-                            fluid
-                            options={durationOptions}
-                            />
-                            <Form.Select fluid id="dificultyLevel" label='Difficulty Level' placeholder='difficulty level' defaultValue={this.props.selectedCourse.course.difficulty_level} onChange={this.onChangeInformation} required
-                            fluid
-                            options={difficultyOptions}
-                            />
-                            <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={this.props.selectedCourse.course.subject} onChange={this.onChangeInformation} required/>
-                        </Form.Group>
-                        <Form.Group widths="equal">
-                            <Form.Input fluid id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={this.props.selectedCourse.course.video_preview} onChange={this.onChangeInformation}/>
-                        {/* </Form.Group> */}
-                        {/* <Form.Group widths="equal"> */}
-                            <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={this.props.selectedCourse.course.picture} onChange={this.onChangeInformation}/>
-                        </Form.Group>
-                            <div>
-                                {this.props.selectedCourse.course.content_covered.map(content => {
-                                    // debugger
-                                    return (                                    
-                                    <Form.Group widths="equal">
-                                        <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={content} onChange={this.onChangeInformation} required/>
-                                    </Form.Group>)
-                                    })}
-                            </div>
-                        {this.state.numberOfContentCovered.map(input => {
-                        return (
-                            <div>
-                                <Form.Group widths="equal">
-                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
-                                </Form.Group>
-                            </div>
-                        )}
-                        )}
-                            <button onClick={this.addInputField}>More</button>
-                            <br></br>
-                        {this.state.finished === true ? 
+                    <Form.Group widths='equal'>
+                        <Form.Input fluid id="courseName" label='Course Name' placeholder='course name' defaultValue={this.props.selectedCourse.course.name} onChange={this.onChangeInformation} required/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={this.props.selectedCourse.course.text_preview} onChange={this.onChangeInformation} required/>
+                    </Form.Group>
+                    {/* <Form.Group widths="equal">
+                        <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={this.props.selectedCourse.course.price} onChange={this.onChangeInformation} required/>
+                    </Form.Group> */}
+                    <Form.Group widths="equal">
+                        <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={this.props.selectedCourse.course.duration} onChange={this.onChangeInformation} required
+                        fluid
+                        options={durationOptions}
+                        />
+                        <Form.Select fluid id="dificultyLevel" label='Difficulty Level' placeholder='difficulty level' defaultValue={this.props.selectedCourse.course.difficulty_level} onChange={this.onChangeInformation} required
+                        fluid
+                        options={difficultyOptions}
+                        />
+                        <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={this.props.selectedCourse.course.subject} onChange={this.onChangeInformation} required/>
+                        <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={this.props.selectedCourse.course.price} onChange={this.onChangeInformation} required/>
+                    </Form.Group>
+                    <Form.Group widths="equal">
+                        <Form.Input fluid id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={this.props.selectedCourse.course.video_preview} onChange={this.onChangeInformation}/>
+                        <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={this.props.selectedCourse.course.picture} onChange={this.onChangeInformation}/>
+                    </Form.Group>
                         <div>
-                            <p>Please review this information before submission</p>
-                            <Form.Field onClick={this.submit} control={Button}>Confirm Submission</Form.Field>
+                            {this.props.selectedCourse.course.content_covered.map(content => {
+                                // debugger
+                                return (                                    
+                                <Form.Group widths="equal">
+                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={content} onChange={this.onChangeInformation} required/>
+                                </Form.Group>)
+                                })}
                         </div>
-                            : 
-                            <Form.Field onClick={this.edit} control={Button}>Submit</Form.Field>
+                    {this.state.numberOfContentCovered.map(input => {
+                    return (
+                        <div>
+                            <Form.Group widths="equal">
+                                <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            </Form.Group>
+                        </div>
+                    )}
+                    )}
+                        <button onClick={this.addInputField}>More</button>
+                        <br></br>
+                    {this.state.finished === true ? 
+                    <div>
+                        <p>Please review this information before submission</p>
+                        <Form.Field onClick={this.submit} control={Button}>Confirm Submission</Form.Field>
+                    </div>
+                        : 
+                        <Form.Field onClick={this.edit} control={Button}>Submit</Form.Field>
                         }
-                    </Form>
+                </Form>
             </div>
         )
     }

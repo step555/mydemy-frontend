@@ -141,9 +141,9 @@ class CreateNewCourse extends React.Component {
                         <Form.Group widths="equal">
                             <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
-                        <Form.Group widths="equal">
+                        {/* <Form.Group widths="equal">
                             <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={""} onChange={this.onChangeInformation} required/>
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group widths="equal">
                             <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={""} onChange={this.onChangeInformation} required
                             fluid
@@ -154,6 +154,7 @@ class CreateNewCourse extends React.Component {
                             options={difficultyOptions}
                             />
                             <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
                             <Form.Input fluid id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>

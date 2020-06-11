@@ -19,6 +19,7 @@ import CompanyLoginForm from "./components/CompanyLoginForm"
 import CompanyProfileContainer from "./companyProfileComponents/CompanyProfileContainer"
 import CreateNewCourse from "./companyProfileComponents/CreateNewCourse"
 import ViewEditCourse from "./companyProfileComponents/ViewEditCourse"
+import Home from "./components/Home"
 
 class App extends React.Component{
 
@@ -55,6 +56,7 @@ class App extends React.Component{
         <Route path="/company-login" component={CompanyLoginForm}/>
         <Route path="/create-new-course" component={CreateNewCourse}/>
         <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/>
+        <Route path="/" component={Home}/>
       </Switch>
 
       {/* <Route exact path="/profile" render={() => <ProfileContainer 

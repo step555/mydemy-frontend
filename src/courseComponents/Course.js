@@ -20,7 +20,10 @@ class Course extends React.Component{
                     <Grid.Column width={9}>
                     <h1>{this.props.course.name}</h1>
                     {/* cart picture? */}
+                    {localStorage.is_user === "true" ? 
                     <Button onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
+                    : 
+                    null}
                     <br></br>
                     <br></br>
                     <h2>About this course</h2>
@@ -64,7 +67,8 @@ class Course extends React.Component{
 
 const mapStateToProps = (state, ownProps) => ({
     course: state.courses.find(c => {
-        return c.id === parseInt(ownProps.match.params.courseId)})
+        return c.id === parseInt(ownProps.match.params.courseId)}),
+    user: state.user
 })
 
 const mapDispatchToProps = (dispatch) => {

@@ -138,5 +138,23 @@
 }
 
 .account-purchases-div {
+  margin-top: -10px;
   margin-left: 30px;
 }
+
+.h3-course {
+  padding-left: 110px;
+}
+
+.company-account-info-div {
+  padding-left: 100px;
+}
+
+.company-account-info-purchases-div {
+  padding-left: 150px;
+}
+
+/* .view-edit-course-div {
+  
+} */
+
