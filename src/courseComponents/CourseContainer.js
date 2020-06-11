@@ -17,6 +17,7 @@ class CourseList extends React.Component{
                         component={CourseContainer}
                     />
                 </Switch> */}
+                {/* searchbar here */}
                 <div className="course-container">
                     <Grid relaxed columns={4}>
                         {this.props.courses.map(course => {
