@@ -6,7 +6,6 @@ class UserProfileContainer extends React.Component{
     render(){
         return(
             <div>
-                Profile Container
                 <AccountInformation/>
             </div>
         )

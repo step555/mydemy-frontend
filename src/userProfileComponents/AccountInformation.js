@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import PurchasedCourse from './PurchasedCourse'
-import {Button} from 'semantic-ui-react'
+import {Button, Grid} from 'semantic-ui-react'
 import {editingUserInfo} from '../redux/actions'
 import EditUserProfile from './EditUserProfile'
 
@@ -27,32 +27,40 @@ class AccountInformation extends React.Component{
         console.log("account information", this.props)
         return !this.props.user.currentUser || this.props.user.currentUser.courses === undefined ? null : (
         // return !this.props.user.currentUser ? null : (
-            <div>
+            <div className="account-info-div">
                 <h1>Account information</h1>
-                <h4>Name</h4>
-                    <p className="account-info">{this.props.user.currentUser.name}</p>
-                <h4>Email Address</h4>
-                    <p className="account-info">{this.props.user.currentUser.email}</p>
-                <Button onClick={this.handleClick}>Edit Profile Information</Button>
-                {this.state.clickedEditButton === true ? 
-                <div>
-                    <EditUserProfile user={this.props.user}/>
-                </div>
-                :
-                null
-                }
-                <h4>Courses</h4>
-                 {this.props.user.currentUser.courses.map(course => {
-                    for(let i = 0; i < this.props.user.currentUser.purchases.length; i++){
-                        if(course.id === this.props.user.currentUser.purchases[i].course_id && this.props.user.currentUser.purchases[i].is_purchased === false){
-                            return (
-                                <div>
-                                    <PurchasedCourse course={course}/>
-                                </div>
-                            )
-                        }}
-                    }
-                )}
+                <Grid>
+                    <Grid.Column width={4}>
+                        <h4>Name</h4>
+                            <p className="account-info">{this.props.user.currentUser.name}</p>
+                        <h4>Email Address</h4>
+                            <p className="account-info">{this.props.user.currentUser.email}</p>
+                        <Button onClick={this.handleClick}>Edit Profile Information</Button>
+                        {this.state.clickedEditButton === true ? 
+                        <div>
+                            <EditUserProfile user={this.props.user}/>
+                        </div>
+                        :
+                        null
+                        }
+                        </Grid.Column>
+                        <Grid.Column width={5}>
+                            <div className="account-purchases-div">
+                                <h3>Courses</h3>
+                                {this.props.user.currentUser.courses.map(course => {
+                                    for(let i = 0; i < this.props.user.currentUser.purchases.length; i++){
+                                        if(course.id === this.props.user.currentUser.purchases[i].course_id && this.props.user.currentUser.purchases[i].is_purchased === false){
+                                            return (
+                                                <div>
+                                                    <PurchasedCourse course={course}/>
+                                                </div>
+                                            )
+                                        }}
+                                    }
+                                )}
+                            </div>
+                        </Grid.Column>
+                </Grid>
             </div>
         )
     }

@@ -120,3 +120,23 @@
 .blue-book {
   width: 100%;
 }
+
+.cart-item-div {
+  margin-left: 30px;
+}
+
+.cart-container-div {
+  margin-left: 30px;
+}
+
+.shopping-cart {
+  margin-left: 30px;
+}
+
+.account-info-div {
+  margin-left: 50px;
+}
+
+.account-purchases-div {
+  margin-left: 30px;
+}
