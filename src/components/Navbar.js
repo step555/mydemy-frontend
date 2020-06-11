@@ -64,26 +64,18 @@ const Navbar = (props) => {
             <a href="#">Careers</a> 
             <a href="#">About Us</a> 
             <a href="#">Contact Us</a> 
-            <div className="topnav-right">
+            <div className="navlist-right">
             <Link to="/course-list">Courses</Link>
             {/* dropdown for profile to display account and dashboard? */}
             {props.user.currentUser || props.company.currentCompany ? 
-                <div>
-                    {props.user.currentUser ? 
-                    <Link to="/profile">Profile</Link>
-                    :
-                    <Link to="/company-profile">Company Profile</Link>
-                    }
-                    {!props.user.currentUser ? null
-                    :
-                        <Link to="/cart">Cart</Link>
-                    }
-                    <Link to="/" onClick={handleClick}>Log out</Link>
+                <div className="navlist-right">
+                    {props.user.currentUser ? <Link to="/profile">Profile</Link> : null}
+                    {props.company.currentCompany ? <Link to="/company-profile">Profile</Link> : null}
+                    {!props.user.currentUser ? null : <Link to="/cart">Cart</Link>}
+                    {props.user.currentUser ? <Link to="/" onClick={handleClick}>Log out</Link> : <Link to="/login">Log in</Link>}
                 </div>
                     : 
-                <div>
-                    <Link to="/login">Log in</Link>
-                </div> 
+                null
             }
             </div>
 

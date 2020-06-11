@@ -33,33 +33,37 @@ class CompanyLoginForm extends React.Component{
     render(){
         return(
             <div>
-                <Form
-                size="mini"
-                key="mini"
-                onSubmit={this.handleLoginSubmit}
-                >
-                {/* <Form.Group widths="equal"> */}
-                <Segment stacked>
-                <Form.Input
-                    label="email"
-                    placeholder="email"
-                    name="email"
-                    onChange={this.handleChange}
-                    value={this.state.email}
-                />
-                <Form.Input
-                    type="password"
-                    label="password"
-                    placeholder="password"
-                    name="password"
-                    onChange={this.handleChange}
-                    value={this.state.password}
-                />
-                <Button type="submit">Login</Button>
-                </Segment>
-                </Form>
-                <Link to="/login">Click here to log in if you are a user</Link>
-                {/* <Link to="/login">Log in</Link> */}
+                <Grid textAlign='center' style={{ height: '75vh'}} verticalAlign='middle' className="user-login">
+                <Grid.Column style={{ maxWidth: 450 }}>
+                    <Form
+                    size="mini"
+                    key="mini"
+                    onSubmit={this.handleLoginSubmit}
+                    >
+                    {/* <Form.Group widths="equal"> */}
+                    <Segment stacked>
+                    <Form.Input
+                        label="email"
+                        placeholder="email"
+                        name="email"
+                        onChange={this.handleChange}
+                        value={this.state.email}
+                    />
+                    <Form.Input
+                        type="password"
+                        label="password"
+                        placeholder="password"
+                        name="password"
+                        onChange={this.handleChange}
+                        value={this.state.password}
+                    />
+                    <Button type="submit">Login</Button>
+                    </Segment>
+                    </Form>
+                    <Link to="/login">Click here to log in if you are a user</Link>
+                    {/* <Link to="/login">Log in</Link> */}
+                </Grid.Column>
+                </Grid>
             </div>
         )
     }
