@@ -2,7 +2,6 @@ import React from 'react'
 import {Card} from 'semantic-ui-react'
 
 const PurchasedCourse = (props) => {
-    console.log("props", props)
     return(
         <div>
             <Card>

@@ -20,7 +20,7 @@ class Course extends React.Component{
                     <Grid.Column width={9}>
                     <h1>{this.props.course.name}</h1>
                     {/* cart picture? */}
-                    {localStorage.is_user === "true" ? 
+                    {localStorage.user_or_company === "user" ? 
                     <Button onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
                     : 
                     null}

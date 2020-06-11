@@ -478,5 +478,45 @@ function editingCourse(courseInfo){
 //     return {type: "EDITED_COURSE", payload: course}
 // }
 
+function creatingNewUser(userInfo){
+    return (dispatch) => {
+        let obj = {
+            name: userInfo.name,
+            email: userInfo.email, 
+            password: userInfo.password
+        }
+        debugger
+        fetch(USER_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                "Accept": "application/json"},
+            Body: JSON.stringify(obj)
+        }).then(resp => resp.json())
+        .then(user => {
+            debugger
+            fetchingUser(user.email, user.password)
+        })
+    }
+}
+
+function creatingNewCompany(companyInfo){
+    return (dispatch) => {
+        let obj = {
+            name: companyInfo.name,
+            email: companyInfo.email,
+            password: companyInfo.password
+        }
+        fetch(COMPANY_URL, {
+            method: "POST",
+            headers: {"Content-Type": "application/json",
+                "Accept": "application/json"},
+            Body: JSON.stringify(obj)
+        }).then(resp => resp.json())
+        .then(company => {
+            fetchingCompany(company.email, company.password)
+        })
+    }
+}
+
 // export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
-export { editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

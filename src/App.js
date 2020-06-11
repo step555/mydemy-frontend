@@ -20,6 +20,7 @@ import CompanyProfileContainer from "./companyProfileComponents/CompanyProfileCo
 import CreateNewCourse from "./companyProfileComponents/CreateNewCourse"
 import ViewEditCourse from "./companyProfileComponents/ViewEditCourse"
 import Home from "./components/Home"
+import RegisterNew from "./components/RegisterNew"
 
 class App extends React.Component{
 
@@ -44,7 +45,6 @@ class App extends React.Component{
     <div className="app">
 
       <Navbar />
-      <br></br>
       <Switch>
         <Route path="/course-list/:courseId" component={Course}/>
         <Route path="/course-list" component={CourseContainer}/>
@@ -56,6 +56,8 @@ class App extends React.Component{
         <Route path="/company-login" component={CompanyLoginForm}/>
         <Route path="/create-new-course" component={CreateNewCourse}/>
         <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/>
+        <Route path="/register" component={RegisterNew}/>
+        <Route path="/sign-up" component={RegisterNew}/>
         <Route path="/" component={Home}/>
       </Switch>
 

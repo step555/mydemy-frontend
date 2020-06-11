@@ -48,8 +48,10 @@ class AccountInformation extends React.Component{
                             <div className="account-purchases-div">
                                 <h3 className="h3-course">Courses</h3>
                                 {this.props.user.currentUser.courses.map(course => {
+                                    // debugger
                                     for(let i = 0; i < this.props.user.currentUser.purchases.length; i++){
-                                        if(course.id === this.props.user.currentUser.purchases[i].course_id && this.props.user.currentUser.purchases[i].is_purchased === false){
+                                        // debugger
+                                        if(course.id === this.props.user.currentUser.purchases[i].course_id && this.props.user.currentUser.purchases[i].is_purchased === true){
                                             return (
                                                 <div>
                                                     <PurchasedCourse course={course}/>

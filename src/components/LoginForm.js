@@ -62,6 +62,12 @@ class LoginForm extends React.Component{
                     </Form>
                     <Link to="/company-login">Click here to log in here if you are an institution of learning</Link>
                     {/* <Link to="/login">Log in</Link> */}
+                    {localStorage.user_or_company === "user" || localStorage.user_or_company === "company" ? null
+                    : 
+                    <Message>
+                    <Link to="/sign-up">Don't have an account? Sign up here</Link>
+                    </Message>
+                    }
                 </Grid.Column>
                 </Grid>
             </div>

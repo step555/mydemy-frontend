@@ -7,8 +7,13 @@ import { Grid } from 'semantic-ui-react'
 class CourseList extends React.Component{
     render(){
         return(
-            <div>
-                <h1>Courses</h1>
+            <div clasName="course-container-div">
+                <div className="courses-top-div">
+                    <h1 className="courses-title">Browse Our Courses Here</h1>
+                    <div class="wrapper">
+                        <input class="search" placeholder="Search" type="text" name="search" onChange={null}></input>
+                    </div>
+                </div>
                 <br></br><br></br>
                 {/* {this.props.course.name} */}
                 {/* <Switch>

@@ -53,7 +53,9 @@ const Navbar = (props) => {
 
     const handleClick = (event) => {
         console.log("logging out")
-        localStorage.removeItem("token")
+        // localStorage.removeItem("token")
+        // localStorage.removeItem("is_company_or_user")
+        localStorage.clear()
         props.logoutUser()
     }
 
@@ -81,7 +83,7 @@ const Navbar = (props) => {
                     <Link to="/" onClick={handleClick}>Log out</Link> 
                 </div>
                     : 
-                    <Link to="/login">Log in</Link>
+                        <Link to="/login">Log in/Register</Link>
             }
             </div>
 
