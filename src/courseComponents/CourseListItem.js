@@ -11,17 +11,17 @@ class CourseListItem extends React.Component{
         return(
             // <div className="course-card">
             <div className="course-card-div">
-                <Card.Group>
-                    <Card className="course-card">
-                        <Link to={`/course-list/${this.props.course.id}/`} >
+                <Link to={`/course-list/${this.props.course.id}/`} >
+                    <Card.Group>
+                        <Card className="course-card">
+                            <Image classname="course-card-image" src={this.props.course.picture} />
                             <Card.Content>
-                                <img src="picture"></img>
                                 <h3 className="course-card-text">{this.props.course.name}</h3>
                                 <h5 className="course-card-text">{this.props.course.company.name}</h5>
                             </Card.Content>
-                        </Link>
-                    </Card>
-                </Card.Group>
+                        </Card>
+                    </Card.Group>
+                </Link>
             </div>
         )
     }
