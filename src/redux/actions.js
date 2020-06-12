@@ -52,13 +52,14 @@ function fetchingUser(email, password){
                 }else{
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
-                    currentUser = user.user
+                    // currentUser = user.user
                     currentUserId = user.user.id
                 fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(user => {
         
                     if(!user.status){
+                        currentUser = user
                         dispatch(fetchedUser(user))
                     }
                 })
@@ -234,14 +235,15 @@ function totalRevenue(){
 
 function addingToCart(course){
     // here check if user already has course in cart. if yes then return null? else do the below
-    // I may need to add a unique course code to the database for each course
     return (dispatch, getState) => {
-        // for(let i = 0; i < course.users.length; i++){
-            // if(course.users[i].email === currentUser.email){ // bugged
-            //     i = course.users.length
-            //     dispatch(addedToCart())
-            // }else{
-
+        let alreadyInCart = false
+        for(let i = 0; i < course.users.length; i++){
+            if(course.users[i].id === currentUserId){
+                alreadyInCart = true
+                i = course.users.length
+                alert("You already own this item")
+                dispatch(alreadyOwned())
+            }else{
         const obj = {
             course_id: course.id,
             user_id: currentUser.id,
@@ -261,8 +263,8 @@ function addingToCart(course){
             purchase.course = course // experimental change
             dispatch(addedToCart(purchase))
         })
-    // }
-    // }
+    }
+    }
 }}
 
 function addedToCart(purchase){
@@ -271,6 +273,13 @@ function addedToCart(purchase){
     return { 
         type: "ADD_TO_CART", 
         payload: purchase}
+}
+
+function alreadyOwned(){
+    return {
+        type: "ALREADY_OWNED",
+
+    }
 }
 
 function checkingOutCart(cart){
@@ -328,12 +337,13 @@ function fetchingCompany(email, password){
                     }else{
                         localStorage.setItem("token", company.token)
                         localStorage.setItem("user_or_company", "company")
-                        currentCompany = company.company
+                        // currentCompany = company.company
                         currentCompanyId = company.company.id
                         fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches user courses and purchases
                         .then(resp => resp.json())
                         .then(company => {
                             if(!company.status){
+                                currentCompany = company.company
                                 dispatch(gotCompanyProfileFetch(company))
                             }
                 })
