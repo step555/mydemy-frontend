@@ -51,6 +51,7 @@ function fetchingUser(email, password){
                 }else{
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
+                    debugger
                     currentUser = user.user
                     currentUserId = user.user.id
                     dispatch(fetchedUser(user.user))

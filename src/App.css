@@ -256,6 +256,11 @@
   height:18em;
 }
 
+.cart-image {
+  width:14em; 
+  height:9em;
+}
+
 .course-card-info {
   margin-top: -10px;
 }

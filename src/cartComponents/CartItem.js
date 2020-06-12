@@ -13,8 +13,8 @@ const CartItem = (props) => {
     return(
         <div className="cart-item-div">
             <Grid>
-                <Grid.Column width={2}>
-                    <img src="" alt={props.item.course.picture}></img>
+                <Grid.Column width={4}>
+                    <img className="cart-image" src={props.item.course.picture} alt={props.item.course.picture}></img>
                     {/* column */}
                 </Grid.Column>
                 <Grid.Column width={8}>

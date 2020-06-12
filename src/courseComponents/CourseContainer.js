@@ -91,7 +91,12 @@ class CourseList extends React.Component{
                                 <CourseDropdown />
                             {/* </Grid.Column>
                         </Grid> */}
+                        <div>
+                            <p>back</p>
+                            <p>forward</p>
+                        </div>
                     </div>
+
                 </div>
                 <br></br><br></br>
                 {/* {this.props.course.name} */}
