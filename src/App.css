@@ -295,3 +295,7 @@
 .review-before-submission-h2 {
   text-align: center;
 }
+
+.user-course-div {
+  cursor: pointer;
+}

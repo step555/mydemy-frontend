@@ -6,7 +6,8 @@ const coursesReducer = (state = [], action) => {
             return action.payload
         case "CREATED_NEW_COURSE":
             let newState = [...state, action.payload]
-            return {...newState}
+            return newState
+            // return [...newState]
         case "DELETED_COURSE":
             let filtered = state.filter(c => c.id !== action.payload.id)
             return filtered
@@ -57,11 +58,12 @@ const companyReducer = (state = [], action) => {
         case "EDITED_COMPANY_INFO":
             return {...state, currentCompany: action.payload}
         case "DELETED_COURSE_FROM_COMPANY":
-            // let companyWithUpdatedCourses = action.payload.filter
             let filteredState = {...state}
             return filteredState
         case "CREATED_NEW_COMPANY_COURSE":
             let addedNewCourse = {...state}
+            // debugger
+            // let addedNewCourse = [...state]
             return addedNewCourse
         default:
             return state;
@@ -73,7 +75,7 @@ const cartReducer = (state = [], action) => {
         case "FETCHED_USER_CART":
             return action.payload
         case "ADD_TO_CART":
-            let foundInsideCart = false
+            // let foundInsideCart = false
             // debugger
             // for(let i = 0; i < state.length; i++){
             //     if(state[i].course_id === action.payload.course_id){
@@ -87,17 +89,20 @@ const cartReducer = (state = [], action) => {
             //         return state
             //     }else{
                     // alert("This course has been successfully added to your cart")
-                    let newState = [action.payload, ...state]
+                    debugger
+                    let newState = [action.payload, ...state] // state defaulted to an array here
                     return newState
                 // }
         case "ALREADY_OWNED":
-            // debugger
             return state
         case "CHECKOUT_CART":
             return action.payload
         case "REMOVED_FROM_CART":
-            state = state.filter(p => p.id !== action.payload.id)
-            return state
+            debugger
+            let stateWithoutRemovedItem = state.filter(p => p.id !== action.payload.id)
+            debugger
+            // return {...stateWithoutRemovedItem} // this was returning state as an object which interfered with show cart
+            return [...stateWithoutRemovedItem]
         default:
             return state;
     }
@@ -128,13 +133,18 @@ const totalRevenueReducer = (state = 0, action) => {
 const selectCourseReducer = (state = [], action) => {
     switch (action.type){
         case "EDIT_SELECTED_COURSE":
+            // let updatedCourse = {selectedCourse: action.payload}
+            // let updated  = {...updatedCourse}
+            // let course = updatedCourse.selectedCourse
             return {
                 course: action.payload
+                // course: updated
+                // course
+                // updatedCourse.selectedCourse
             }
         // case "EDITED_COURSE":
         //     let updatedCourse = {selectedCourse: action.payload}
         //     let updated = {...updatedCourse}
-        //     debugger
         //     return updated
         default:
             return state;

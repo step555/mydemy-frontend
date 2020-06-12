@@ -57,7 +57,7 @@ function fetchingUser(email, password){
                 fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(user => {
-        
+                    debugger
                     if(!user.status){
                         currentUser = user
                         dispatch(fetchedUser(user))
@@ -172,7 +172,8 @@ function fetchingUserCart(){
         .then(resp => resp.json())
         .then(purchases => {
             // debugger // below line is prone to having errors
-            const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
+            // const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
+            const userPurchases = purchases.filter(p => p.user_id === currentUserId)
             const userCart = userPurchases.filter(p => p.is_purchased === false)
             let total = 0
             userCart.forEach(p => total += p.course.price)
@@ -200,6 +201,8 @@ function removingFromCart(item){
     }).then(resp => resp.json())
     .then(purchase => {
         console.log(purchase)
+        debugger // below line is prone to errors
+        currentUser.purchases = currentUser.purchases.filter(p => p.id !== purchase.id)
         dispatch(removedFromCart(purchase))
         })
     }
@@ -236,23 +239,23 @@ function totalRevenue(){
 
 function addingToCart(course){
     return (dispatch, getState) => {
-        let alreadyInCart = false
-        let alreadyPurchased = false
+        let alreadyInCartOrPurchased = false
         for(let i = 0; i < course.users.length; i++){
             if(course.users[i].id === currentUserId){
-                alreadyPurchased = true
+                alreadyInCartOrPurchased = true
                 i = course.users.length
                 // alert("You already purchased this course")
                 // dispatch(alreadyOwned())
             }
         }
             // else{
+                debugger
         for(let j = 0; j < course.purchases.length; j++){
             for(let k = 0; k < currentUser.purchases.length; k++){
-                // debugger
+                debugger
                 if(course.purchases[j].id === currentUser.purchases[k].id){
-                    // debugger
-                    alreadyInCart = true
+                    debugger
+                    alreadyInCartOrPurchased = true
                     k = currentUser.purchases.length
                     j = course.purchases.length
                     // alert("This course is already in your cart")
@@ -260,14 +263,11 @@ function addingToCart(course){
                 }
             }
         }
-            if(alreadyInCart === true || alreadyPurchased === true){
-                // debugger
+            if(alreadyInCartOrPurchased === true){
+                debugger
                 alert("You have either already purchased this course or it is currently inside your cart")
                 dispatch(alreadyOwned())
             }else{
-
-                //     }
-                // }
         const obj = {
             course_id: course.id,
             user_id: currentUser.id,
@@ -275,6 +275,7 @@ function addingToCart(course){
             course: course, 
             user: currentUser
         }
+        // debugger
         fetch(PURCHASES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -284,6 +285,16 @@ function addingToCart(course){
         })
         .then(resp => resp.json())
         .then(purchase => {
+            for(let i = 0; i < currentUser.purchases.length; i++){
+                debugger
+                // if(!currentUser.purchases[i].id.includes(purchase.id)){
+                    if(currentUser.purchases[i].id === (purchase.id)){ // check if ids are same
+                        debugger
+                        currentUser.purchases = [...currentUser.purchases, purchase]
+                        debugger
+                    }
+            }
+            
             purchase.course = course // experimental change
             dispatch(addedToCart(purchase))
         })
@@ -416,7 +427,10 @@ function creatingNewCourse(courseInfo){
     return (dispatch) => {
         if(typeof(courseInfo.contentCovered) === "string"){
             courseInfo.contentCovered = [courseInfo.contentCovered]
+        }else if(courseInfo.contentCovered.includes("")){
+            courseInfo.contentCovered = courseInfo.contentCovered.filter(i => i !== "")
         }
+
         // let contentCovered = `${courseInfo.contentCovered}`
         let obj = {
             name: courseInfo.courseName,
@@ -429,7 +443,6 @@ function creatingNewCourse(courseInfo){
             content_covered: courseInfo.contentCovered,
             // content_covered: contentCovered,
             picture: courseInfo.picture,
-
             company_id: currentCompanyId
         }
         fetch(COURSES_URL, {
@@ -443,7 +456,7 @@ function creatingNewCourse(courseInfo){
             dispatch(createdNewCompanyCourse(currentCompany))
 
             dispatch(createdNewCourse(course))
-            window.location.reload()
+            // window.location.reload()
         })
     }
 }
@@ -461,6 +474,7 @@ function selectingCourse(id){
     fetch(COURSES_URL + `/${id}`)
     .then(resp => resp.json())
     .then(course => {
+        // debugger
         dispatch(selectedCourse(course))
         })
     }
@@ -501,10 +515,12 @@ function deletedCourse(course){
 
 function editingCourse(courseInfo){
     return (dispatch) => {
+        let contentCovered
         if(typeof(courseInfo.contentCovered) === "string"){
             courseInfo.contentCovered = [courseInfo.contentCovered]
+        }else if(courseInfo.contentCovered.includes("")){
+            courseInfo.contentCovered = courseInfo.contentCovered.filter(i => i !== "")
         }
-        // let contentCovered = `${courseInfo.contentCovered}`
         let obj = {
             name: courseInfo.courseName,
             text_preview: courseInfo.courseDescription,

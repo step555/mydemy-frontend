@@ -67,15 +67,35 @@ class CreateNewCourse extends React.Component {
             let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
             this.setState({subject: forcedCapitalization})
         }
+        
     }
     
+    // addInputField = () => { // this function does not render last element of new array when clicking submit btn
+    //     let newNumInput = [...this.state.numberOfContentCovered, 1]
+    //     this.setState({numberOfContentCovered: newNumInput})
+    //     // on add input field, add individualContentCovered to contentCovered array
+    //     let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+
+    //     this.setState({contentCovered: newContentCoveredArray})
+    // }
+
     addInputField = () => { // this function does not render last element of new array when clicking submit btn
+        console.log("adding field")
+        
         let newNumInput = [...this.state.numberOfContentCovered, 1]
         this.setState({numberOfContentCovered: newNumInput})
+        let newContentCoveredArray
         // on add input field, add individualContentCovered to contentCovered array
-        let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+        if(this.state.individualContentCovered === "" && this.state.contentCovered.length === 0){
+            // debugger
+            newContentCoveredArray = [...this.state.contentCovered, this.props.selectedCourse.course.content_covered[0]]
+            this.setState({contentCovered: newContentCoveredArray})
+        }else{
+            newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+            this.setState({contentCovered: newContentCoveredArray})
+        }
 
-        this.setState({contentCovered: newContentCoveredArray})
+        this.setState({individualContentCovered: ""})
     }
     
     edit = () => { 
@@ -97,6 +117,11 @@ class CreateNewCourse extends React.Component {
             if(this.state.contentCovered.length === 0){
                 this.setState({contentCovered: this.state.individualContentCovered})
             }
+
+            // if(this.state.contentCovered.includes("")){ // in case contentCovered array has "" in any index
+            //  this.state.contentCovered.filter(content => content !== "")
+            // }
+
             this.setState({finished: !this.state.finished})
         // }
     }

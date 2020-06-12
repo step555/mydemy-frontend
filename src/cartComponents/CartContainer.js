@@ -26,11 +26,10 @@ class CartContainer extends React.Component{
     }
 
     render(){
-        // debugger
         console.log("Cart contents", this.props)
+        debugger
         
         return !this.props.cart || this.props.cart.length === undefined ? null : (
-            // I could make columns like amazon. total price on right, cart items on left
             <div>
                 <Grid>
                     <Grid.Column width={10}>
@@ -38,7 +37,7 @@ class CartContainer extends React.Component{
                         <br></br>
                         <div className="cart-container-div">
                         {this.props.cart.map(item => {
-                            // debugger
+                            debugger
                             return ( 
                                     <CartItem key={item.id} item={item}/>
                             )

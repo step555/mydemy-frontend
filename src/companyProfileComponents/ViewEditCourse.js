@@ -33,12 +33,11 @@ class ViewEditCourse extends React.Component{
         })
         let courseId = parseInt(this.props.match.params.courseId)
         this.props.selectingCourse(courseId)
-
-       
+        console.log("courseId", courseId)
     }
 
     componentDidMount(){
-        console.log("component mounted", this.props)
+        console.log("component mounted", this.props.selectedCourse)
         // this.setState({ courseName: this.props.selectedCourse.course.name })
         // this.setState({ 
         //     courseName: this.props.selectedCourse.course.name,
@@ -47,19 +46,19 @@ class ViewEditCourse extends React.Component{
     }
 
     addInputField = () => { // this function does not render last element of new array when clicking submit btn
-        console.log("adding field")
-        
         let newNumInput = [...this.state.numberOfContentCovered, 1]
         this.setState({numberOfContentCovered: newNumInput})
-        // on add input field, add individualContentCovered to contentCovered array
         let newContentCoveredArray
+        // on add input field, add individualContentCovered to contentCovered array
         if(this.state.individualContentCovered === "" && this.state.contentCovered.length === 0){
+            // debugger
             newContentCoveredArray = [...this.state.contentCovered, this.props.selectedCourse.course.content_covered[0]]
             this.setState({contentCovered: newContentCoveredArray})
         }else{
             newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
             this.setState({contentCovered: newContentCoveredArray})
         }
+        this.setState({ individualContentCovered: "" })
     }
 
     onChangeInformation = (event) => {
@@ -144,6 +143,10 @@ class ViewEditCourse extends React.Component{
             this.setState({difficultyLevel: this.props.selectedCourse.course.difficulty_level})
         }
         this.setState({courseId: this.props.selectedCourse.course.id})
+
+        // if(this.state.contentCovered.includes("")){ // in case contentCovered array has "" in any index
+        //     this.state.contentCovered.filter(content => content !== "")
+        // }
     }
 
     submit = () => {
@@ -153,7 +156,6 @@ class ViewEditCourse extends React.Component{
     }
 
     addingContentToState = (content) => {
-        console.log("FUNC")
         this.setState({ contentCovered: [...this.state.contentCovered, content] })
     }
 
@@ -214,7 +216,7 @@ class ViewEditCourse extends React.Component{
                                 </Form.Group>)
                                 })}
                         </div>
-                    {this.state.numberOfContentCovered.map(input => {
+                    {this.state.numberOfContentCovered.map(input => { // "", ""] needs to be fixed
                     return (
                         <div>
                             <Form.Group widths="equal">
@@ -241,7 +243,7 @@ class ViewEditCourse extends React.Component{
 
 const mapStateToProps = (state) => {
     // debugger
-    console.log(state.selectedCourse)
+    console.log("map state to props", state.selectedCourse)
     return {
         selectedCourse: state.selectedCourse
     };

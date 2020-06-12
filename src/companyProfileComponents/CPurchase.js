@@ -9,19 +9,16 @@ class CPurchase extends React.Component{
         this.props.fetchingAllUsers()
     }
     render(){
-        console.log("CPurchase", this.props)
         this.props.courses.filter(c => {
             if(c.id === this.props.purchase.course_id){
             //     let pCourse = c
             this.props.purchase.course = c
-            // debugger
             }
         })
         this.props.users.filter(u => {
             if(u.id === this.props.purchase.user_id){
             //     let pCourse = c
             this.props.purchase.user = u
-            // debugger
             }
         })
         return(
