@@ -27,7 +27,6 @@ class CartContainer extends React.Component{
 
     render(){
         console.log("Cart contents", this.props)
-        debugger
         
         return !this.props.cart || this.props.cart.length === undefined ? null : (
             <div>
@@ -37,7 +36,7 @@ class CartContainer extends React.Component{
                         <br></br>
                         <div className="cart-container-div">
                         {this.props.cart.map(item => {
-                            debugger
+
                             return ( 
                                     <CartItem key={item.id} item={item}/>
                             )

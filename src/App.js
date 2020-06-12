@@ -33,7 +33,7 @@ class App extends React.Component{
     this.props.gettingCompanyProfileFetch()
 
     if(localStorage.token && localStorage.user_or_company === "user"){
-      debugger
+      // debugger
       this.props.fetchingUserCart()
     }
     this.props.cartTotal()

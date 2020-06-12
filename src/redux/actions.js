@@ -249,18 +249,27 @@ function addingToCart(course){
             }
         }
             // else{
-                debugger
-        for(let j = 0; j < course.purchases.length; j++){
-            for(let k = 0; k < currentUser.purchases.length; k++){
-                debugger
-                if(course.purchases[j].id === currentUser.purchases[k].id){
-                    debugger
-                    alreadyInCartOrPurchased = true
-                    k = currentUser.purchases.length
-                    j = course.purchases.length
-                    // alert("This course is already in your cart")
-                    // dispatch(alreadyOwned())
-                }
+                
+        // for(let j = 0; j < course.purchases.length; j++){
+        //     debugger
+        //     for(let k = 0; k < currentUser.purchases.length; k++){
+        //         debugger
+        //         if(course.purchases[j].id === currentUser.purchases[k].id){
+        //             debugger
+        //             alreadyInCartOrPurchased = true
+        //             k = currentUser.purchases.length
+        //             j = course.purchases.length
+        //             // alert("This course is already in your cart")
+        //             // dispatch(alreadyOwned())
+        //         }
+        //     }
+        // }
+        for(let k = 0; k < currentUser.purchases.length; k++){
+            debugger
+            if(course.id === currentUser.purchases[k].course_id){
+                alreadyInCartOrPurchased = true
+                k = currentUser.purchases.length
+                // j = course.purchases.length
             }
         }
             if(alreadyInCartOrPurchased === true){
@@ -285,15 +294,15 @@ function addingToCart(course){
         })
         .then(resp => resp.json())
         .then(purchase => {
-            for(let i = 0; i < currentUser.purchases.length; i++){
-                debugger
+            // for(let i = 0; i < currentUser.purchases.length; i++){
+            //     debugger
                 // if(!currentUser.purchases[i].id.includes(purchase.id)){
-                    if(currentUser.purchases[i].id === (purchase.id)){ // check if ids are same
-                        debugger
+                    // if(currentUser.purchases[i].id === (purchase.id)){ 
+                    //     debugger
                         currentUser.purchases = [...currentUser.purchases, purchase]
                         debugger
-                    }
-            }
+                    // }
+            // }
             
             purchase.course = course // experimental change
             dispatch(addedToCart(purchase))
