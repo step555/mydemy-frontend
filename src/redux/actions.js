@@ -77,7 +77,7 @@ function gettingProfileFetch(){
             })
             .then(resp => resp.json())
             .then(user => { 
-                currentUser = user
+                // currentUser = user
                 currentUserId = user.id
                 if(user.message){
                     localStorage.removeItem("token")
@@ -87,6 +87,7 @@ function gettingProfileFetch(){
                 .then(user => {
         
                     if(!user.status){
+                        currentUser = user
                         dispatch(gotProfileFetch(user))
                     }
                 })
@@ -170,7 +171,7 @@ function fetchingUserCart(){
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
         .then(purchases => {
-
+            // debugger // below line is prone to having errors
             const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
             const userCart = userPurchases.filter(p => p.is_purchased === false)
             let total = 0
@@ -234,16 +235,39 @@ function totalRevenue(){
 }
 
 function addingToCart(course){
-    // here check if user already has course in cart. if yes then return null? else do the below
     return (dispatch, getState) => {
         let alreadyInCart = false
+        let alreadyPurchased = false
         for(let i = 0; i < course.users.length; i++){
             if(course.users[i].id === currentUserId){
-                alreadyInCart = true
+                alreadyPurchased = true
                 i = course.users.length
-                alert("You already own this item")
+                // alert("You already purchased this course")
+                // dispatch(alreadyOwned())
+            }
+        }
+            // else{
+        for(let j = 0; j < course.purchases.length; j++){
+            for(let k = 0; k < currentUser.purchases.length; k++){
+                // debugger
+                if(course.purchases[j].id === currentUser.purchases[k].id){
+                    // debugger
+                    alreadyInCart = true
+                    k = currentUser.purchases.length
+                    j = course.purchases.length
+                    // alert("This course is already in your cart")
+                    // dispatch(alreadyOwned())
+                }
+            }
+        }
+            if(alreadyInCart === true || alreadyPurchased === true){
+                // debugger
+                alert("You have either already purchased this course or it is currently inside your cart")
                 dispatch(alreadyOwned())
             }else{
+
+                //     }
+                // }
         const obj = {
             course_id: course.id,
             user_id: currentUser.id,
@@ -263,9 +287,9 @@ function addingToCart(course){
             purchase.course = course // experimental change
             dispatch(addedToCart(purchase))
         })
+        }
     }
-    }
-}}
+}
 
 function addedToCart(purchase){
 
