@@ -133,6 +133,37 @@ const searchTextReducer = (state = "", action) => {
     }
 };
 
+const dropdownDurationReducer = (state = "", action) => {
+    switch (action.type) {
+        case "SORTED_BY_DURATION":
+            return action.payload;
+        // case "SORTED_BY_PRICE":
+        //     return action.payload;
+        // case "SORTED_BY_DIFFICULTY_LEVEL":
+        //     return action.payload;
+        default:
+            return state;
+    }
+}
+
+const dropdownPriceReducer = (state = "", action) => {
+    switch (action.type) {
+        case "SORTED_BY_PRICE":
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+const dropdownDifficultyLevelReducer = (state = "", action) => {
+    switch (action.type) {
+        case "SORTED_BY_DIFFICULTY_LEVEL":
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
     courses: coursesReducer,
     user: userReducer,
@@ -144,7 +175,10 @@ const rootReducer = combineReducers({
     company: companyReducer,
     selectedCourse: selectCourseReducer,
     allUsers: allUsersReducer,
-    searchText: searchTextReducer
+    searchText: searchTextReducer,
+    dropdownDuration: dropdownDurationReducer,
+    dropdownPrice: dropdownPriceReducer,
+    dropdownDifficultyLevel: dropdownDifficultyLevelReducer
   });
   
   export default rootReducer;

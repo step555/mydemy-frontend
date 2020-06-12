@@ -203,13 +203,6 @@
   margin-right: auto;
 }
 
-.courses-top-div {
-  margin-top: 50px;
-  height: 150px;
-  position: relative;
-  border-bottom: 0.5px solid gray;
-}
-
 .courses-title {
   margin-left: 40px;
 }
@@ -235,6 +228,21 @@
 
 } */
 
+.courses-top-div {
+  margin-top: 50px;
+  height: 150px;
+  position: relative;
+  border-bottom: 0.5px solid gray;
+}
+
+.course-dropdown-container-div {
+  margin-left: 550px;
+  position: relative;
+  bottom: 70px;
+  /* height: 150px; */
+  
+}
+
 .course_line {  
   margin: 25px 0;
   height: 1px;
@@ -255,3 +263,4 @@
 .course-card-info-last {
   margin-top: -5px;
 }
+

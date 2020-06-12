@@ -549,7 +549,19 @@ function fetchedAllUsers(users){
 
 function changeSearchText(value) {
     return { type: "CHANGE_SEARCH_TEXT", payload: value };
-  }
+}
+
+function sortByDuration(value){
+    return { type: "SORTED_BY_DURATION", payload: value }
+}
+
+function sortByPrice(value){
+    return { type: "SORTED_BY_PRICE", payload: value }
+}
+
+function sortByDifficultyLevel(value){
+    return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
+}
 
 // export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
-export { changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

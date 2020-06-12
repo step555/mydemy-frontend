@@ -37,7 +37,7 @@ class CreateNewCourse extends React.Component {
             this.setState( { [event.target.id]: event.target.value } )
         }
 
-        if(event.target.innerText === '1-3 weeks'){
+        if(event.target.innerText === '0-3 weeks'){
             this.setState({duration: event.target.innerText})
         }else if(event.target.innerText === '3-6 weeks'){
             this.setState({duration: event.target.innerText})
@@ -112,7 +112,7 @@ class CreateNewCourse extends React.Component {
     render(){
         const durationOptions = [
             // {key: 'duration', text: 'duration', value: 0},
-            { key: '1-3', text: '1-3 weeks', value: 1 },
+            { key: '0-3', text: '0-3 weeks', value: 1 },
             { key: '3-6', text: '3-6 weeks', value: 2 },
             { key: '6-9', text: '6-9 weeks', value: 3 },
             { key: '9-12', text: '9-12 weeks', value: 4 },
