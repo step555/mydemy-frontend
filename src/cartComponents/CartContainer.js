@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
 import {Grid} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 // import {cartTotal} from './redux/actions'
 import { checkingOutCart } from "../redux/actions";
 
@@ -9,7 +10,7 @@ class CartContainer extends React.Component{
     // constructor(){
     //     super()
     //     this.state = {
-            // total: this.props.cartTotal.cartTotal
+    //         total: this.props.cartTotal.cartTotal
     //     }
     // }
 
@@ -33,7 +34,7 @@ class CartContainer extends React.Component{
                         <br></br>
                         <div className="cart-container-div">
                         {this.props.cart.map(item => {
-                            debugger
+                            // debugger
                             return ( 
                                     <CartItem key={item.id} item={item}/>
                             )
@@ -46,7 +47,8 @@ class CartContainer extends React.Component{
                         <h3>Total {`(${this.props.cart.length} items)`}: ${this.props.cart.reduce((sum,item)=> {
                             return sum + item.course.price
                         },0)}</h3>
-                        <button onClick={() => this.checkout(this.props.cart)}>Purchase these items</button>
+                        {/* <button onClick={() => this.checkout(this.props.cart)}>Purchase these items</button> */}
+                        <Link to="/checkout"><button>Cart Checkout</button></Link>
                     </Grid.Column>
                 </Grid>
             </div>

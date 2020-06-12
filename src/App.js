@@ -21,6 +21,7 @@ import CreateNewCourse from "./companyProfileComponents/CreateNewCourse"
 import ViewEditCourse from "./companyProfileComponents/ViewEditCourse"
 import Home from "./components/Home"
 import RegisterNew from "./components/RegisterNew"
+import CheckoutForm from "./cartComponents/CheckoutForm"
 
 class App extends React.Component{
 
@@ -58,6 +59,7 @@ class App extends React.Component{
         <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/>
         <Route path="/register" component={RegisterNew}/>
         <Route path="/sign-up" component={RegisterNew}/>
+        <Route path="/checkout" component={CheckoutForm}/>
         <Route path="/" component={Home}/>
       </Switch>
 

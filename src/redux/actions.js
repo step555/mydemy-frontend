@@ -11,6 +11,7 @@ let currentUserId
 let currentCompany
 let currentCompanyId
 let allCourses
+let currentUserCart
 
 function fetchedCourses(courses){
     return {type: "FETCHED_COURSES", payload: courses}
@@ -173,6 +174,9 @@ function fetchingUserCart(){
             const userCart = userPurchases.filter(p => p.is_purchased === false)
             let total = 0
             userCart.forEach(p => total += p.course.price)
+
+            let currentUserCart = userCart
+
             dispatch(fetchedUserCart(userCart))
             dispatch(cartTotal(total))
         })
@@ -232,6 +236,12 @@ function addingToCart(course){
     // here check if user already has course in cart. if yes then return null? else do the below
     // I may need to add a unique course code to the database for each course
     return (dispatch, getState) => {
+        for(let i = 0; i < course.users.length; i++){
+            if(course.users[i].email === currentUser.email){ // bugged
+                i = course.users.length
+                dispatch(addedToCart())
+            }else{
+
         const obj = {
             course_id: course.id,
             user_id: currentUser.id,
@@ -248,12 +258,13 @@ function addingToCart(course){
         })
         .then(resp => resp.json())
         .then(purchase => {
-
+            alert("This course has been successfully added to your cart")
             purchase.course = course // experimental change
             dispatch(addedToCart(purchase))
         })
+        }
     }
-}
+}}
 
 function addedToCart(purchase){
 
