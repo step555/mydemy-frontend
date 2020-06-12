@@ -261,6 +261,12 @@
   height:9em;
 }
 
+.cart-checkout-item-image {
+  width: 12em;
+  height: 8em;
+  /* padding-right: 20px; */
+}
+
 .course-card-info {
   margin-top: -10px;
 }
@@ -269,3 +275,23 @@
   margin-top: -5px;
 }
 
+.checkout-show-items {
+  cursor: pointer;
+}
+
+.checkout-courses-card {
+  right: 500px;
+}
+
+.checkout-courses-div {
+  margin-bottom: -8px;
+}
+
+.purchase-box-div {
+  margin-top: 50px;
+  margin-left: 500px;
+}
+
+.review-before-submission-h2 {
+  text-align: center;
+}

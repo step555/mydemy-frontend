@@ -236,11 +236,11 @@ function addingToCart(course){
     // here check if user already has course in cart. if yes then return null? else do the below
     // I may need to add a unique course code to the database for each course
     return (dispatch, getState) => {
-        for(let i = 0; i < course.users.length; i++){
-            if(course.users[i].email === currentUser.email){ // bugged
-                i = course.users.length
-                dispatch(addedToCart())
-            }else{
+        // for(let i = 0; i < course.users.length; i++){
+            // if(course.users[i].email === currentUser.email){ // bugged
+            //     i = course.users.length
+            //     dispatch(addedToCart())
+            // }else{
 
         const obj = {
             course_id: course.id,
@@ -258,12 +258,11 @@ function addingToCart(course){
         })
         .then(resp => resp.json())
         .then(purchase => {
-            alert("This course has been successfully added to your cart")
             purchase.course = course // experimental change
             dispatch(addedToCart(purchase))
         })
-        }
-    }
+    // }
+    // }
 }}
 
 function addedToCart(purchase){
@@ -493,7 +492,6 @@ function editingCourse(courseInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(course => {
-            // debugger
             // dispatch(editedCourse(course))
 
             // dispatch(createdNewCourse(course))
@@ -507,12 +505,14 @@ function editingCourse(courseInfo){
 // }
 
 function creatingNewUser(userInfo){
-    // return (dispatch) => {
+    return (dispatch) => {
         let obj = {
-            name: userInfo.name,
-            email: userInfo.email, 
-            password: userInfo.password,
-            password_confirmation: userInfo.password
+            user: { // must be nested to avoid "password can't be blank" in backend create action
+                name: userInfo.name,
+                email: userInfo.email, 
+                password: userInfo.password,
+                password_confirmation: userInfo.password
+            }
         }
         fetch(USER_URL, {
             method: "POST",
@@ -521,21 +521,33 @@ function creatingNewUser(userInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(user => {
-            debugger
-            fetchingUser(user.email, user.password)
+            localStorage.setItem("token", user.token)
+            localStorage.setItem("user_or_company", "user")
+            currentUserId = user.id
+            dispatch(gettingProfileFetch())
+            // fetch(USER_URL + `/${currentUserId}`)
+            // fetch(LOGIN_URL + `/${currentUserId}`)
+            // .then(resp => resp.json())
+            // .then(user => {
+                // dispatch(fetchingUser(user.email, user.password))
+                // dispatch(gettingProfileFetch())
+                // gettingProfileFetch()
+            // })
+            // window.location.reload()
         })
-    // }
+    }
 }
 
 function creatingNewCompany(companyInfo){
-    debugger
-    // return (dispatch) => {
+    return (dispatch) => {
         let obj = {
+            company: {// must be nested to avoid "password can't be blank" in backend create action
             name: companyInfo.name,
             email: companyInfo.email,
-            password: companyInfo.password
+            password: companyInfo.password,
+            password_confirmation: companyInfo.password
+            }
         }
-        debugger
         fetch(COMPANY_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -543,10 +555,12 @@ function creatingNewCompany(companyInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(company => {
-            debugger
-            fetchingCompany(company.email, company.password)
+            localStorage.setItem("token", company.token)
+            localStorage.setItem("user_or_company", "company")
+            currentCompanyId = company.id
+            dispatch(gettingCompanyProfileFetch())
         })
-    // }
+    }
 }
 
 function fetchingAllUsers(){
@@ -562,17 +576,6 @@ function fetchingAllUsers(){
 function fetchedAllUsers(users){
     return {type: "FETCHED_ALL_USERS", payload: users}
 }
-
-// function inputtingSearch(text){
-//     return (dispatch) => {
-//         debugger
-//     }
-// }
-
-// function inputtedSearch(text){
-//     debugger
-//     return {type: "INPUTTED_SEARCH", payload: text}
-// }
 
 function changeSearchText(value) {
     return { type: "CHANGE_SEARCH_TEXT", payload: value };
@@ -590,5 +593,4 @@ function sortByDifficultyLevel(value){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
 
-// export { selectingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
 export { sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

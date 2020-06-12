@@ -96,8 +96,8 @@ class RegisterNew extends React.Component{
                                 onClick={this.isCompany}
                             />
                         </Form.Field>
-                        {/* <Link to ={"/profile"}> */}
-                        <Button type="submit">Register</Button>
+                        {/* <Link to ={"/login"}> */}
+                            <Button type="submit">Register</Button>
                         {/* </Link> */}
                         </Segment>
                         </Form>

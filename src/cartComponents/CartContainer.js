@@ -48,7 +48,7 @@ class CartContainer extends React.Component{
                             return sum + item.course.price
                         },0)}</h3>
                         {/* <button onClick={() => this.checkout(this.props.cart)}>Purchase these items</button> */}
-                        <Link to="/checkout"><button>Cart Checkout</button></Link>
+                        <Link to="/checkout"><button>Proceed to Checkout</button></Link>
                     </Grid.Column>
                 </Grid>
             </div>

@@ -73,13 +73,24 @@ const cartReducer = (state = [], action) => {
         case "FETCHED_USER_CART":
             return action.payload
         case "ADD_TO_CART":
-            if(action.payload === undefined){
-                return state
-            }else{
-            let newState = [action.payload, ...state] // refer here if there is a bug with purchases
-            // above code may not be optimal
-            return newState
+            let foundInsideCart = false
+            debugger
+            for(let i = 0; i < state.length; i++){
+                if(state[i].course_id === action.payload.course_id){
+                    foundInsideCart = true
+                    debugger
+                }
             }
+                if(foundInsideCart === true){
+                    // debugger
+                    alert("This item is already in your cart")
+                    return state
+                }else{
+                    alert("This course has been successfully added to your cart")
+                    let newState = [action.payload, ...state]
+                    return newState
+                }
+            
         case "CHECKOUT_CART":
             return action.payload
         case "REMOVED_FROM_CART":
