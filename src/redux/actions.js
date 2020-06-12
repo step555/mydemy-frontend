@@ -45,16 +45,23 @@ function fetchingUser(email, password){
             },
             body: JSON.stringify(obj)
             }).then(resp => resp.json())
-            .then(user => {
+            .then(user => { // does not fetch courses and purchases of user
                 if(user.error_message){
                     alert(user.error_message)
                 }else{
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
-                    debugger
                     currentUser = user.user
                     currentUserId = user.user.id
-                    dispatch(fetchedUser(user.user))
+                fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
+                .then(resp => resp.json())
+                .then(user => {
+        
+                    if(!user.status){
+                        dispatch(fetchedUser(user))
+                    }
+                })
+                // dispatch(fetchedUser(user.user))
             }
         })
     }
@@ -312,12 +319,20 @@ function fetchingCompany(email, password){
                         localStorage.setItem("token", company.token)
                         localStorage.setItem("user_or_company", "company")
                         currentCompany = company.company
-                        currentCompanyId = company.id
-                        dispatch(fetchedCompany(company.company))
-                }
-            })
-        }
+                        currentCompanyId = company.company.id
+                        fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches user courses and purchases
+                        .then(resp => resp.json())
+                        .then(company => {
+                            if(!company.status){
+                                dispatch(gotCompanyProfileFetch(company))
+                            }
+                })
+                    // dispatch(fetchedCompany(company.company))
+            }
+        })
+    }
 }
+
 
 function fetchedCompany(company){
     return {type: "FETCHED_COMPANY", payload: company}
