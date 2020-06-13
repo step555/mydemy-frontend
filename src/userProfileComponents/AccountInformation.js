@@ -74,13 +74,6 @@ const mapStateToProps = (state, ownProps) => ({
     // userCourses: state.userCourses
 })
 
-// const mapDispatchToProps = (dispatch) => {
-//     console.log("mapDispatchToProps")
-//     return {
-//       editingUserInfo: (info) => {dispatch( editingUserInfo(info) )}
-//     }
-// }
-
 export default connect(mapStateToProps, null)(AccountInformation)
 
 // export default AccountInformation

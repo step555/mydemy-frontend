@@ -5,6 +5,7 @@ const PURCHASES_URL = 'http://localhost:3000/purchases'
 const LOGIN_URL = 'http://localhost:3000/login'
 const COMPANY_LOGIN_URL = 'http://localhost:3000/company-login'
 const COMPANY_URL = 'http://localhost:3000/companies'
+const LESSON_URL = 'http://localhost:3000/lessons'
 
 let currentUser
 let currentUserId
@@ -12,6 +13,12 @@ let currentCompany
 let currentCompanyId
 let allCourses
 let currentUserCart
+
+// function fetchingLessons(){
+//     return (dispatch) => {
+//         fetch(LESSON_URL)
+//     }
+// }
 
 function fetchedCourses(courses){
     return {type: "FETCHED_COURSES", payload: courses}
@@ -57,7 +64,6 @@ function fetchingUser(email, password){
                 fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(user => {
-                    debugger
                     if(!user.status){
                         currentUser = user
                         dispatch(fetchedUser(user))
@@ -201,7 +207,7 @@ function removingFromCart(item){
     }).then(resp => resp.json())
     .then(purchase => {
         console.log(purchase)
-        debugger // below line is prone to errors
+        // debugger // below line is prone to errors
         currentUser.purchases = currentUser.purchases.filter(p => p.id !== purchase.id)
         dispatch(removedFromCart(purchase))
         })
@@ -248,24 +254,8 @@ function addingToCart(course){
                 // dispatch(alreadyOwned())
             }
         }
-            // else{
-                
-        // for(let j = 0; j < course.purchases.length; j++){
-        //     debugger
-        //     for(let k = 0; k < currentUser.purchases.length; k++){
-        //         debugger
-        //         if(course.purchases[j].id === currentUser.purchases[k].id){
-        //             debugger
-        //             alreadyInCartOrPurchased = true
-        //             k = currentUser.purchases.length
-        //             j = course.purchases.length
-        //             // alert("This course is already in your cart")
-        //             // dispatch(alreadyOwned())
-        //         }
-        //     }
-        // }
+
         for(let k = 0; k < currentUser.purchases.length; k++){
-            debugger
             if(course.id === currentUser.purchases[k].course_id){
                 alreadyInCartOrPurchased = true
                 k = currentUser.purchases.length
@@ -273,7 +263,6 @@ function addingToCart(course){
             }
         }
             if(alreadyInCartOrPurchased === true){
-                debugger
                 alert("You have either already purchased this course or it is currently inside your cart")
                 dispatch(alreadyOwned())
             }else{
@@ -284,7 +273,6 @@ function addingToCart(course){
             course: course, 
             user: currentUser
         }
-        // debugger
         fetch(PURCHASES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -295,12 +283,9 @@ function addingToCart(course){
         .then(resp => resp.json())
         .then(purchase => {
             // for(let i = 0; i < currentUser.purchases.length; i++){
-            //     debugger
                 // if(!currentUser.purchases[i].id.includes(purchase.id)){
                     // if(currentUser.purchases[i].id === (purchase.id)){ 
-                    //     debugger
                         currentUser.purchases = [...currentUser.purchases, purchase]
-                        debugger
                     // }
             // }
             
@@ -478,15 +463,19 @@ function createdNewCompanyCourse(currentCompany){
     return {type: "CREATED_NEW_COMPANY_COURSE", payload: currentCompany}
 }
 
-function selectingCourse(id){
+function selectingCourseLessons(id){
     return (dispatch) => {
-    fetch(COURSES_URL + `/${id}`)
-    .then(resp => resp.json())
-    .then(course => {
-        debugger
-        dispatch(selectedCourse(course))
+        fetch(COURSES_URL + `/${id}`)
+        .then(resp => resp.json())
+        .then(course => {
+            // debugger
+            dispatch(selectedCourseLessons(course.lessons))
         })
     }
+}
+
+function selectedCourseLessons(lessons){
+    return {type: "FETCHED_LESSONS", payload: lessons}
 }
 
 function selectedCourse(course){
@@ -544,7 +533,6 @@ function editingCourse(courseInfo){
 
             company_id: currentCompanyId
         }
-        debugger
         fetch(COURSES_URL + `/${courseInfo.courseId}`, {
             method: "PATCH",
             headers: {"Content-Type": "application/json",
@@ -552,7 +540,6 @@ function editingCourse(courseInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(course => {
-            debugger
             // dispatch(editedCourse(course))
 
             window.location.reload()
@@ -561,7 +548,6 @@ function editingCourse(courseInfo){
 }
 
 function editedCourse(course){
-    debugger
     return {type: "EDITED_COURSE", payload: course}
 }
 
@@ -654,4 +640,4 @@ function sortByDifficultyLevel(value){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
 
-export { sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourse, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

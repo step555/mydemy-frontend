@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
 // import {selectingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
-import {deletingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
+import {selectingCourseLessons, deletingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
@@ -22,6 +22,8 @@ import ViewEditCourse from "./companyProfileComponents/ViewEditCourse"
 import Home from "./components/Home"
 import RegisterNew from "./components/RegisterNew"
 import CheckoutForm from "./cartComponents/CheckoutForm"
+import LessonContainer from "./lessonComponents/LessonContainer"
+import Lesson from './lessonComponents/Lesson'
 
 class App extends React.Component{
 
@@ -58,10 +60,12 @@ class App extends React.Component{
         <Route path="/company-login" component={CompanyLoginForm}/>
         <Route path="/create-new-course" component={CreateNewCourse}/>
         {/* <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/> */}
-        <Route path="/company/view-and-edit-course" component={ViewEditCourse}/>
+        {/* <Route path="/company/view-and-edit-course" component={ViewEditCourse}/> */}
         <Route path="/register" component={RegisterNew}/>
         <Route path="/sign-up" component={RegisterNew}/>
         <Route path="/checkout" component={CheckoutForm}/>
+        <Route path="/course/:courseId/lessons/" component={LessonContainer}/>
+        <Route path="/course/:courseId/:lessonId" component={Lesson}/>
         <Route path="/" component={Home}/>
       </Switch>
 
@@ -86,8 +90,6 @@ const mapStateToProps = (state) => {
     cartTotal: state.cartTotal,
     company: state.company,
     totalRevenue: state.totalRevenue,
-
-
   };
 };
 
@@ -108,7 +110,8 @@ const mapDispatchToProps = (dispatch) => {
 
     // selectingCourse: () => {dispatch(selectingCourse() )}
 
-    deletingCourse: () => {dispatch(deletingCourse() )}
+    deletingCourse: () => {dispatch(deletingCourse() )},
+    selectingCourseLessons: () => {dispatch(selectingCourseLessons() )}
   }
 }
 

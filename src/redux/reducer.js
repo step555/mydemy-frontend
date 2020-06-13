@@ -62,7 +62,6 @@ const companyReducer = (state = [], action) => {
             return filteredState
         case "CREATED_NEW_COMPANY_COURSE":
             let addedNewCourse = {...state}
-            // debugger
             // let addedNewCourse = [...state]
             return addedNewCourse
         default:
@@ -76,7 +75,6 @@ const cartReducer = (state = [], action) => {
             return action.payload
         case "ADD_TO_CART":
             // let foundInsideCart = false
-            // debugger
             // for(let i = 0; i < state.length; i++){
             //     if(state[i].course_id === action.payload.course_id){
             //         foundInsideCart = true
@@ -89,7 +87,6 @@ const cartReducer = (state = [], action) => {
             //         return state
             //     }else{
                     // alert("This course has been successfully added to your cart")
-                    debugger
                     let newState = [action.payload, ...state] // state defaulted to an array here
                     return newState
                 // }
@@ -99,7 +96,6 @@ const cartReducer = (state = [], action) => {
             return action.payload
         case "REMOVED_FROM_CART":
             let stateWithoutRemovedItem = state.filter(p => p.id !== action.payload.id)
-            // debugger
             // return {...stateWithoutRemovedItem} // this was returning state as an object which interfered with show cart
             return [...stateWithoutRemovedItem]
         default:
@@ -144,10 +140,18 @@ const selectCourseReducer = (state = [], action) => {
         case "EDITED_COURSE":
             let updatedCourse = {selectedCourse: action.payload}
             let updated = {...updatedCourse} // something goes wrong here with regards to rendering patch
-            debugger
             return updated
         default:
             return state;
+    }
+}
+
+const selectCourseLessonsReducer = (state = [], action) => {
+    switch (action.type){
+        case "FETCHED_LESSONS":
+            return action.payload
+        default:
+            return state
     }
 }
 
@@ -205,7 +209,8 @@ const rootReducer = combineReducers({
     searchText: searchTextReducer,
     dropdownDuration: dropdownDurationReducer,
     dropdownPrice: dropdownPriceReducer,
-    dropdownDifficultyLevel: dropdownDifficultyLevelReducer
+    dropdownDifficultyLevel: dropdownDifficultyLevelReducer,
+    lessons: selectCourseLessonsReducer
   });
   
   export default rootReducer;
