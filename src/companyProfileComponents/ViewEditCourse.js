@@ -31,6 +31,7 @@ class ViewEditCourse extends React.Component{
             finished: false,
             submitted: false   
         })
+        debugger
         let courseId = parseInt(this.props.match.params.courseId)
         this.props.selectingCourse(courseId)
         console.log("courseId", courseId)

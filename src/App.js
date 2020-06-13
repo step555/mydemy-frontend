@@ -57,7 +57,8 @@ class App extends React.Component{
         <Route path="/login" component={LoginForm}/>
         <Route path="/company-login" component={CompanyLoginForm}/>
         <Route path="/create-new-course" component={CreateNewCourse}/>
-        <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/>
+        {/* <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/> */}
+        <Route path="/company/view-and-edit-course" component={ViewEditCourse}/>
         <Route path="/register" component={RegisterNew}/>
         <Route path="/sign-up" component={RegisterNew}/>
         <Route path="/checkout" component={CheckoutForm}/>
