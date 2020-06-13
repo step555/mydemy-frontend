@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Card, Form, Grid} from 'semantic-ui-react'
+import {Card, Form, Grid, Button} from 'semantic-ui-react'
 // import ViewEditCourse from './ViewEditCourse'
 import {connect} from 'react-redux'
-import {deletingCourse} from '../redux/actions'
+import {deletingCourse, editingCourse} from '../redux/actions'
 import CCourseModal from './CCourseModal'
 import ReactDOM from 'react-dom'
 
@@ -12,12 +12,31 @@ class CCourse extends React.Component{
     constructor(){
         super()
         this.state = {
-            editing: false,
+            editing: true,
             show: false,
             numberOfContentCovered: [],
             individualContentCovered: "",
-            contentCovered: []
+            contentCovered: [],
+            editingContentCoveredArrayIndex: "",
+            // below state is for this.props.course
+            id: "",
+            name: "",
+            textPreview: "",
+            videoPreview: "",
+            picture: "",
+            contentCovered: "",
+            difficultyLevel: "",
+            duration: "",
+            price: "",
+            subject: "",
         }
+    }
+
+    componentWillMount(){
+        this.setState({
+            editing: true,
+            // submitted: false   
+        })
     }
 
     showModal = () => {
@@ -28,59 +47,6 @@ class CCourse extends React.Component{
         this.setState({ show: false });
     };
     
-    editCourse = () => {
-        this.setState({editing: !this.state.editing})
-    }
-
-    handleClick = (courseId) => {
-        console.log("deleting")
-        this.props.deletingCourse(courseId)
-    }
-
-    onChangeInformation = (event) => {
-        let individualContentCovered
-        if(event.target.id !== "contentCovered"){
-            this.setState( { [event.target.id]: event.target.value } )
-        }
-
-        if(event.target.innerText === '0-3 weeks'){
-            this.setState({duration: event.target.innerText})
-        }else if(event.target.innerText === '3-6 weeks'){
-            this.setState({duration: event.target.innerText})
-        }else if (event.target.innerText === '6-9 weeks'){
-            this.setState({duration: event.target.innerText})
-        }else if(event.target.innerText === '9-12 weeks'){
-            this.setState({duration: event.target.innerText})
-        }
-
-        if(event.target.innerText === 'beginner'){
-            this.setState({difficultyLevel: event.target.innerText})
-        }else if(event.target.innerText === 'intermediate'){
-            this.setState({difficultyLevel: event.target.innerText})
-        }else if (event.target.innerText === 'advanced'){
-            this.setState({difficultyLevel: event.target.innerText})
-        }
-
-        if(event.target.id === "contentCovered"){ // potentially problematic conditional statement
-            let individualContentCovered = event.target.value // this state changes whenever you type something
-        //     // this issue is dealt with by having contentCovered state be updated only after you click more
-            this.setState({individualContentCovered: individualContentCovered})
-        } 
-
-        if(event.target.id === "subject"){
-            let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
-            this.setState({subject: forcedCapitalization})
-        }
-    }
-
-    addInputField = () => { // adds to length of this.state.numContentCovered array
-        let newNumInput = [...this.state.numberOfContentCovered, 1]
-        this.setState({ numberOfContentCovered: newNumInput })
-        
-        // adds string of individual content covered to state.contentCovered array
-        this.setState({ contentCovered: [...this.state.contentCovered, this.state.individualContentCovered] })
-    }
-
     render(){
 
         const durationOptions = [
@@ -99,53 +65,42 @@ class CCourse extends React.Component{
     return !this.props.course ? null : (
         <div onClick={this.editCourse}>
             <h1>React Modal</h1>
-{/* you might need </main> */}
             <CCourseModal show={this.state.show} handleClose={this.hideModal} course={this.props.course}>
-                <Form style={{overflow: 'auto', maxHeight: 500 }}>
+                <Form style={{overflow: 'auto', maxHeight: 600 }}>
+                    <h1>Review your course details here</h1>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid id="courseName" label='Course Name' placeholder='course name' defaultValue={this.props.course.name} onChange={this.onChangeInformation} required/>
+                        <Form.Input fluid id="name" label='Course Name' placeholder='course name' value={this.props.course.name} onChange={this.onChangeInformation}/>
                     </Form.Group>
                     <Form.Group widths="equal">
-                        <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={this.props.course.text_preview} onChange={this.onChangeInformation} required/>
+                        <Form.TextArea fluid id="textPreview" label='Course Description' placeholder='course description' value={this.props.course.text_preview} onChange={this.onChangeInformation}/>
                     </Form.Group>
                     <Form.Group widths="equal">
-                        <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={this.props.course.duration} onChange={this.onChangeInformation} required
+                        <Form.Input fluid id="duration" label='Duration' placeholder='duration' text={this.props.course.duration} value={this.props.course.duration} onChange={this.onChangeInformation}
                         fluid
                         options={durationOptions}
                         />
-                        <Form.Select fluid id="dificultyLevel" label='Difficulty Level' placeholder='difficulty level' defaultValue={this.props.course.difficulty_level} onChange={this.onChangeInformation} required
+
+                        <Form.Input fluid id="dificultyLevel" label='Difficulty Level' placeholder='difficulty level' text={this.props.course.difficulty_level} value={this.props.course.difficulty_level} onChange={this.onChangeInformation}
                         fluid
                         options={difficultyOptions}
                         />
-                        <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={this.props.course.subject} onChange={this.onChangeInformation} required/>
+                        <Form.Input fluid id="subject" label='Subject' placeholder='subject' value={this.props.course.subject} onChange={this.onChangeInformation}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Input id="price" label='Price' type="number" placeholder='price' defaultValue={this.props.course.price} onChange={this.onChangeInformation} required/>
-                        <Form.Input id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={this.props.course.video_preview} onChange={this.onChangeInformation}/>
-                        <Form.Input id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={this.props.course.picture} onChange={this.onChangeInformation}/>
+                        <Form.Input id="price" label='Price' type="number" placeholder='price' value={this.props.course.price} onChange={this.onChangeInformation}/>
+                        <Form.Input id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' value={this.props.course.video_preview} onChange={this.onChangeInformation}/>
+                        <Form.Input id="picture" label='Picture' placeholder='upload picture url here (optional)' value={this.props.course.picture} onChange={this.onChangeInformation}/>
                         {/* <Form.Input fluid the FLUID messes up the form input field/> */}
                     </Form.Group>
                         <div>
                             {this.props.course.content_covered.map(content => {
                                 return (                                    
                                 <Form.Group widths="equal">
-                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={content} onChange={this.onChangeInformation} required/>
+                                    {/* <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' onClick={(event) => this.selectedExistingContentCoveredIndex(event)} value={content} onChange={this.onChangeContentCoveredInformation}/> */}
+                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' value={content}/>
                                 </Form.Group>)
                                 })}
                         </div>
-
-                        {this.state.numberOfContentCovered.map(input => { 
-                            return (
-                                <div>
-                                    <Form.Group widths="equal">
-                                        <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
-                                    </Form.Group>
-                                </div>
-                            )}
-                        )}
-
-                        <button onClick={this.addInputField}>More</button>
-
 
                         <br></br><br></br>
                 </Form>
@@ -179,18 +134,9 @@ ReactDOM.render(<CCourse />, container)
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deletingCourse: (info) => {dispatch( deletingCourse(info) )}
+        deletingCourse: (info) => {dispatch( deletingCourse(info) )},
+        editingCourse: (info) => {dispatch(editingCourse(info) )}
     }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     console.log("mapDispatchToProps")
-//     return {
-//       addingToCart: (info) => {dispatch( addingToCart(info) )}
-//     }
-// }
-
-
 export default connect(null, mapDispatchToProps)(CCourse)
-
-// export default CCourse

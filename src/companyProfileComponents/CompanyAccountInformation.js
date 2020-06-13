@@ -25,7 +25,7 @@ class CompanyAccountInformation extends React.Component{
     }
 
     render(){
-        console.log("CACCOUNTINFO", this.props)
+        // console.log("CACCOUNTINFO", this.props)
 
         // let filteredCourses = this.props.courses.filter(course => {
         //     // debugger

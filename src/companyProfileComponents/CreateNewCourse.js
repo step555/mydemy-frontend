@@ -200,7 +200,7 @@ class CreateNewCourse extends React.Component {
                             <br></br>
                         {this.state.finished === true ? 
                         <div>
-                            <p>Please review this information before submission</p>
+                            <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
                             <Form.Field onClick={this.submit} control={Button}>Confirm Submission</Form.Field>
                         </div>
                             : 

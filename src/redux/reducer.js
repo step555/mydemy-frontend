@@ -141,10 +141,11 @@ const selectCourseReducer = (state = [], action) => {
                 // course
                 // updatedCourse.selectedCourse
             }
-        // case "EDITED_COURSE":
-        //     let updatedCourse = {selectedCourse: action.payload}
-        //     let updated = {...updatedCourse}
-        //     return updated
+        case "EDITED_COURSE":
+            let updatedCourse = {selectedCourse: action.payload}
+            let updated = {...updatedCourse} // something goes wrong here with regards to rendering patch
+            debugger
+            return updated
         default:
             return state;
     }

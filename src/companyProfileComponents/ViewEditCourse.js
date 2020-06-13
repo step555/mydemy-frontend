@@ -53,7 +53,7 @@ class ViewEditCourse extends React.Component{
         // on add input field, add individualContentCovered to contentCovered array
         if(this.state.individualContentCovered === "" && this.state.contentCovered.length === 0){
             // debugger
-            newContentCoveredArray = [...this.state.contentCovered, this.props.selectedCourse.course.content_covered[0]]
+            newContentCoveredArray = [...this.state.contentCovered, this.props.course.content_covered[0]]
             this.setState({contentCovered: newContentCoveredArray})
         }else{
             newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
@@ -98,10 +98,9 @@ class ViewEditCourse extends React.Component{
     }
 
     edit = () => { 
-        // below lines of code are to avoid content not interable error for content covered array
+        debugger
             // adds final index to contentCovered array
         let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
- 
         this.setState({
             contentCovered: newContentCoveredArray 
             },() => {
@@ -113,7 +112,7 @@ class ViewEditCourse extends React.Component{
             )
 
         if(this.state.contentCovered.length === 0){
-            this.setState({contentCovered: this.state.individualContentCovered})
+            this.setState({contentCovered: [...this.props.course.content_covered, this.state.individualContentCovered]})
         }
         this.setState({finished: !this.state.finished})
         if(this.state.courseName === ""){
@@ -145,9 +144,9 @@ class ViewEditCourse extends React.Component{
         }
         this.setState({courseId: this.props.selectedCourse.course.id})
 
-        // if(this.state.contentCovered.includes("")){ // in case contentCovered array has "" in any index
-        //     this.state.contentCovered.filter(content => content !== "")
-        // }
+        if(this.state.numberOfContentCovered > this.state.contentCovered){
+            debugger
+        }
     }
 
     submit = () => {

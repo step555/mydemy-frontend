@@ -483,7 +483,7 @@ function selectingCourse(id){
     fetch(COURSES_URL + `/${id}`)
     .then(resp => resp.json())
     .then(course => {
-        // debugger
+        debugger
         dispatch(selectedCourse(course))
         })
     }
@@ -531,8 +531,8 @@ function editingCourse(courseInfo){
             courseInfo.contentCovered = courseInfo.contentCovered.filter(i => i !== "")
         }
         let obj = {
-            name: courseInfo.courseName,
-            text_preview: courseInfo.courseDescription,
+            name: courseInfo.name,
+            text_preview: courseInfo.textPreview,
             video_preview: courseInfo.videoPreview,
             price: courseInfo.price,
             duration: courseInfo.duration,
@@ -544,6 +544,7 @@ function editingCourse(courseInfo){
 
             company_id: currentCompanyId
         }
+        debugger
         fetch(COURSES_URL + `/${courseInfo.courseId}`, {
             method: "PATCH",
             headers: {"Content-Type": "application/json",
@@ -551,17 +552,18 @@ function editingCourse(courseInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(course => {
+            debugger
             // dispatch(editedCourse(course))
 
-            // dispatch(createdNewCourse(course))
             window.location.reload()
         })
     }
 }
 
-// function editedCourse(course){
-//     return {type: "EDITED_COURSE", payload: course}
-// }
+function editedCourse(course){
+    debugger
+    return {type: "EDITED_COURSE", payload: course}
+}
 
 function creatingNewUser(userInfo){
     return (dispatch) => {
