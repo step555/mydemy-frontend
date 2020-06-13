@@ -13,7 +13,10 @@ class CCourse extends React.Component{
         super()
         this.state = {
             editing: false,
-            show: false
+            show: false,
+            numberOfContentCovered: [],
+            individualContentCovered: "",
+            contentCovered: []
         }
     }
 
@@ -58,16 +61,24 @@ class CCourse extends React.Component{
             this.setState({difficultyLevel: event.target.innerText})
         }
 
-        // if(event.target.id === "contentCovered"){ // REWRITE THIS
-        //     individualContentCovered = event.target.value // this state changes whenever you type something
+        if(event.target.id === "contentCovered"){ // potentially problematic conditional statement
+            let individualContentCovered = event.target.value // this state changes whenever you type something
         //     // this issue is dealt with by having contentCovered state be updated only after you click more
-        //     this.setState({individualContentCovered: individualContentCovered})
-        // } // REWRITE THIS
+            this.setState({individualContentCovered: individualContentCovered})
+        } 
 
         if(event.target.id === "subject"){
             let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
             this.setState({subject: forcedCapitalization})
         }
+    }
+
+    addInputField = () => { // adds to length of this.state.numContentCovered array
+        let newNumInput = [...this.state.numberOfContentCovered, 1]
+        this.setState({ numberOfContentCovered: newNumInput })
+        
+        // adds string of individual content covered to state.contentCovered array
+        this.setState({ contentCovered: [...this.state.contentCovered, this.state.individualContentCovered] })
     }
 
     render(){
@@ -90,8 +101,7 @@ class CCourse extends React.Component{
             <h1>React Modal</h1>
 {/* you might need </main> */}
             <CCourseModal show={this.state.show} handleClose={this.hideModal} course={this.props.course}>
-                <p>{this.props.course.name}</p>
-                <Form>
+                <Form style={{overflow: 'auto', maxHeight: 500 }}>
                     <Form.Group widths='equal'>
                         <Form.Input fluid id="courseName" label='Course Name' placeholder='course name' defaultValue={this.props.course.name} onChange={this.onChangeInformation} required/>
                     </Form.Group>
@@ -110,10 +120,34 @@ class CCourse extends React.Component{
                         <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={this.props.course.subject} onChange={this.onChangeInformation} required/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={this.props.course.price} onChange={this.onChangeInformation} required/>
-                        <Form.Input fluid id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={this.props.course.video_preview} onChange={this.onChangeInformation}/>
-                        <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={this.props.course.picture} onChange={this.onChangeInformation}/>
+                        <Form.Input id="price" label='Price' type="number" placeholder='price' defaultValue={this.props.course.price} onChange={this.onChangeInformation} required/>
+                        <Form.Input id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={this.props.course.video_preview} onChange={this.onChangeInformation}/>
+                        <Form.Input id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={this.props.course.picture} onChange={this.onChangeInformation}/>
+                        {/* <Form.Input fluid the FLUID messes up the form input field/> */}
                     </Form.Group>
+                        <div>
+                            {this.props.course.content_covered.map(content => {
+                                return (                                    
+                                <Form.Group widths="equal">
+                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={content} onChange={this.onChangeInformation} required/>
+                                </Form.Group>)
+                                })}
+                        </div>
+
+                        {this.state.numberOfContentCovered.map(input => { 
+                            return (
+                                <div>
+                                    <Form.Group widths="equal">
+                                        <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
+                                    </Form.Group>
+                                </div>
+                            )}
+                        )}
+
+                        <button onClick={this.addInputField}>More</button>
+
+
+                        <br></br><br></br>
                 </Form>
             </CCourseModal>
             <button type="button" onClick={this.showModal}>Open</button>            
