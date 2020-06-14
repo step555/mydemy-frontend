@@ -194,7 +194,6 @@ function fetchingUserCart(){
 
 function cartTotal(total) {
     // total is correct
-    console.log("TOTAL", total)
     return { type: "CART_TOTAL", payload: total };
 }
 
@@ -468,7 +467,6 @@ function selectingCourseLessons(id){
         fetch(COURSES_URL + `/${id}`)
         .then(resp => resp.json())
         .then(course => {
-            // debugger
             dispatch(selectedCourseLessons(course.lessons))
         })
     }

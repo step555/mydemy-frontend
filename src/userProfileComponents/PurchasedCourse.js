@@ -18,7 +18,7 @@ const PurchasedCourse = (props) => {
                     <h5 className="course-card-text">{props.course.name}</h5>
                     <p className="course-card-text">{props.course.subject}</p>
                     <p className="course-card-text">{props.course.duration}</p>
-                    <Link to={`/course/${props.course.id}/lessons`}><button onClick={handleClick}>Begin your lessons</button></Link>
+                    <Link to={`/course/${props.course.id}/dashboard`}><button onClick={handleClick}>Begin your lessons</button></Link>
                 </div>
             </Card>
             <br></br>

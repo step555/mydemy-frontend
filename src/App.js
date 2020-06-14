@@ -22,8 +22,9 @@ import ViewEditCourse from "./companyProfileComponents/ViewEditCourse"
 import Home from "./components/Home"
 import RegisterNew from "./components/RegisterNew"
 import CheckoutForm from "./cartComponents/CheckoutForm"
-import LessonContainer from "./lessonComponents/LessonContainer"
+import LessonDashboard from "./lessonComponents/LessonDashboard"
 import Lesson from './lessonComponents/Lesson'
+import LessonContainer from './lessonComponents/LessonContainer'
 
 class App extends React.Component{
 
@@ -64,8 +65,9 @@ class App extends React.Component{
         <Route path="/register" component={RegisterNew}/>
         <Route path="/sign-up" component={RegisterNew}/>
         <Route path="/checkout" component={CheckoutForm}/>
-        <Route path="/course/:courseId/lessons" component={LessonContainer}/>
-        <Route path="/course/:courseId/:lessonId" component={Lesson}/>
+        <Route path="/course/:courseId/dashboard" component={LessonDashboard}/>
+        {/* <Route path="/course/:courseId/:lessonId" component={Lesson}/> */}
+        <Route path="/course/:courseId/lessons/:lessonId" component={LessonContainer}/>
         <Route path="/" component={Home}/>
       </Switch>
 
@@ -90,6 +92,7 @@ const mapStateToProps = (state) => {
     cartTotal: state.cartTotal,
     company: state.company,
     totalRevenue: state.totalRevenue,
+    lessons: state.lessons
   };
 };
 
