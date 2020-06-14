@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {selectingCourseLessons} from '../redux/actions'
-import Lesson from './Lesson'
 
 class LessonContainer extends React.Component{
     constructor(){
@@ -23,16 +22,18 @@ class LessonContainer extends React.Component{
     }
 
     render(){
-        console.log(this.props.lessons)
+        console.log("LESSON CONTAINER PROPS", this.props)
         return(
             <div>
-                <Link to="/profile"><Button>Back to Profile</Button></Link>
                 <h1>Lessons</h1>
+                <Link to="/profile"><Button>Back to Profile</Button></Link>
+                <br></br>
                 {this.props.lessons.map(lesson => {
                     return <Link to={`/course/${this.state.courseId}/${lesson.id}`}>{lesson.lesson_name}</Link>
                 })}
+                <p>Here</p>
+                {/* <Lesson /> */}
             </div>
-            // <Link to={`/course-list/${this.props.course.id}/`}>
         )
     }
 }

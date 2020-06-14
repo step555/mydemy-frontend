@@ -22,6 +22,7 @@ const PurchasedCourse = (props) => {
                 </div>
             </Card>
             <br></br>
+
         </div>
     )
 }
