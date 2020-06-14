@@ -177,7 +177,7 @@ function fetchingUserCart(){
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
         .then(purchases => {
-            debugger // below line is prone to having errors
+            // debugger // below line is prone to having errors
             // const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
             const userPurchases = purchases.filter(p => p.user_id === currentUserId)
             const userCart = userPurchases.filter(p => p.is_purchased === false)
@@ -205,7 +205,7 @@ function removingFromCart(item){
         "Accept": "application/json"}
     }).then(resp => resp.json())
     .then(purchase => {
-        console.log(purchase)
+        // console.log(purchase)
         // debugger // below line is prone to errors
         currentUser.purchases = currentUser.purchases.filter(p => p.id !== purchase.id)
         dispatch(removedFromCart(purchase))
@@ -247,7 +247,6 @@ function addingToCart(course){
         let alreadyInCartOrPurchased = false
         for(let i = 0; i < course.users.length; i++){
             if(course.users[i].id === currentUserId){
-                debugger
                 alreadyInCartOrPurchased = true
                 i = course.users.length
                 // alert("You already purchased this course")
@@ -468,6 +467,7 @@ function selectingCourseLessons(id){
         fetch(COURSES_URL + `/${id}`)
         .then(resp => resp.json())
         .then(course => {
+            // debugger
             dispatch(selectedCourseLessons(course.lessons))
         })
     }

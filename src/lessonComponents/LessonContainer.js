@@ -60,6 +60,7 @@ class LessonContainer extends React.Component{
                         </Grid.Column>
                     </Grid>
                     {this.props.lessons.map(l => {
+                        // debugger
                         return <Lesson lesson={l} key={l.id}/>}
                     )}
                 </div>

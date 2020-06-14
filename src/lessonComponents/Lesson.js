@@ -30,10 +30,9 @@ class Lesson extends React.Component {
     render(){
         console.log("lesson props", this.props)
         // debugger
-        return !this.props.lesson.course ? null : (
+        return !this.props.lesson ? null : (
             <div>
                 <br></br><br></br>
-                <h1 className="lesson-name-h1">{this.props.lesson.course.name}</h1>
                 <div className="lesson-content-div">
                     <iframe width="560" height="315" src={this.props.lesson.video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
                     </iframe>
@@ -47,14 +46,14 @@ class Lesson extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedLesson: state.selectedLesson,
+        // selectedLesson: state.selectedLesson,
         // lessons: state.lessons
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectingLesson: (info) => {dispatch( selectingLesson(info) )}
+        // selectingLesson: (info) => {dispatch( selectingLesson(info) )}
     }
 }
 
