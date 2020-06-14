@@ -335,3 +335,7 @@
 .lesson-name-h1 {
   text-align: center;
 }
+
+.lesson-container-hide {
+  display: none;
+}

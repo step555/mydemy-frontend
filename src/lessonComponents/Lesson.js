@@ -3,33 +3,48 @@ import {connect} from 'react-redux'
 import {selectingLesson} from '../redux/actions'
 import {Button, Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import LessonVideo from './LessonVideo'
 
 class Lesson extends React.Component {
     constructor(){
         super()
         this.state = {
-            courseId: "",
-            lessonId: ""
+            // courseId: "",
+            // lessonId: ""
         }
     }
 
     componentWillMount(){
+        // debugger
         // let courseId = parseInt(this.props.match.params.courseId)
         // let lessonId = parseInt(this.props.match.params.lessonId)
-        // this.setState({
-        //     courseId: courseId,
-        //     lessonId: lessonId
+        
+        // console.log("lessonId", this.state.lessonId)
+
+        // this.props.selectingLesson(this.props.lessonId)
+        //     this.setState({
+        //         // courseId: courseId,
+        //         lessonId: this.props.lessonId
         // })
-        // this.props.selectingLesson(lessonId)
     }
 
-    nextLesson = () => {
-        this.setState({ lessonId: this.state.lessonId + 1 })
+    componentDidMount(){
+        // debugger
+        // this.props.selectingLesson(this.props.lessonId)
+        let lessonId = this.props.lId
+        this.setState({
+            // courseId: courseId,
+            // lessonId: this.props.lessonId
+            lessonId: lessonId
+        })
     }
+
+    // nextLesson = () => {
+    //     this.setState({ lessonId: this.state.lessonId + 1 })
+    // }
 
     render(){
-        console.log("lesson props", this.props)
-        // debugger
+
         return !this.props.lesson ? null : (
             <div>
                 <br></br><br></br>
@@ -40,20 +55,32 @@ class Lesson extends React.Component {
                     <p>{this.props.lesson.text_content}</p>
                 </div>
             </div>
+        // return !this.props.selectedLesson ? null : (
+        // // return (
+        //     <div>
+        //     <br></br><br></br>
+        //     <div className="lesson-content-div">
+        //         {/* <iframe width="560" height="315" src={this.props.selectedLesson.video} title="video" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+        //         </iframe> */}
+        //         <LessonVideo lesson={this.props.selectedLesson}/>
+        //         <br></br><br></br>
+        //         <p>{this.props.selectedLesson.text_content}</p>
+        //     </div>
+        // </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        // selectedLesson: state.selectedLesson,
+        selectedLesson: state.selectedLesson,
         // lessons: state.lessons
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // selectingLesson: (info) => {dispatch( selectingLesson(info) )}
+        selectingLesson: (info) => {dispatch( selectingLesson(info) )}
     }
 }
 

@@ -446,10 +446,11 @@ function creatingNewCourse(courseInfo){
         }).then(resp => resp.json())
         .then(course => {
             currentCompany.courses.push(course)
+            course.company = currentCompany
             dispatch(createdNewCompanyCourse(currentCompany))
-
             dispatch(createdNewCourse(course))
             // window.location.reload()
+            // alert("Adding your course to our system. Click Ok to continue")
         })
     }
 }
@@ -467,7 +468,6 @@ function selectingCourseLessons(id){
         fetch(COURSES_URL + `/${id}`)
         .then(resp => resp.json())
         .then(course => {
-            // debugger
             dispatch(selectedCourseLessons(course.lessons))
         })
     }
@@ -483,7 +483,7 @@ function selectedCourse(course){
 
 function selectingLesson(lessonId){
     return (dispatch) => {
-        console.log("selecting", lessonId)
+        // console.log("selecting", lessonId)
         fetch(LESSON_URL + `/${lessonId}`)
         .then(resp => resp.json())
         .then(lesson => {

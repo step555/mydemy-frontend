@@ -46,6 +46,11 @@ class CCourse extends React.Component{
     hideModal = () => {
         this.setState({ show: false });
     };
+
+    handleClick = (courseId) => {
+        console.log("deleting")
+        this.props.deletingCourse(courseId)
+    }
     
     render(){
 
@@ -64,7 +69,6 @@ class CCourse extends React.Component{
 
     return !this.props.course ? null : (
         <div onClick={this.editCourse}>
-            <h1>React Modal</h1>
             <CCourseModal show={this.state.show} handleClose={this.hideModal} course={this.props.course}>
                 <Form style={{overflow: 'auto', maxHeight: 600 }}>
                     <h1>Review your course details here</h1>
@@ -105,24 +109,33 @@ class CCourse extends React.Component{
                         <br></br><br></br>
                 </Form>
             </CCourseModal>
-            <button type="button" onClick={this.showModal}>Open</button>            
-            <Card>
-                {/* <Link to={`/company/${this.props.course.id}/view-and-edit-course`}> */}
-                {/* <Link to={`/company/view-and-edit-course`}> */}
+            {/* <button type="button" onClick={this.showModal}>Open</button>             */}
+                <Card onClick={this.showModal}>
+                        {/* <Link to={`/company/${this.props.course.id}/view-and-edit-course`}> */}
+                        {/* <Link to={`/company/view-and-edit-course`}> */}
 
-                    <h5 className="account-info">ID: {this.props.course.id}</h5>
-                    <h5 className="account-info">Name: {this.props.course.name}</h5>
-                    <h5 className="account-info">Subject: {this.props.course.subject}</h5>
-                    <h5 className="account-info">Price: ${this.props.course.price}</h5>
-                    <h5 className="account-info">Duration: {this.props.course.duration}</h5>
-                    <h5 className="account-info">Difficulty level: {this.props.course.difficulty_level}</h5>
+                            <h5 className="account-info">ID: {this.props.course.id}</h5>
+                            <h5 className="account-info">Name: {this.props.course.name}</h5>
+                            <h5 className="account-info">Subject: {this.props.course.subject}</h5>
+                            <h5 className="account-info">Price: ${this.props.course.price}</h5>
+                            <h5 className="account-info">Duration: {this.props.course.duration}</h5>
+                            <h5 className="account-info">Difficulty level: {this.props.course.difficulty_level}</h5>
 
-                    {/* <button onclick={() => this.handleClick(this.props.course.id)}>Delete</button> */}
-                {/* {this.state.editing ?  */}
-                {/* </Link> */}
-                    <button onClick={() => this.handleClick(this.props.course.id)}>Delete</button>
-                    <br></br>
-            </Card>
+                            {/* <button onclick={() => this.handleClick(this.props.course.id)}>Delete</button> */}
+                        {/* {this.state.editing ?  */}
+                        {/* </Link> */}
+                            
+                            {/* <button onClick={() => this.handleClick(this.props.course.id)}>Delete</button> */}
+                            <br></br>
+                </Card>
+                <Grid>
+                    <Grid.Column width={5}>
+                        <button>View Lessons</button>
+                    </Grid.Column>
+                    <Grid.Column width={2}>
+                        <button onClick={() => this.handleClick(this.props.course.id)}>Delete</button>
+                    </Grid.Column>
+                </Grid>
             <br></br>
         </div>
     )}

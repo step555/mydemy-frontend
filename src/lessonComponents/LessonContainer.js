@@ -4,6 +4,7 @@ import {selectingLesson} from '../redux/actions'
 import {Button, Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import Lesson from './Lesson'
+// import LessonVideo from './LessonVideo'
 import {selectingCourseLessons} from '../redux/actions'
 
 class LessonContainer extends React.Component{
@@ -12,7 +13,7 @@ class LessonContainer extends React.Component{
         this.state = {
             courseId: "",
             lessonId: "",
-            lessons: [],
+            lessons: [], // probably delete this
             displayIndex: 0
         }
     }
@@ -20,29 +21,43 @@ class LessonContainer extends React.Component{
     componentWillMount(){
         let courseId = parseInt(this.props.match.params.courseId)
         let lessonId = parseInt(this.props.match.params.lessonId)
-        this.setState({
-            courseId: courseId,
-            lessonId: lessonId
-        })
-        // this.props.selectingLesson(lessonId)
-        this.props.selectingCourseLessons(courseId)
+        // debugger
+        // if( lessonId !== "Video" ){ // prevents lessonId from becoming string "video"
+        // if(typeof(lessonId !== "string")){
+        //     const id = lessonId
+        //     // debugger
+        // }
 
-    }
-
-    componentDidMount(){
-        if(this.props.lessons){
-            this.setState({lessons: this.props.lessons})
+        if( this.props.match.params.lessonId !== "Video" ){ // prevents lessonId from becoming string "video"
+            this.setState({
+                courseId: courseId,
+                lessonId: parseInt(this.props.match.params.lessonId)
+                // lessonId: lessonId
+                // lessonId: id
+            },() => {
+                // debugger
+                console.log("before selecting lesson is called", this.state)
+                this.props.selectingLesson(this.state.lessonId)
+            })
         }
+
+        // this.props.selectingLesson(this.state.lessonId)
+        // console.log(this.state.lessonId)
+
     }
 
-
+    individualLesson = () => {
+        // return this.state.lessons.slice(this.state.displayIndex, this.state.displayIndex + 1)
+        return this.props.lessons.slice(this.state.displayIndex, this.state.displayIndex + 1)
+    }
 
     nextLesson = () => {
         this.setState({ lessonId: this.state.lessonId + 1 })
     }
 
     render(){
-        console.log("lesson container props", this.props)
+        // console.log("lesson container props", this.props)
+        // console.log("Lesson container lessons state", this.state)
         return(
             <div>
                 <h1>LESSON CONTAINER</h1>
@@ -51,18 +66,16 @@ class LessonContainer extends React.Component{
                 <br></br><br></br>
                 {/* <h1 className="lesson-name-h1">{this.props.selectedLesson.course.name}</h1> */}
                 <div className="next-previous-lesson-div">
-                    <Grid>
-                        <Grid.Column width={8}>
-                            <Button>Previous Lesson</Button>
-                        </Grid.Column>
-                        <Grid.Column width={7}>
-                            <Link to={`/course/${this.state.courseId}/${this.state.lessonId + 1}`}><Button onClick={this.nextLesson}>Next Lesson</Button></Link>
-                        </Grid.Column>
-                    </Grid>
-                    {this.props.lessons.map(l => {
+                    {/* {this.individualLesson().map(l => {
                         // debugger
                         return <Lesson lesson={l} key={l.id}/>}
-                    )}
+                    )} */}
+                    {/* {this.props.lessons.map(l => {
+                        // debugger
+                        return <Lesson lesson={l} key={l.id}/>}
+                    )} */}
+                    {/* <LessonVideo lessonVideo={this.props.selectedLesson.video}/> */}
+                    <Lesson lId={this.state.lessonId}/>
                 </div>
             </div>
         )
@@ -71,18 +84,47 @@ class LessonContainer extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        // selectedLesson: state.selectedLesson,
-        lessons: state.lessons
+        selectedLesson: state.selectedLesson,
+        // lessons: state.lessons
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // selectingLesson: (info) => {dispatch( selectingLesson(info) )},
-        selectingCourseLessons: (info) => {dispatch( selectingCourseLessons(info) )}
+        selectingLesson: (info) => {dispatch( selectingLesson(info) )},
+        // selectingCourseLessons: (info) => {dispatch( selectingCourseLessons(info) )}
     }
 }
 
 export default (connect(mapStateToProps, mapDispatchToProps)(LessonContainer));
+
+// export default LessonContainer
+
+
+
+
+// import React from 'react'
+
+// class LessonContainer extends React.Component {
+//     constructor(){
+//         super()
+//         this.state = {
+//             lessonId: ""
+//         }
+//     }
+
+//     componentDidMount(){
+
+//     }
+    
+//     render(){
+//         console.log(this.props)
+//         return(
+//             <div>
+//                 <h1>Container that should be hidden</h1>
+//             </div>
+//         )
+//     }
+// }
 
 // export default LessonContainer
