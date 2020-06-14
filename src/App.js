@@ -64,7 +64,7 @@ class App extends React.Component{
         <Route path="/register" component={RegisterNew}/>
         <Route path="/sign-up" component={RegisterNew}/>
         <Route path="/checkout" component={CheckoutForm}/>
-        <Route path="/course/:courseId/lessons/" component={LessonContainer}/>
+        <Route path="/course/:courseId/lessons" component={LessonContainer}/>
         <Route path="/course/:courseId/:lessonId" component={Lesson}/>
         <Route path="/" component={Home}/>
       </Switch>
@@ -111,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
     // selectingCourse: () => {dispatch(selectingCourse() )}
 
     deletingCourse: () => {dispatch(deletingCourse() )},
-    selectingCourseLessons: () => {dispatch(selectingCourseLessons() )}
+    selectingCourseLessons: () => {dispatch(selectingCourseLessons() )},
   }
 }
 

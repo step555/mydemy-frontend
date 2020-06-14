@@ -327,3 +327,11 @@
 .display-none {
   display: none;
 }
+
+.next-previous-lesson-div {
+  text-align: center;
+}
+
+.lesson-name-h1 {
+  text-align: center;
+}

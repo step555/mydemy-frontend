@@ -155,6 +155,15 @@ const selectCourseLessonsReducer = (state = [], action) => {
     }
 }
 
+const lessonReducer = (state = [], action) => {
+    switch (action.type){
+        case "SELECTED_LESSON":
+            return action.payload
+        default:
+            return state
+    }
+}
+
 const searchTextReducer = (state = "", action) => {
     switch (action.type) {
       case "CHANGE_SEARCH_TEXT":
@@ -210,7 +219,8 @@ const rootReducer = combineReducers({
     dropdownDuration: dropdownDurationReducer,
     dropdownPrice: dropdownPriceReducer,
     dropdownDifficultyLevel: dropdownDifficultyLevelReducer,
-    lessons: selectCourseLessonsReducer
+    lessons: selectCourseLessonsReducer,
+    selectedLesson: lessonReducer
   });
   
   export default rootReducer;

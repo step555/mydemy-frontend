@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import {selectingCourseLessons} from '../redux/actions'
 
 const PurchasedCourse = (props) => {
-    console.log("purchased course props", props)
+    // console.log("purchased course props", props)
 
     const handleClick = () => {
         props.selectingCourseLessons(props.course.id)

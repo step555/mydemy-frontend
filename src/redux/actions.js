@@ -482,6 +482,21 @@ function selectedCourse(course){
     return {type: "EDIT_SELECTED_COURSE", payload: course}
 }
 
+function selectingLesson(lessonId){
+    return (dispatch) => {
+        console.log("selecting", lessonId)
+        fetch(LESSON_URL + `/${lessonId}`)
+        .then(resp => resp.json())
+        .then(lesson => {
+            dispatch(selectedLesson(lesson))
+        })
+    }
+}
+
+function selectedLesson(lesson){
+    return {type: "SELECTED_LESSON", payload: lesson}
+}
+
 function deletingCourse(courseId){
     return (dispatch) => {
         fetch(COURSES_URL + `/${courseId}`, {
@@ -640,4 +655,4 @@ function sortByDifficultyLevel(value){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
 
-export { sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
