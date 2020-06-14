@@ -4,7 +4,7 @@ import CartItem from './CartItem'
 import {Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 // import {cartTotal} from './redux/actions'
-import { checkingOutCart } from "../redux/actions";
+import { checkingOutCart, fetchingUserCart } from "../redux/actions";
 
 class CartContainer extends React.Component{
     // constructor(){
@@ -13,6 +13,11 @@ class CartContainer extends React.Component{
     //         total: this.props.cartTotal.cartTotal
     //     }
     // }
+
+    componentDidMount(){
+        this.props.fetchingUserCart()
+        debugger
+    }
 
     checkout = () => {
         console.log("checking out", this.props.cart)
@@ -36,7 +41,7 @@ class CartContainer extends React.Component{
                         <br></br>
                         <div className="cart-container-div">
                         {this.props.cart.map(item => {
-
+                            debugger
                             return ( 
                                     <CartItem key={item.id} item={item}/>
                             )
@@ -75,7 +80,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     console.log("mapDispatchToProps")
     return {
-      checkingOutCart: (info) => {dispatch( checkingOutCart(info) )}
+      checkingOutCart: (info) => {dispatch( checkingOutCart(info) )},
+      fetchingUserCart: (info) => {dispatch( fetchingUserCart(info) )}
     }
 }
 

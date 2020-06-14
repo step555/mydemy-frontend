@@ -59,7 +59,9 @@ class LessonContainer extends React.Component{
                             <Link to={`/course/${this.state.courseId}/${this.state.lessonId + 1}`}><Button onClick={this.nextLesson}>Next Lesson</Button></Link>
                         </Grid.Column>
                     </Grid>
-                    {this.props.lessons.map(l => <Lesson lesson={l} key={l.id}/>)}
+                    {this.props.lessons.map(l => {
+                        return <Lesson lesson={l} key={l.id}/>}
+                    )}
                 </div>
             </div>
         )

@@ -177,7 +177,7 @@ function fetchingUserCart(){
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
         .then(purchases => {
-            // debugger // below line is prone to having errors
+            debugger // below line is prone to having errors
             // const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
             const userPurchases = purchases.filter(p => p.user_id === currentUserId)
             const userCart = userPurchases.filter(p => p.is_purchased === false)
@@ -247,6 +247,7 @@ function addingToCart(course){
         let alreadyInCartOrPurchased = false
         for(let i = 0; i < course.users.length; i++){
             if(course.users[i].id === currentUserId){
+                debugger
                 alreadyInCartOrPurchased = true
                 i = course.users.length
                 // alert("You already purchased this course")
