@@ -86,7 +86,7 @@ class CreateNewCourse extends React.Component {
         this.setState({individualContentCovered: ""})
     }
     
-    edit = () => { 
+    addLessons = () => { 
         // below lines of code are to avoid content not interable error for content covered array
             // adds final index to contentCovered array
         let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
@@ -101,7 +101,7 @@ class CreateNewCourse extends React.Component {
             if(this.state.contentCovered.length === 0){
                 this.setState({contentCovered: this.state.individualContentCovered})
             }
-            this.setState({finished: !this.state.finished})
+            // this.setState({finished: !this.state.})
     }
 
     filledOutCourseInfo = () => {
@@ -114,7 +114,7 @@ class CreateNewCourse extends React.Component {
     }
 
     filledOutLessonInfo = () => {
-
+        this.setState({finished: !this.state.finished})
     }
 
     render(){
@@ -139,6 +139,7 @@ class CreateNewCourse extends React.Component {
         return (
             <div>
                 {this.state.finishedCourseInfo === false ? 
+                // if false render course form. else render lesson form container
             <div>
                 <h3>New Course Creation Form</h3>
                 <Form>
@@ -174,15 +175,8 @@ class CreateNewCourse extends React.Component {
                         )}
                         )}
                             <button onClick={this.addInputField}>More</button>
-                            <br></br>
-                        {this.state.finished === true ? 
-                        <div>
-                            <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
-                            <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Confirm Submission</Form.Field>
-                        </div>
-                            : 
-                            <Form.Field onClick={this.edit} control={Button}>Done</Form.Field>
-                        }
+                            <br></br>                       
+                            <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Done</Form.Field>
                     </Form>
             </div>
             :
@@ -191,7 +185,7 @@ class CreateNewCourse extends React.Component {
 
 
 
-
+                <br></br><br></br>
                 {this.state.finished === true ? 
                     <div>
                         <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
@@ -202,6 +196,7 @@ class CreateNewCourse extends React.Component {
                 }
             </div>
         )
+        // ternary for was submitted starts at top. if false renders form. else renders success message
     }
 }
 
