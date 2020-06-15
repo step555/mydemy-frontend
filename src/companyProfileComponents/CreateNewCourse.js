@@ -23,6 +23,8 @@ class CreateNewCourse extends React.Component {
             finished: false,
             wasSubmitted: false,
             finishedCourseInfo: false,
+            errorMessage: 'Please complete all required fields.',
+            confirmBeforeGoingToCourse: false
         }
     }
 
@@ -74,8 +76,8 @@ class CreateNewCourse extends React.Component {
         this.setState({numberOfContentCovered: newNumInput})
         let newContentCoveredArray
         // on add input field, add individualContentCovered to contentCovered array
+        // debugger
         if(this.state.individualContentCovered === "" && this.state.contentCovered.length === 0){
-            // debugger
             newContentCoveredArray = [...this.state.contentCovered, this.props.selectedCourse.course.content_covered[0]]
             this.setState({contentCovered: newContentCoveredArray})
         }else{
@@ -86,9 +88,26 @@ class CreateNewCourse extends React.Component {
         this.setState({individualContentCovered: ""})
     }
     
-    addLessons = () => { 
-        // below lines of code are to avoid content not interable error for content covered array
-            // adds final index to contentCovered array
+    // addLessons = () => { 
+    //     // below lines of code are to avoid content not interable error for content covered array
+    //         // adds final index to contentCovered array
+    //     let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+ 
+    //     this.setState({
+    //         contentCovered: newContentCoveredArray 
+    //         },() => {
+    //             console.log("array has been updated")
+    //             }
+    //             // calls this function only AFTER state has been updated
+    //         )
+    //         if(this.state.contentCovered.length === 0){
+    //             this.setState({contentCovered: this.state.individualContentCovered})
+    //         }
+    //         // this.setState({finished: !this.state.})
+    // }
+
+    filledOutCourseInfo = () => {
+
         let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
  
         this.setState({
@@ -98,14 +117,22 @@ class CreateNewCourse extends React.Component {
                 }
                 // calls this function only AFTER state has been updated
             )
-            if(this.state.contentCovered.length === 0){
-                this.setState({contentCovered: this.state.individualContentCovered})
-            }
-            // this.setState({finished: !this.state.})
-    }
+        if(this.state.contentCovered.length === 0){
+            this.setState({contentCovered: this.state.individualContentCovered})
+        }
 
-    filledOutCourseInfo = () => {
-        this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
+
+        if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered.length === 0){
+            // alert(this.state.errorMessage)
+            // this.setState({confirmBeforeGoingToCourse: false})
+            // this.setState({contentCovered})
+    
+            // let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+
+            alert("Please review this information before continuing")
+        }else{
+            this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
+        }
     }
 
     submit = () => {

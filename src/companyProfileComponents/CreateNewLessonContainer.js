@@ -10,17 +10,24 @@ class CreateNewLessonContainer extends React.Component{
             numberOfLessons: [1],
             lessonName: "",
             lessonText: "",
-            video: ""
+            video: "",
+            lessonsArray: []
         }
     }
 
     addNextLesson = () => {
         let newNumLessons = [...this.state.numberOfLessons, 1]
-        this.setState({numberOfLessons: newNumLessons})
+        let lessonName = this.state.lessonName
+        let updatedLessonsArray = [...this.state.lessonsArray, lessonName, this.state.lessonText, this.state.video]
+        this.setState({
+            numberOfLessons: newNumLessons,
+            lessonsArray: updatedLessonsArray
+        })
     }
 
-    onChangeLessonInformation = () => {
-
+    onChangeLessonInformation = (lessonInformation) => { // lessonInformation event from NewLesson
+        // debugger
+        this.setState({[lessonInformation.target.id]: lessonInformation.target.value})
     }
 
     render(){
