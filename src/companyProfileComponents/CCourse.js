@@ -101,19 +101,21 @@ class CCourse extends React.Component{
                         {/* <Form.Input fluid the FLUID messes up the form input field/> */}
                     </Form.Group>
                         <div>
-                            {this.props.course.content_covered.map(content => {
-                                return (                                    
+                            {/* {this.props.course.content_covered.split(", ").map(content => { */}
+                                {/* return (                                     */}
                                 <Form.Group widths="equal">
                                     {/* <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' onClick={(event) => this.selectedExistingContentCoveredIndex(event)} value={content} onChange={this.onChangeContentCoveredInformation}/> */}
-                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' value={content}/>
-                                </Form.Group>)
-                                })}
+                                    {/* <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' value={content}/> */}
+                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' value={this.props.course.content_covered}/>
+                                </Form.Group>
+                                {/* ) */}
+                                {/* })} */}
                         </div>
 
                         <br></br><br></br>
                 </Form>
             </CCourseModal>
-            {/* <button type="button" onClick={this.showModal}>Open</button>             */}
+            {/* <button type="button" onClick={this.showModal}>Open</button> */}
                 <Card onClick={this.showModal}>
                     <h5 className="account-info">ID: {this.props.course.id}</h5>
                     <h5 className="account-info">Name: {this.props.course.name}</h5>

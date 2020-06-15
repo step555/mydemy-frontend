@@ -29,6 +29,7 @@ class LessonContainer extends React.Component{
         // }
 
         if( this.props.match.params.lessonId !== "Video" ){ // prevents lessonId from becoming string "video"
+           // that doesn't work 
             this.setState({
                 courseId: courseId,
                 lessonId: parseInt(this.props.match.params.lessonId)

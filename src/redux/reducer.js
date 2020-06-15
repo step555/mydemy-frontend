@@ -64,8 +64,21 @@ const companyReducer = (state = [], action) => {
             let addedNewCourse = {...state}
             // let addedNewCourse = [...state]
             return addedNewCourse
+        // case "ADDING_TO_LESSONS_ARRAY":
+
+        //     return action.payload
         default:
             return state;
+    }
+}
+
+const newLessonReducer = (state = [], action) => {
+    switch (action.type){
+        case "ADDING_TO_LESSONS_ARRAY":
+
+        return action.payload
+    default:
+        return state;
     }
 }
 
@@ -78,11 +91,11 @@ const cartReducer = (state = [], action) => {
             // for(let i = 0; i < state.length; i++){
             //     if(state[i].course_id === action.payload.course_id){
             //         foundInsideCart = true
-            //         // debugger
+
             //     }
             // }
             //     if(foundInsideCart === true){
-            //         // debugger
+
             //         // alert("This item is already in your cart")
             //         return state
             //     }else{
@@ -220,7 +233,8 @@ const rootReducer = combineReducers({
     dropdownPrice: dropdownPriceReducer,
     dropdownDifficultyLevel: dropdownDifficultyLevelReducer,
     lessons: selectCourseLessonsReducer,
-    selectedLesson: lessonReducer
+    selectedLesson: lessonReducer,
+    newLesson: newLessonReducer
   });
   
   export default rootReducer;

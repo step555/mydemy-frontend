@@ -23,7 +23,7 @@ class CreateNewCourse extends React.Component {
             finished: false,
             wasSubmitted: false,
             finishedCourseInfo: false,
-            errorMessage: 'Please complete all required fields.',
+            clickedViewLessons: false,
             confirmBeforeGoingToCourse: false
         }
     }
@@ -35,9 +35,9 @@ class CreateNewCourse extends React.Component {
 
     onChangeInformation = (event) => {
         let individualContentCovered
-        if(event.target.id !== "contentCovered"){
+        // if(event.target.id !== "contentCovered"){
             this.setState( { [event.target.id]: event.target.value } )
-        }
+        // }
 
         if(event.target.innerText === '0-3 weeks'){
             this.setState({duration: event.target.innerText})
@@ -57,11 +57,11 @@ class CreateNewCourse extends React.Component {
             this.setState({difficultyLevel: event.target.innerText})
         }
 
-        if(event.target.id === "contentCovered"){
-            individualContentCovered = event.target.value // this state changes whenever you type something
-            // this issue is dealt with by having contentCovered state be updated only after you click more
-            this.setState({individualContentCovered: individualContentCovered})
-        }
+        // if(event.target.id === "contentCovered"){
+        //     individualContentCovered = event.target.value // this state changes whenever you type something
+        //     // this issue is dealt with by having contentCovered state be updated only after you click more
+        //     this.setState({individualContentCovered: individualContentCovered})
+        // }
         if(event.target.id === "subject"){
             let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
             this.setState({subject: forcedCapitalization})
@@ -69,79 +69,46 @@ class CreateNewCourse extends React.Component {
         
     }
 
-    addInputField = () => { // this function does not render last element of new array when clicking submit btn
-        console.log("adding field")
+    // addInputField = () => { // this function does not render last element of new array when clicking submit btn
+    //     console.log("adding field")
         
-        let newNumInput = [...this.state.numberOfContentCovered, 1]
-        this.setState({numberOfContentCovered: newNumInput})
-        let newContentCoveredArray
-        // on add input field, add individualContentCovered to contentCovered array
-        // debugger
-        if(this.state.individualContentCovered === "" && this.state.contentCovered.length === 0){
-            newContentCoveredArray = [...this.state.contentCovered, this.props.selectedCourse.course.content_covered[0]]
-            this.setState({contentCovered: newContentCoveredArray})
-        }else{
-            newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
-            this.setState({contentCovered: newContentCoveredArray})
-        }
+    //     let newNumInput = [...this.state.numberOfContentCovered, 1]
+    //     this.setState({numberOfContentCovered: newNumInput})
+    //     let newContentCoveredArray
+    //     // on add input field, add individualContentCovered to contentCovered array
+    //     // debugger
+    //     if(this.state.individualContentCovered === "" && this.state.contentCovered.length === 0){
+    //         newContentCoveredArray = [...this.state.contentCovered, this.props.selectedCourse.course.content_covered[0]]
+    //         this.setState({contentCovered: newContentCoveredArray})
+    //     }else{
+    //         newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
+    //         this.setState({contentCovered: newContentCoveredArray})
+    //     }
 
-        this.setState({individualContentCovered: ""})
-    }
-    
-    // addLessons = () => { 
-    //     // below lines of code are to avoid content not interable error for content covered array
-    //         // adds final index to contentCovered array
-    //     let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
- 
-    //     this.setState({
-    //         contentCovered: newContentCoveredArray 
-    //         },() => {
-    //             console.log("array has been updated")
-    //             }
-    //             // calls this function only AFTER state has been updated
-    //         )
-    //         if(this.state.contentCovered.length === 0){
-    //             this.setState({contentCovered: this.state.individualContentCovered})
-    //         }
-    //         // this.setState({finished: !this.state.})
+    //     this.setState({individualContentCovered: ""})
     // }
-
-    filledOutCourseInfo = () => {
-
-        let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
- 
-        this.setState({
-            contentCovered: newContentCoveredArray 
-            },() => {
-                console.log("array has been updated")
-                }
-                // calls this function only AFTER state has been updated
-            )
-        if(this.state.contentCovered.length === 0){
-            this.setState({contentCovered: this.state.individualContentCovered})
-        }
-
-
-        if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered.length === 0){
-            // alert(this.state.errorMessage)
-            // this.setState({confirmBeforeGoingToCourse: false})
-            // this.setState({contentCovered})
     
-            // let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
-
-            alert("Please review this information before continuing")
-        }else{
-            this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
-        }
+    filledOutCourseInfo = () => {
+        this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
     }
 
-    submit = () => {
-        this.setState({wasSubmitted: true})
-        this.props.creatingNewCourse(this.state)
+    submit = (lessonArray) => {
+        if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
+            alert("It appears that you have left a course field blank. Please ensure all required fields are filled in")
+        }else{
+            // this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
+            this.setState({wasSubmitted: true})
+            this.props.creatingNewCourse(this.state)
+        }
     }
 
     filledOutLessonInfo = () => {
         this.setState({finished: !this.state.finished})
+    }
+
+    lessonArrayContents = (lessonArray) => {
+        debugger
+        return lessonArray
     }
 
     render(){
@@ -195,28 +162,32 @@ class CreateNewCourse extends React.Component {
                         {this.state.numberOfContentCovered.map(input => {
                         return (
                             <div>
-                                <Form.Group widths="equal">
+                                {/* <Form.Group widths="equal">
                                     <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
+                                </Form.Group> */}
+                                <Form.Group widths="equal">
+                                    <Form.TextArea fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
                                 </Form.Group>
                             </div>
                         )}
                         )}
-                            <button onClick={this.addInputField}>More</button>
+                            {/* <button onClick={this.addInputField}>More</button> */}
                             <br></br>                       
-                            <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Done</Form.Field>
+                            <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Add Lessons</Form.Field>
                     </Form>
             </div>
             :
-            <h2><CreateNewLessonContainer/></h2>
+            <div>
+                <h2><CreateNewLessonContainer submit={this.submit}/></h2>
+                <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Add Course Information</Form.Field>
+            </div>
             } 
-
-
 
                 <br></br><br></br>
                 {this.state.finished === true ? 
                     <div>
                         <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
-                        <Form.Field onClick={this.submit} control={Button}>Confirm Submission</Form.Field>
+                        <Form.Field onClick={this.submit} control={Button}>Final Submit</Form.Field>
                     </div>
                         : 
                         <Form.Field onClick={this.filledOutLessonInfo} control={Button}>Submit</Form.Field>
@@ -227,12 +198,19 @@ class CreateNewCourse extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    // console.log(state.newLesson)
+    return {
+        // newLesson: state.newLesson
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
       creatingNewCourse: (info) => {dispatch( creatingNewCourse(info) )}
     }
 }
 
-export default connect(null, mapDispatchToProps)(CreateNewCourse)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewCourse)
 
 // export default CreateNewCourse

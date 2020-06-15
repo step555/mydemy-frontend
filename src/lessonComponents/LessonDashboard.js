@@ -23,7 +23,6 @@ class LessonDashboard extends React.Component{
         let courseId = parseInt(this.props.match.params.courseId)
         this.setState({courseId: courseId})
         this.props.selectingCourseLessons(courseId)
-        // debugger
     }
 
     selectLesson = () => {
@@ -31,7 +30,6 @@ class LessonDashboard extends React.Component{
     }
 
     handleClick = (lessonId) => {
-        debugger
         this.props.selectingLesson(lessonId)
     }
 
@@ -107,7 +105,6 @@ export default (connect(mapStateToProps, mapDispatchToProps)(LessonDashboard));
 //         let courseId = parseInt(this.props.match.params.courseId)
 //         this.setState({courseId: courseId})
 //         this.props.selectingCourseLessons(courseId)
-//         // debugger
 //     }
 
 //     handleClick = (lessonId) => {

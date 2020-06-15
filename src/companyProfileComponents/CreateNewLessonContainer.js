@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Form, TextArea, Button} from 'semantic-ui-react'
 import NewLesson from './NewLesson'
+import {addLessonsArrayToReduxActions} from '../redux/actions'
 
 class CreateNewLessonContainer extends React.Component{
     constructor(){
@@ -16,18 +17,34 @@ class CreateNewLessonContainer extends React.Component{
     }
 
     addNextLesson = () => {
-        let newNumLessons = [...this.state.numberOfLessons, 1]
+        
         let lessonName = this.state.lessonName
         let updatedLessonsArray = [...this.state.lessonsArray, lessonName, this.state.lessonText, this.state.video]
         this.setState({
-            numberOfLessons: newNumLessons,
+
             lessonsArray: updatedLessonsArray
+        },() => {
+            if( this.state.lessonName.includes("") || this.state.lessonText.includes("") ){
+                alert("All required lesson fields must be filled in")
+            }else{
+            // this.props.addLessonsArrayToReduxActions(this.state.lessonsArray)
+            let newNumLessons = [...this.state.numberOfLessons, 1]
+            this.setState({numberOfLessons: newNumLessons})
+            this.props.submit(this.state.lessonsArray)
+            }
+        })
+        this.setState({
+            lessonName: "",
+            lessonText: ""
         })
     }
+
+    // done adding lessons? Click here. send to redux which takes in lessons array as param
 
     onChangeLessonInformation = (lessonInformation) => { // lessonInformation event from NewLesson
         // debugger
         this.setState({[lessonInformation.target.id]: lessonInformation.target.value})
+        // this.props.submit(this.state.lessonsArray)
     }
 
     render(){
@@ -62,10 +79,10 @@ class CreateNewLessonContainer extends React.Component{
 //     };
 // };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//       creatingNewLesson: (info) => {dispatch( creatingNewCourse(info) )}
-//     }
-// }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addLessonsArrayToReduxActions: (lessonsArray) => {dispatch( addLessonsArrayToReduxActions(lessonsArray) )}
+    }
+}
 
-export default connect(null, null)(CreateNewLessonContainer)
+export default connect(null, mapDispatchToProps)(CreateNewLessonContainer)

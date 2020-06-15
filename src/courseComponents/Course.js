@@ -13,7 +13,6 @@ class Course extends React.Component{
 
     render(){
         // console.log(this.props.course)
-
         return !this.props.course ? null : (
             <div className="course-div">
                 <Grid>
@@ -34,7 +33,7 @@ class Course extends React.Component{
                     <h5>Subject: {this.props.course.subject}</h5>
                     <h5>Content covered in this course:</h5>
                     <ul>
-                        {this.props.course.content_covered.map(content => {
+                        {this.props.course.content_covered.split(", ").map(content => {
                             return <li>{content}</li>
                         })}
                     </ul>

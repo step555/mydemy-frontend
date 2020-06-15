@@ -418,11 +418,11 @@ function gotCompanyProfileFetch(company){
 function creatingNewCourse(courseInfo){
     console.log("before dispatch", courseInfo)
     return (dispatch) => {
-        if(typeof(courseInfo.contentCovered) === "string"){
-            courseInfo.contentCovered = [courseInfo.contentCovered]
-        }else if(courseInfo.contentCovered.includes("")){
-            courseInfo.contentCovered = courseInfo.contentCovered.filter(i => i !== "")
-        }
+        // if(typeof(courseInfo.contentCovered) === "string"){
+        //     courseInfo.contentCovered = [courseInfo.contentCovered]
+        // }else if(courseInfo.contentCovered.includes("")){
+        //     courseInfo.contentCovered = courseInfo.contentCovered.filter(i => i !== "")
+        // }
 
         // let contentCovered = `${courseInfo.contentCovered}`
         let obj = {
@@ -438,6 +438,7 @@ function creatingNewCourse(courseInfo){
             picture: courseInfo.picture,
             company_id: currentCompanyId
         }
+        // debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -654,4 +655,11 @@ function sortByDifficultyLevel(value){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
 
-export { selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+function addLessonsArrayToReduxActions(lessonsArray){
+    let oldLessonsArray = []
+    // debugger
+    oldLessonsArray = [...oldLessonsArray, lessonsArray]
+    return { type: "ADDING_TO_LESSONS_ARRAY", payload: oldLessonsArray}
+}
+
+export { addLessonsArrayToReduxActions, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
