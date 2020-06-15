@@ -3,7 +3,7 @@ import {Form, Button} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {creatingNewCourse} from '../redux/actions'
 import {Link, Redirect} from 'react-router-dom'
-
+import CreateNewLessonContainer from './CreateNewLessonContainer'
 
 class CreateNewCourse extends React.Component {
     constructor(){
@@ -21,10 +21,10 @@ class CreateNewCourse extends React.Component {
             numberOfContentCovered: [1],
             difficultyLevel: "",
             finished: false,
-            wasSubmitted: false
+            wasSubmitted: false,
+            finishedCourseInfo: false,
         }
     }
-       // I may need a componentdidmount to set these fields to their default (above) values. refresh messes things up
 
     componentWillMount(){
         this.setState({wasSubmitted: false})
@@ -59,9 +59,6 @@ class CreateNewCourse extends React.Component {
             individualContentCovered = event.target.value // this state changes whenever you type something
             // this issue is dealt with by having contentCovered state be updated only after you click more
             this.setState({individualContentCovered: individualContentCovered})
-            // if(this.state.contentCovered.length === 0){
-            //     this.setState({contentCovered: individualContentCovered})
-            // }
         }
         if(event.target.id === "subject"){
             let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
@@ -69,15 +66,6 @@ class CreateNewCourse extends React.Component {
         }
         
     }
-    
-    // addInputField = () => { // this function does not render last element of new array when clicking submit btn
-    //     let newNumInput = [...this.state.numberOfContentCovered, 1]
-    //     this.setState({numberOfContentCovered: newNumInput})
-    //     // on add input field, add individualContentCovered to contentCovered array
-    //     let newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
-
-    //     this.setState({contentCovered: newContentCoveredArray})
-    // }
 
     addInputField = () => { // this function does not render last element of new array when clicking submit btn
         console.log("adding field")
@@ -106,37 +94,31 @@ class CreateNewCourse extends React.Component {
         this.setState({
             contentCovered: newContentCoveredArray 
             },() => {
-            // if(this.state.courseName !== "" && this.state.courseDescription !== "" && this.state.price !== "" && this.state.duration !== "" && this.state.subject !== "" && this.state.contentCovered.length !== 0){
-                // creatingNewCourse(this.state)
                 console.log("array has been updated")
                 }
                 // calls this function only AFTER state has been updated
             )
-
-        // if(this.state.courseName !== "" && this.state.courseDescription !== "" && this.state.price !== "" && this.state.duration !== "" && this.state.subject !== "" && this.state.contentCovered.length !== 0){
             if(this.state.contentCovered.length === 0){
                 this.setState({contentCovered: this.state.individualContentCovered})
             }
-
-            // if(this.state.contentCovered.includes("")){ // in case contentCovered array has "" in any index
-            //  this.state.contentCovered.filter(content => content !== "")
-            // }
-
             this.setState({finished: !this.state.finished})
-        // }
+    }
+
+    filledOutCourseInfo = () => {
+        this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
     }
 
     submit = () => {
-        // if(this.state.courseName !== "" && this.state.courseDescription !== "" && this.state.price !== "" && this.state.duration !== "" && this.state.subject !== "" && this.state.contentCovered.length !== 0){
         this.setState({wasSubmitted: true})
-        
         this.props.creatingNewCourse(this.state)
-        // }
+    }
+
+    filledOutLessonInfo = () => {
+
     }
 
     render(){
         const durationOptions = [
-            // {key: 'duration', text: 'duration', value: 0},
             { key: '0-3', text: '0-3 weeks', value: 1 },
             { key: '3-6', text: '3-6 weeks', value: 2 },
             { key: '6-9', text: '6-9 weeks', value: 3 },
@@ -156,7 +138,7 @@ class CreateNewCourse extends React.Component {
 
         return (
             <div>
-                {this.state.wasSubmitted === false ? 
+                {this.state.finishedCourseInfo === false ? 
             <div>
                 <h3>New Course Creation Form</h3>
                 <Form>
@@ -166,9 +148,6 @@ class CreateNewCourse extends React.Component {
                         <Form.Group widths="equal">
                             <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
-                        {/* <Form.Group widths="equal">
-                            <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={""} onChange={this.onChangeInformation} required/>
-                        </Form.Group> */}
                         <Form.Group widths="equal">
                             <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={""} onChange={this.onChangeInformation} required
                             fluid
@@ -183,8 +162,6 @@ class CreateNewCourse extends React.Component {
                         </Form.Group>
                         <Form.Group widths="equal">
                             <Form.Input fluid id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
-                        {/* </Form.Group> */}
-                        {/* <Form.Group widths="equal"> */}
                             <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
                         </Form.Group>
                         {this.state.numberOfContentCovered.map(input => {
@@ -201,20 +178,30 @@ class CreateNewCourse extends React.Component {
                         {this.state.finished === true ? 
                         <div>
                             <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
-                            <Form.Field onClick={this.submit} control={Button}>Confirm Submission</Form.Field>
+                            <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Confirm Submission</Form.Field>
                         </div>
                             : 
-                            <Form.Field onClick={this.edit} control={Button}>Submit</Form.Field>
+                            <Form.Field onClick={this.edit} control={Button}>Done</Form.Field>
                         }
                     </Form>
             </div>
             :
-            <h2>Your submission was successful. Redirecting to profile page.</h2>
-            // <h4></h4>
+            <h2><CreateNewLessonContainer/></h2>
             } 
+
+
+
+
+                {this.state.finished === true ? 
+                    <div>
+                        <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
+                        <Form.Field onClick={this.submit} control={Button}>Confirm Submission</Form.Field>
+                    </div>
+                        : 
+                        <Form.Field onClick={this.filledOutLessonInfo} control={Button}>Submit</Form.Field>
+                }
             </div>
         )
-        // ternary for was submitted starts at top. if false renders form. else renders success message
     }
 }
 
