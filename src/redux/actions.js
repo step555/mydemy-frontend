@@ -436,9 +436,17 @@ function creatingNewCourse(courseInfo){
             content_covered: courseInfo.contentCovered,
             // content_covered: contentCovered,
             picture: courseInfo.picture,
-            company_id: currentCompanyId
+            company_id: currentCompanyId,
+            // lessons: {
+            //     text_content: courseInfo.
+            // }
         }
-        debugger
+        // t.string :text_content
+        // t.integer :course_id
+        // t.string :video
+        // t.integer :lesson_number
+        // add_column :lessons, :lesson_name, :string
+        // debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -448,8 +456,27 @@ function creatingNewCourse(courseInfo){
         .then(course => {
             currentCompany.courses.push(course)
             course.company = currentCompany
+
+            for(let i = 0; i < courseInfo.lessons.length; i++){
+                // if video === "" then obj excludes video
+                
+                // else include video
+                let obj = {
+                    course_id: course.id,
+                    lesson_name: courseInfo.lessonsArray[i][0],
+                    text_content: courseInfo.lessonsArray[i][1],
+                    video: courseInfo.lessonsArray[i][2],
+                    lesson_number: courseInfo.lessonsArray[i][i]
+                }
+                
+            }
+            debugger
+
             dispatch(createdNewCompanyCourse(currentCompany))
             dispatch(createdNewCourse(course))
+
+
+
             // window.location.reload()
             // alert("Adding your course to our system. Click Ok to continue")
         })

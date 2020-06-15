@@ -50,7 +50,7 @@ class Lesson extends React.Component {
             <div>
                 <br></br><br></br>
                 <div className="lesson-content-div">
-                    {this.props.selectedLesson.video !== "youtube_video" ? 
+                    {this.props.selectedLesson.video !== null ? // use null/nil
                     <iframe width="560" height="315" src={this.props.selectedLesson.video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
                     </iframe>
                     : 

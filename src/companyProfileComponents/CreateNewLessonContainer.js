@@ -24,6 +24,9 @@ class CreateNewLessonContainer extends React.Component{
 
             lessonsArray: updatedLessonsArray
         },() => {
+            if( !this.state.video.includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
+                alert("Please use a valid youtube embed")
+            }else{
             if( this.state.lessonName.length === 0 || this.state.lessonText.length === 0 ){
                 alert("All required lesson fields must be filled in")
             }else{
@@ -40,8 +43,7 @@ class CreateNewLessonContainer extends React.Component{
             })
             alert("Lesson has been submitted. If you like, you may create another lesson below.")
             }
-        })
-
+        }})     
     }
 
     // done adding lessons? Click here. send to redux which takes in lessons array as param

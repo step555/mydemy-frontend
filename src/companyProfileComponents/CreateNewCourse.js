@@ -100,7 +100,7 @@ class CreateNewCourse extends React.Component {
     submit = () => {
         // this.setState({lessonArray: lessonArray})
         if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
-            alert("It appears that you have left a course field blank. Please ensure all required fields are filled in")
+            alert("It appears that you have left at least one course field blank. Please ensure all required fields are filled in")
         }
         else if(this.state.lessonsArray.length === 0){ // this.state.lessonArray.length === 0
             debugger
@@ -200,7 +200,7 @@ class CreateNewCourse extends React.Component {
                         <Form.Field onClick={this.submit} control={Button}>Final Submit</Form.Field>
                     </div>
                         : 
-                        <Form.Field onClick={this.filledOutLessonInfo} control={Button}>Submit</Form.Field>
+                        <Form.Field onClick={this.filledOutLessonInfo} control={Button}>Submit Information</Form.Field>
                 }
             </div>
         )
