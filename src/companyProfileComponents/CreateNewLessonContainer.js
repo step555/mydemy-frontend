@@ -18,7 +18,7 @@ class CreateNewLessonContainer extends React.Component{
 
     addNextLesson = () => {
         
-        let lessonName = this.state.lessonName
+        let lessonName = this.state.lessonName // prevents bug with updatedLessonArray array
         let updatedLessonsArray = [...this.state.lessonsArray, lessonName, this.state.lessonText, this.state.video]
         this.setState({
 
@@ -35,8 +35,10 @@ class CreateNewLessonContainer extends React.Component{
             this.setState({
                 lessonName: "",
                 lessonText: "",
+                video: "",
                 lessonsArray: []
             })
+            alert("Lesson has been submitted. If you like, you may create another lesson below.")
             }
         })
 
@@ -67,7 +69,7 @@ class CreateNewLessonContainer extends React.Component{
                     )
                 })}
                 <br></br>
-                <Button onClick={this.addNextLesson}>Add Another Lesson</Button>
+                <Button onClick={this.addNextLesson}>Submit lesson/Add more lessons</Button>
             </div>
         )
     }

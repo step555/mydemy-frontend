@@ -30,6 +30,9 @@ class CreateNewCourse extends React.Component {
         }
     }
 
+    // every time I hit add more lessons, I need to add to lesson array. the submit button submits WITH
+    // the lesson array
+
     componentWillMount(){
         this.setState({wasSubmitted: false})
         console.log(this.state.wasSubmitted)
@@ -98,17 +101,20 @@ class CreateNewCourse extends React.Component {
         // this.setState({lessonArray: lessonArray})
         if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
             alert("It appears that you have left a course field blank. Please ensure all required fields are filled in")
-        }else{
+        }
+        else if(this.state.lessonsArray.length === 0){ // this.state.lessonArray.length === 0
+            debugger
+            alert("You have not yet submitted any lessons")
+        }
+        else{
             // this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
             this.setState({wasSubmitted: true})
-            debugger
             this.props.creatingNewCourse(this.state)
         }
     }
 
     addLessonsToCourse = (lessonArray) => {
-        debugger
-        this.setState({lessonArray: [...this.state.lessonsArray, lessonArray]})
+        this.setState({lessonsArray: [...this.state.lessonsArray, lessonArray]})
     }
 
     filledOutLessonInfo = () => {
