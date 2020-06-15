@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {Card, Form, Grid, Button} from 'semantic-ui-react'
 // import ViewEditCourse from './ViewEditCourse'
 import {connect} from 'react-redux'
-import {deletingCourse, editingCourse} from '../redux/actions'
+import {deletingCourse, editingCourse, selectingCourseLessons} from '../redux/actions'
 import CCourseModal from './CCourseModal'
 import ReactDOM from 'react-dom'
 
@@ -47,9 +47,13 @@ class CCourse extends React.Component{
         this.setState({ show: false });
     };
 
-    handleClick = (courseId) => {
+    deleteCourse = (courseId) => {
         console.log("deleting")
         this.props.deletingCourse(courseId)
+    }
+
+    viewLessons = () => {
+        this.props.selectingCourseLessons(this.props.course.id)
     }
     
     render(){
@@ -111,29 +115,20 @@ class CCourse extends React.Component{
             </CCourseModal>
             {/* <button type="button" onClick={this.showModal}>Open</button>             */}
                 <Card onClick={this.showModal}>
-                        {/* <Link to={`/company/${this.props.course.id}/view-and-edit-course`}> */}
-                        {/* <Link to={`/company/view-and-edit-course`}> */}
-
-                            <h5 className="account-info">ID: {this.props.course.id}</h5>
-                            <h5 className="account-info">Name: {this.props.course.name}</h5>
-                            <h5 className="account-info">Subject: {this.props.course.subject}</h5>
-                            <h5 className="account-info">Price: ${this.props.course.price}</h5>
-                            <h5 className="account-info">Duration: {this.props.course.duration}</h5>
-                            <h5 className="account-info">Difficulty level: {this.props.course.difficulty_level}</h5>
-
-                            {/* <button onclick={() => this.handleClick(this.props.course.id)}>Delete</button> */}
-                        {/* {this.state.editing ?  */}
-                        {/* </Link> */}
-                            
-                            {/* <button onClick={() => this.handleClick(this.props.course.id)}>Delete</button> */}
+                    <h5 className="account-info">ID: {this.props.course.id}</h5>
+                    <h5 className="account-info">Name: {this.props.course.name}</h5>
+                    <h5 className="account-info">Subject: {this.props.course.subject}</h5>
+                    <h5 className="account-info">Price: ${this.props.course.price}</h5>
+                    <h5 className="account-info">Duration: {this.props.course.duration}</h5>
+                    <h5 className="account-info">Difficulty level: {this.props.course.difficulty_level}</h5>
                             <br></br>
                 </Card>
                 <Grid>
                     <Grid.Column width={5}>
-                        <button>View Lessons</button>
+                        <Link to={`/course/${this.props.course.id}/dashboard`}><button onClick={this.viewLessons}>View Lessons</button></Link>
                     </Grid.Column>
                     <Grid.Column width={2}>
-                        <button onClick={() => this.handleClick(this.props.course.id)}>Delete</button>
+                        <button onClick={() => this.deleteCourse(this.props.course.id)}>Delete</button>
                     </Grid.Column>
                 </Grid>
             <br></br>
@@ -148,7 +143,8 @@ ReactDOM.render(<CCourse />, container)
 const mapDispatchToProps = (dispatch) => {
     return {
         deletingCourse: (info) => {dispatch( deletingCourse(info) )},
-        editingCourse: (info) => {dispatch(editingCourse(info) )}
+        editingCourse: (info) => {dispatch(editingCourse(info) )},
+        selectingCourseLessons: (info) => {dispatch( selectingCourseLessons(info) )}
     }
 }
 

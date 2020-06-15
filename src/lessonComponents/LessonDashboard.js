@@ -40,7 +40,10 @@ class LessonDashboard extends React.Component{
         return !this.props.lessons || this.props.lessons.length === 0 ? null : (
             <div>
                 <h1>Lessons</h1>
-                <Link to="/profile"><Button>Back to Profile</Button></Link>
+                {this.props.user.currentUser ? 
+                    <Link to="/profile"><Button>Back to Profile</Button></Link>
+                :   <Link to="/company-profile"><Button>Back to Profile</Button></Link>
+                }
                 <br></br>
                 
                     {this.props.lessons.map(lesson => {
@@ -60,7 +63,9 @@ class LessonDashboard extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-      lessons: state.lessons
+      lessons: state.lessons,
+      user: state.user,
+      company: state.company
     };
 };
 

@@ -43,7 +43,6 @@ class LessonContainer extends React.Component{
 
         // this.props.selectingLesson(this.state.lessonId)
         // console.log(this.state.lessonId)
-
     }
 
     individualLesson = () => {

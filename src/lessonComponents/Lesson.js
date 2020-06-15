@@ -44,15 +44,16 @@ class Lesson extends React.Component {
     // }
 
     render(){
-
-        return !this.props.lesson ? null : (
+        console.log("lesson state", this.state)
+        console.log("lesson props", this.props)
+        return !this.props.selectedLesson ? null : (
             <div>
                 <br></br><br></br>
                 <div className="lesson-content-div">
-                    <iframe width="560" height="315" src={this.props.lesson.video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
+                    <iframe width="560" height="315" src={this.props.selectedLesson.video} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen>
                     </iframe>
                     <br></br><br></br>
-                    <p>{this.props.lesson.text_content}</p>
+                    <p>{this.props.selectedLesson.text_content}</p>
                 </div>
             </div>
         // return !this.props.selectedLesson ? null : (
