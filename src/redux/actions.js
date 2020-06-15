@@ -438,7 +438,7 @@ function creatingNewCourse(courseInfo){
             picture: courseInfo.picture,
             company_id: currentCompanyId
         }
-        // debugger
+        debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",

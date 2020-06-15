@@ -24,7 +24,9 @@ class CreateNewCourse extends React.Component {
             wasSubmitted: false,
             finishedCourseInfo: false,
             clickedViewLessons: false,
-            confirmBeforeGoingToCourse: false
+            confirmBeforeGoingToCourse: false,
+
+            lessonsArray: []
         }
     }
 
@@ -92,23 +94,25 @@ class CreateNewCourse extends React.Component {
         this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
     }
 
-    submit = (lessonArray) => {
+    submit = () => {
+        // this.setState({lessonArray: lessonArray})
         if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
             alert("It appears that you have left a course field blank. Please ensure all required fields are filled in")
         }else{
             // this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
             this.setState({wasSubmitted: true})
+            debugger
             this.props.creatingNewCourse(this.state)
         }
     }
 
-    filledOutLessonInfo = () => {
-        this.setState({finished: !this.state.finished})
+    addLessonsToCourse = (lessonArray) => {
+        debugger
+        this.setState({lessonArray: [...this.state.lessonsArray, lessonArray]})
     }
 
-    lessonArrayContents = (lessonArray) => {
-        debugger
-        return lessonArray
+    filledOutLessonInfo = () => {
+        this.setState({finished: !this.state.finished})
     }
 
     render(){
@@ -178,7 +182,7 @@ class CreateNewCourse extends React.Component {
             </div>
             :
             <div>
-                <h2><CreateNewLessonContainer submit={this.submit}/></h2>
+                <h2><CreateNewLessonContainer submit={this.submit} addLessonsToCourse={this.addLessonsToCourse}/></h2>
                 <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Add Course Information</Form.Field>
             </div>
             } 

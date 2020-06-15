@@ -24,19 +24,22 @@ class CreateNewLessonContainer extends React.Component{
 
             lessonsArray: updatedLessonsArray
         },() => {
-            if( this.state.lessonName.includes("") || this.state.lessonText.includes("") ){
+            if( this.state.lessonName.length === 0 || this.state.lessonText.length === 0 ){
                 alert("All required lesson fields must be filled in")
             }else{
             // this.props.addLessonsArrayToReduxActions(this.state.lessonsArray)
             let newNumLessons = [...this.state.numberOfLessons, 1]
             this.setState({numberOfLessons: newNumLessons})
-            this.props.submit(this.state.lessonsArray)
+            debugger
+            this.props.addLessonsToCourse(this.state.lessonsArray)
+            this.setState({
+                lessonName: "",
+                lessonText: "",
+                lessonsArray: []
+            })
             }
         })
-        this.setState({
-            lessonName: "",
-            lessonText: ""
-        })
+
     }
 
     // done adding lessons? Click here. send to redux which takes in lessons array as param
