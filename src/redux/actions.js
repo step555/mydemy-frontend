@@ -13,6 +13,7 @@ let currentCompany
 let currentCompanyId
 let allCourses
 let currentUserCart
+let newlyCreatedCourse
 
 // function fetchingLessons(){
 //     return (dispatch) => {
@@ -425,7 +426,7 @@ function creatingNewCourse(courseInfo){
         // }
 
         // let contentCovered = `${courseInfo.contentCovered}`
-        let obj = {
+        let courseObj = {
             name: courseInfo.courseName,
             text_preview: courseInfo.courseDescription,
             video_preview: courseInfo.videoPreview,
@@ -451,36 +452,62 @@ function creatingNewCourse(courseInfo){
             method: "POST",
             headers: {"Content-Type": "application/json",
             "Accept": "application/json"},
-            body: JSON.stringify(obj)
+            body: JSON.stringify(courseObj)
         }).then(resp => resp.json())
         .then(course => {
             currentCompany.courses.push(course)
             course.company = currentCompany
 
-            for(let i = 0; i < courseInfo.lessons.length; i++){
+            let lessonObj = {}
+            // debugger
+            for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
                 // if video === "" then obj excludes video
-                
-                // else include video
-                let obj = {
-                    course_id: course.id,
-                    lesson_name: courseInfo.lessonsArray[i][0],
-                    text_content: courseInfo.lessonsArray[i][1],
-                    video: courseInfo.lessonsArray[i][2],
-                    lesson_number: courseInfo.lessonsArray[i][i]
+                if(courseInfo.lessonsArray[i][2] === ""){
+                    lessonObj = {
+                        course_id: course.id,
+                        lesson_name: courseInfo.lessonsArray[i][0],
+                        text_content: courseInfo.lessonsArray[i][1],
+                        // video: null,
+                        lesson_number: courseInfo.lessonsArray[i][i]
+                    }
                 }
-                
+                // else include video
+                else{
+                    lessonObj = {
+                        course_id: course.id,
+                        lesson_name: courseInfo.lessonsArray[i][0],
+                        text_content: courseInfo.lessonsArray[i][1],
+                        video: courseInfo.lessonsArray[i][2],
+                        lesson_number: courseInfo.lessonsArray[i][i]
+                    }
+                }
+                debugger
+                newlyCreatedCourse = course
+                newlyCreatedCourse.lessons = []
+                fetch(LESSON_URL, {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json",
+                    "Accept": "application/json"},
+                    body: JSON.stringify(lessonObj)
+                }).then(resp => resp.json())
+                .then(lesson => {
+                    newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
+                    debugger
+                    dispatch(createdNewLesson)
+                })
             }
-            debugger
-
             dispatch(createdNewCompanyCourse(currentCompany))
-            dispatch(createdNewCourse(course))
-
-
+            dispatch(createdNewCourse(newlyCreatedCourse))
+            // debugger
 
             // window.location.reload()
             // alert("Adding your course to our system. Click Ok to continue")
         })
     }
+}
+
+function createdNewLesson(lesson){
+    return {type: "CREATED_NEW_LESSON", payload: lesson}
 }
 
 function createdNewCourse(course){
@@ -682,11 +709,11 @@ function sortByDifficultyLevel(value){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
 
-function addLessonsArrayToReduxActions(lessonsArray){
-    let oldLessonsArray = []
-    // debugger
-    oldLessonsArray = [...oldLessonsArray, lessonsArray]
-    return { type: "ADDING_TO_LESSONS_ARRAY", payload: oldLessonsArray}
-}
+// function addLessonsArrayToReduxActions(lessonsArray){
+//     let oldLessonsArray = []
+//     // debugger
+//     oldLessonsArray = [...oldLessonsArray, lessonsArray]
+//     return { type: "ADDING_TO_LESSONS_ARRAY", payload: oldLessonsArray}
+// }
 
-export { addLessonsArrayToReduxActions, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

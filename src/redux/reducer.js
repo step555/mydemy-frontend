@@ -74,8 +74,8 @@ const companyReducer = (state = [], action) => {
 
 const newLessonReducer = (state = [], action) => {
     switch (action.type){
-        case "ADDING_TO_LESSONS_ARRAY":
-
+        case "CREATED_NEW_LESSON":
+            debugger
         return action.payload
     default:
         return state;

@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Form, TextArea, Button} from 'semantic-ui-react'
 import NewLesson from './NewLesson'
-import {addLessonsArrayToReduxActions} from '../redux/actions'
 
 class CreateNewLessonContainer extends React.Component{
     constructor(){
@@ -24,16 +23,14 @@ class CreateNewLessonContainer extends React.Component{
 
             lessonsArray: updatedLessonsArray
         },() => {
-            if( !this.state.video.includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
+            if( this.state.video.length > 0 && !this.state.video.includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
                 alert("Please use a valid youtube embed")
             }else{
             if( this.state.lessonName.length === 0 || this.state.lessonText.length === 0 ){
                 alert("All required lesson fields must be filled in")
             }else{
-            // this.props.addLessonsArrayToReduxActions(this.state.lessonsArray)
             let newNumLessons = [...this.state.numberOfLessons, 1]
             this.setState({numberOfLessons: newNumLessons})
-            debugger
             this.props.addLessonsToCourse(this.state.lessonsArray)
             this.setState({
                 lessonName: "",
@@ -86,10 +83,10 @@ class CreateNewLessonContainer extends React.Component{
 //     };
 // };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addLessonsArrayToReduxActions: (lessonsArray) => {dispatch( addLessonsArrayToReduxActions(lessonsArray) )}
-    }
-}
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         addLessonsArrayToReduxActions: (lessonsArray) => {dispatch( addLessonsArrayToReduxActions(lessonsArray) )}
+//     }
+// }
 
-export default connect(null, mapDispatchToProps)(CreateNewLessonContainer)
+export default connect(null, null)(CreateNewLessonContainer)
