@@ -174,7 +174,6 @@ function editedCompanyInfo(updatedCompany){
 }
 
 function changedCompanyNameOfCourse(updatedCourse){
-    debugger
     return {type: "CHANGED_COMPANY_NAME_OF_COURSE", payload: updatedCourse}
 }
 
@@ -385,7 +384,8 @@ function fetchingCompany(email, password){
                         .then(resp => resp.json())
                         .then(company => {
                             if(!company.status){
-                                currentCompany = company.company
+                                // currentCompany = company.company // why was this changed to company.company?
+                                currentCompany = company
                                 dispatch(gotCompanyProfileFetch(company))
                             }
                 })
@@ -455,12 +455,6 @@ function creatingNewCourse(courseInfo){
             //     text_content: courseInfo.
             // }
         }
-        // t.string :text_content
-        // t.integer :course_id
-        // t.string :video
-        // t.integer :lesson_number
-        // add_column :lessons, :lesson_name, :string
-        // debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -472,7 +466,6 @@ function creatingNewCourse(courseInfo){
             course.company = currentCompany
 
             let lessonObj = {}
-            // debugger
             for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
                 // if video === "" then obj excludes video
                 if(courseInfo.lessonsArray[i][2] === ""){

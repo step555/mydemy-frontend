@@ -44,10 +44,8 @@ const allUsersReducer = (state = [], action) => {
 const companyReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_COMPANY":
-            // return action.payload
             return {...state, currentCompany: action.payload}
         case "GOT_COMPANY_PROFILE_FETCH":
-            // return action.payload
             return {...state, currentCompany: action.payload}
         case "LOGOUT_USER":
             return {...state, currentCompany: null}
@@ -60,11 +58,7 @@ const companyReducer = (state = [], action) => {
             return filteredState
         case "CREATED_NEW_COMPANY_COURSE":
             let addedNewCourse = {...state}
-            // let addedNewCourse = [...state]
             return addedNewCourse
-        // case "ADDING_TO_LESSONS_ARRAY":
-
-        //     return action.payload
         default:
             return state;
     }
@@ -85,22 +79,8 @@ const cartReducer = (state = [], action) => {
         case "FETCHED_USER_CART":
             return action.payload
         case "ADD_TO_CART":
-            // let foundInsideCart = false
-            // for(let i = 0; i < state.length; i++){
-            //     if(state[i].course_id === action.payload.course_id){
-            //         foundInsideCart = true
-
-            //     }
-            // }
-            //     if(foundInsideCart === true){
-
-            //         // alert("This item is already in your cart")
-            //         return state
-            //     }else{
-                    // alert("This course has been successfully added to your cart")
-                    let newState = [action.payload, ...state] // state defaulted to an array here
-                    return newState
-                // }
+            let newState = [action.payload, ...state] // state defaulted to an array here
+            return newState
         case "ALREADY_OWNED":
             return state
         case "CHECKOUT_CART":
@@ -139,14 +119,8 @@ const totalRevenueReducer = (state = 0, action) => {
 const selectCourseReducer = (state = [], action) => {
     switch (action.type){
         case "EDIT_SELECTED_COURSE":
-            // let updatedCourse = {selectedCourse: action.payload}
-            // let updated  = {...updatedCourse}
-            // let course = updatedCourse.selectedCourse
             return {
                 course: action.payload
-                // course: updated
-                // course
-                // updatedCourse.selectedCourse
             }
         case "EDITED_COURSE":
             let updatedCourse = {selectedCourse: action.payload}
@@ -188,10 +162,6 @@ const dropdownDurationReducer = (state = "", action) => {
     switch (action.type) {
         case "SORTED_BY_DURATION":
             return action.payload;
-        // case "SORTED_BY_PRICE":
-        //     return action.payload;
-        // case "SORTED_BY_DIFFICULTY_LEVEL":
-        //     return action.payload;
         default:
             return state;
     }
