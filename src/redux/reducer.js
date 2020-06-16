@@ -7,11 +7,9 @@ const coursesReducer = (state = [], action) => {
         case "CREATED_NEW_COURSE":
             let newState = [...state, action.payload]
             return newState
-            // return [...newState]
         case "DELETED_COURSE":
             let filtered = state.filter(c => c.id !== action.payload.id)
             return filtered
-            // return action.payload
         case "CHANGED_COMPANY_NAME_OF_COURSE":
             return state
         default:
@@ -22,10 +20,8 @@ const coursesReducer = (state = [], action) => {
 const userReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER":
-            // return action.payload
             return {...state, currentUser: action.payload}
         case "GOT_PROFILE_FETCH":
-            // return action.payload
             return {...state, currentUser: action.payload}
         case "LOGOUT_USER":
             return {...state, currentUser: null}
