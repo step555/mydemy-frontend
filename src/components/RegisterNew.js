@@ -38,10 +38,14 @@ class RegisterNew extends React.Component{
     }
 
     handleSubmit = () => {
-        if(this.state.user_or_company === "user"){
-            this.props.creatingNewUser(this.state)
-        }else if(this.state.user_or_company === "organization"){
-            this.props.creatingNewCompany(this.state)
+        if(this.state.name === "" || this.state.email === "" || this.state.password === ""){
+            alert("Invalid entry. Please enter a valid email, name, and password")
+        }else{
+            if(this.state.user_or_company === "user"){
+                this.props.creatingNewUser(this.state)
+            }else if(this.state.user_or_company === "organization"){
+                this.props.creatingNewCompany(this.state)
+            }
         }
     }
 

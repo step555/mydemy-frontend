@@ -40,8 +40,9 @@ function fetchedUser(user){
     return {type: "FETCHED_USER", payload: user}
 }
 
-function fetchingUser(email, password){
+function fetchingUser(email, password, face){
     return (dispatch) => {
+    let faceArr = face
     let obj = {
         email: email,
         password: password
@@ -67,6 +68,7 @@ function fetchingUser(email, password){
                 .then(user => {
                     if(!user.status){
                         currentUser = user
+                        debugger
                         dispatch(fetchedUser(user))
                     }
                 })
@@ -429,7 +431,7 @@ function gotCompanyProfileFetch(company){
     return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
 }
 
-function addFinalLessonToLessonsArray(lessonName, lessonText, video){
+function addFinalLessonToLessonsArray(lessonName, lessonText, video){ // sends state to CreateNewCourse
     // debugger
     let finalLesson = [lessonName, lessonText, video]
     return {type: "ADDED_FINAL_LESSON", payload: finalLesson}
