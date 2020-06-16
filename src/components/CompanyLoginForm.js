@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Segment, Message, Card, Grid, Header, Image } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { Route, Switch, withRouter, Link } from "react-router-dom";
+import { Redirect, withRouter, Link } from "react-router-dom";
 // import { loggingIn } from "../redux/actions"
 import { fetchingCompany } from "../redux/actions"
 // import {fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart} from './redux/actions'
@@ -31,6 +31,11 @@ class CompanyLoginForm extends React.Component{
     }
 
     render(){
+
+        const redirectToMain = localStorage.token;
+        if (redirectToMain) {
+            return <Redirect to="/" />
+        }
         return(
             <div>
                 <Grid textAlign='center' style={{ height: '75vh'}} verticalAlign='middle' className="user-login">
