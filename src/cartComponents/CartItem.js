@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {removingFromCart} from '../redux/actions'
 import {Grid} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const CartItem = (props) => {
     // console.log("cart item", props)
@@ -18,7 +19,9 @@ const CartItem = (props) => {
                     {/* column */}
                 </Grid.Column>
                 <Grid.Column width={8}>
-                    <h3 className="cart-item-info">{props.item.course.name}</h3>
+                    <Link to={`/course-list/${props.item.course.id}`}><h3>{props.item.course.name}</h3></Link>
+                    {/* <h3 className="cart-item-info">{props.item.course.name}</h3> */}
+                    <div className="cart-item-info-between-name-link-and-difficulty"></div>
                     <h4 className="cart-item-info">Difficulty level: {props.item.course.difficulty_level}</h4>
                     <h4 className="cart-item-info">Duration: {props.item.course.duration}</h4>
                     {/* column */}

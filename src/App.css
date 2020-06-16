@@ -105,6 +105,10 @@
   margin-top: -10px;
 }
 
+.cart-item-info-between-name-link-and-difficulty {
+  margin-bottom: 10px;
+}
+
 .course-side-text {
   font-weight: bold;
   font-size: 24px
