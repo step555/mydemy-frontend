@@ -102,14 +102,15 @@ class CreateNewCourse extends React.Component {
         if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
             alert("It appears that you have left at least one course field blank. Please ensure all required fields are filled in")
         }
-        else if(this.state.lessonsArray.length === 0){ // this.state.lessonArray.length === 0
-            debugger
-            alert("You have not yet submitted any lessons")
-        }
+        // else if(this.state.lessonsArray.length === 0 //|| this.props.finalLesson.length === 0){ // this.state.lessonArray.length === 0
+        //     alert("You have not yet submitted any lessons")
+        // }
         else{
-            // this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
             this.setState({wasSubmitted: true})
-            this.props.creatingNewCourse(this.state)
+            this.setState({ lessonsArray: [...this.state.lessonsArray, this.props.finalLesson] }, () => {
+                debugger
+                this.props.creatingNewCourse(this.state)
+            })
         }
     }
 
@@ -183,13 +184,13 @@ class CreateNewCourse extends React.Component {
                         )}
                             {/* <button onClick={this.addInputField}>More</button> */}
                             <br></br>                       
-                            <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Add Lessons</Form.Field>
+                            <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Add Lessons</Form.Field>
                     </Form>
             </div>
             :
             <div>
                 <h2><CreateNewLessonContainer submit={this.submit} addLessonsToCourse={this.addLessonsToCourse}/></h2>
-                <Form.Field onClick={this.filledOutCourseInfo} control={Button}>Add Course Information</Form.Field>
+                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Add Course Information</Form.Field>
             </div>
             } 
 
@@ -209,9 +210,9 @@ class CreateNewCourse extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state.newLesson)
+    console.log(state.finalLesson)
     return {
-        // newLesson: state.newLesson
+        finalLesson: state.finalLesson
     }
 }
 

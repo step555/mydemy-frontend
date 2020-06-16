@@ -18,7 +18,6 @@ const CartItem = (props) => {
                 <div>
                     <Grid.Column width={5}>
                             <img className="cart-checkout-item-image" src={props.item.course.picture}></img>
-                            {/* column */}
                     </Grid.Column>
                 </div>
                 <div>
@@ -27,7 +26,6 @@ const CartItem = (props) => {
                         <div className="cart-item-info-between-name-link-and-difficulty"></div>
                         <h4 className="cart-item-info">Difficulty level: {props.item.course.difficulty_level}</h4>
                         <h4 className="cart-item-info">Duration: {props.item.course.duration}</h4>
-                        {/* column */}
                         <h5 className="cart-item-info">Price: ${props.item.course.price}</h5>
                         <button onClick={handleClick}>Remove from cart</button>
                         <br></br><br></br>

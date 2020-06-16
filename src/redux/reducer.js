@@ -68,9 +68,18 @@ const newLessonReducer = (state = [], action) => {
     switch (action.type){
         case "CREATED_NEW_LESSON":
             debugger
+            return action.payload
+        default:
+            return state;
+    }
+}
+
+const finalLessonReducer = (state = [], action) => {
+    switch (action.type){
+        case "ADDED_FINAL_LESSON":
         return action.payload
-    default:
-        return state;
+        default:
+            return state
     }
 }
 
@@ -202,7 +211,8 @@ const rootReducer = combineReducers({
     dropdownDifficultyLevel: dropdownDifficultyLevelReducer,
     lessons: selectCourseLessonsReducer,
     selectedLesson: lessonReducer,
-    newLesson: newLessonReducer
+    newLesson: newLessonReducer,
+    finalLesson: finalLessonReducer
   });
   
   export default rootReducer;
