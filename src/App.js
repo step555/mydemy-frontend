@@ -25,6 +25,7 @@ import CheckoutForm from "./cartComponents/CheckoutForm"
 import LessonDashboard from "./lessonComponents/LessonDashboard"
 import Lesson from './lessonComponents/Lesson'
 import LessonContainer from './lessonComponents/LessonContainer'
+import About from './components/About'
 
 class App extends React.Component{
 
@@ -68,6 +69,7 @@ class App extends React.Component{
         <Route path="/course/:courseId/dashboard" component={LessonDashboard}/>
         {/* <Route path="/course/:courseId/:lessonId" component={Lesson}/> */}
         <Route path="/course/:courseId/lessons/:lessonId" component={LessonContainer}/>
+        <Route path="/about" component={About}/>
         <Route path="/" component={Home}/>
       </Switch>
 

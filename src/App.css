@@ -343,3 +343,23 @@
 .lesson-container-hide {
   display: none;
 }
+
+.about-icon {
+  margin: 20px;
+}
+
+#twitter-icon {
+  width: 3%;
+}
+
+#instagram-icon {
+  width: 2.8%;
+}
+
+#facebook-icon {
+  width: 3%;
+}
+
+#linkedin-icon {
+  width: 3%;
+}

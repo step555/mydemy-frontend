@@ -64,7 +64,7 @@ const Navbar = (props) => {
             <Link className="active" to="/">Mydemy</Link>
             <a href="#">Our Products</a> 
             <a href="#">Careers</a> 
-            <a href="#">About Us</a> 
+            <Link to="/about">About Us</Link> 
             <a href="#">Contact Us</a> 
             <div className="navlist-right">
             <Link to="/course-list">Courses</Link>

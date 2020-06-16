@@ -5,7 +5,6 @@ import {Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const CartItem = (props) => {
-    // console.log("cart item", props)
     const handleClick = () => {
         console.log("removing from cart")
        props.removingFromCart(props.item)
