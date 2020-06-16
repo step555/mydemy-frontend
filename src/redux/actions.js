@@ -481,7 +481,6 @@ function creatingNewCourse(courseInfo){
                         lesson_number: courseInfo.lessonsArray[i][i]
                     }
                 }
-                debugger
                 newlyCreatedCourse = course
                 newlyCreatedCourse.lessons = []
                 fetch(LESSON_URL, {
@@ -492,13 +491,11 @@ function creatingNewCourse(courseInfo){
                 }).then(resp => resp.json())
                 .then(lesson => {
                     newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
-                    debugger
                     dispatch(createdNewLesson)
                 })
             }
             dispatch(createdNewCompanyCourse(currentCompany))
             dispatch(createdNewCourse(newlyCreatedCourse))
-            // debugger
 
             // window.location.reload()
             // alert("Adding your course to our system. Click Ok to continue")
@@ -708,12 +705,5 @@ function sortByPrice(value){
 function sortByDifficultyLevel(value){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
-
-// function addLessonsArrayToReduxActions(lessonsArray){
-//     let oldLessonsArray = []
-//     // debugger
-//     oldLessonsArray = [...oldLessonsArray, lessonsArray]
-//     return { type: "ADDING_TO_LESSONS_ARRAY", payload: oldLessonsArray}
-// }
 
 export { createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

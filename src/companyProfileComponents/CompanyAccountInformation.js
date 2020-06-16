@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import CCourse from './CCourse'
 import CPurchase from './CPurchase'
 import EditCompanyProfile from './EditCompanyProfile'
-import {Form, Button, ModalDescription, Grid} from 'semantic-ui-react'
-import { Link, NavLink, withRouter, Route, Switch } from "react-router-dom";
+import {Button, Grid} from 'semantic-ui-react'
+import { Link } from "react-router-dom";
 // import ViewEditCourse from "./ViewEditCourse"
 
 class CompanyAccountInformation extends React.Component{
