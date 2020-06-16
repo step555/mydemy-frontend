@@ -154,6 +154,14 @@ function editingCompanyInfo(newCompanyInfo){
         fetch(COMPANY_URL + `/${currentCompanyId}`)
         .then(resp => resp.json())
         .then(updatedWithCoursesAndPurchases => {
+            for(let i = 0; i < allCourses.length; i++){
+                for(let j = 0; j < updatedWithCoursesAndPurchases.courses.length; j++){
+                    if(allCourses[i].id === updatedWithCoursesAndPurchases.courses[j].id){
+                        allCourses[i].company.name = updatedWithCoursesAndPurchases.name
+                        dispatch(changedCompanyNameOfCourse(allCourses[i]))
+                    }
+                }
+            }
             dispatch(editedCompanyInfo(updatedWithCoursesAndPurchases))
             })
 
@@ -163,6 +171,11 @@ function editingCompanyInfo(newCompanyInfo){
 
 function editedCompanyInfo(updatedCompany){
     return {type: "EDITED_COMPANY_INFO", payload: updatedCompany}
+}
+
+function changedCompanyNameOfCourse(updatedCourse){
+    debugger
+    return {type: "CHANGED_COMPANY_NAME_OF_COURSE", payload: updatedCourse}
 }
 
 function logoutUser(currentUser){

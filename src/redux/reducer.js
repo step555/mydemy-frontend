@@ -12,6 +12,8 @@ const coursesReducer = (state = [], action) => {
             let filtered = state.filter(c => c.id !== action.payload.id)
             return filtered
             // return action.payload
+        case "CHANGED_COMPANY_NAME_OF_COURSE":
+            return state
         default:
             return state;
     }
