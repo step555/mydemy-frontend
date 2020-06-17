@@ -376,6 +376,15 @@
   width: 3%;
 }
 
-.checkout-form-details{
+.checkout-form-details {
   padding-left: 100px;
+}
+
+.content-covered-text-area {
+  width: 500px;
+  height: 200px;
+}
+
+.content-covered-text-area-div {
+  margin-left: -40px;
 }

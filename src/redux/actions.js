@@ -30,6 +30,9 @@ function fetchingCourses(){
         fetch(COURSES_URL)
         .then(resp => resp.json())
         .then(courses => {
+            // debugger
+            
+            // "one↵two↵three".replace("↵", "\n")
             allCourses = courses
             dispatch(fetchedCourses(courses))
         })

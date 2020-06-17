@@ -46,6 +46,7 @@ class Lesson extends React.Component {
     render(){
         console.log("lesson state", this.state)
         console.log("lesson props", this.props)
+        debugger
         return !this.props.selectedLesson ? null : (
             <div>
                 <br></br><br></br>

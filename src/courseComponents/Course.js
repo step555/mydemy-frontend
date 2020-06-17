@@ -36,9 +36,17 @@ class Course extends React.Component{
                     <p>Subject: <strong>{this.props.course.subject}</strong></p> */}
                     <h5>Content covered in this course:</h5>
                     <ul>
-                        {this.props.course.content_covered.split(", ").map(content => {
+                        {/* {this.props.course.content_covered.split(", ").map(content => {
+                            debugger
                             return <li>{content}</li>
-                        })}
+                        })} */}
+                        {/* {this.props.course.content_covered.split(", ").map(content => {
+                            debugger
+                            return <textarea>{content}</textarea>
+                        })} */}
+                    <div className="content-covered-text-area-div">
+                        <textarea className="content-covered-text-area" value={this.props.course.content_covered}></textarea>
+                    </div>
                     </ul>
                     </Grid.Column>
                     <Grid.Column width={0}>
