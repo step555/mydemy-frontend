@@ -19,28 +19,24 @@ class LessonContainer extends React.Component{
     }
 
     componentWillMount(){
-        let courseId = parseInt(this.props.match.params.courseId)
-        let lessonId = parseInt(this.props.match.params.lessonId)
-        // debugger
-        // if( lessonId !== "Video" ){ // prevents lessonId from becoming string "video"
-        // if(typeof(lessonId !== "string")){
-        //     const id = lessonId
-        //     // debugger
-        // }
+        debugger
+        // let courseId = parseInt(this.props.match.params.courseId)
+        // let lessonId = parseInt(this.props.match.params.lessonId)
 
-        if( this.props.match.params.lessonId !== "Video" ){ // prevents lessonId from becoming string "video"
-           // that doesn't work 
+        let courseId = this.props.courseId
+        let lessonId = this.props.lessonId
+
             this.setState({
                 courseId: courseId,
-                lessonId: parseInt(this.props.match.params.lessonId)
-                // lessonId: lessonId
+                // lessonId: parseInt(this.props.match.params.lessonId)
+                lessonId: lessonId
                 // lessonId: id
             },() => {
                 // debugger
                 console.log("before selecting lesson is called", this.state)
                 this.props.selectingLesson(this.state.lessonId)
             })
-        }
+        // }
 
         // this.props.selectingLesson(this.state.lessonId)
         // console.log(this.state.lessonId)
@@ -60,7 +56,6 @@ class LessonContainer extends React.Component{
         // console.log("Lesson container lessons state", this.state)
         return(
             <div>
-                <h1>LESSON CONTAINER</h1>
                 <br></br>
                 <Link to={`/course/${this.state.courseId}/dashboard`}><Button>Back to Course Dashboard</Button></Link>
                 <br></br><br></br>

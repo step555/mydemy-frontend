@@ -11,6 +11,7 @@ class LessonDashboard extends React.Component{
         this.state = {
             courseId: "",
             lessonId: "",
+            lessonId: null
         }
     }
     
@@ -20,7 +21,9 @@ class LessonDashboard extends React.Component{
     }
 
     componentDidMount(){
+        debugger
         let courseId = parseInt(this.props.match.params.courseId)
+        // let courseId = parseInt(this.props.course.id)
         this.setState({courseId: courseId})
         this.props.selectingCourseLessons(courseId)
     }
@@ -44,16 +47,32 @@ class LessonDashboard extends React.Component{
                 }
                 <br></br>
                 
+                <div class="sidenav">
+                    <br></br><br></br>
+                    {this.props.user.currentUser ? 
+                        <Link to="/profile"><Button>Back to Profile</Button></Link>
+                    :   <Link to="/company-profile"><Button>Back to Profile</Button></Link>
+                    }
                     {this.props.lessons.map(lesson => {
                         return <Link to={`/course/${this.state.courseId}/lessons/${lesson.id}`} onClick={() => this.handleClick(lesson.id)}>{lesson.lesson_name}</Link>
                     })}
+                </div>
+
+
+                    {/* {this.props.lessons.map(lesson => {
+                        return <Link to={`/course/${this.state.courseId}/lessons/${lesson.id}`} onClick={() => this.handleClick(lesson.id)}>{lesson.lesson_name}</Link>
+                    })} */}
                 {/* <div className="lesson-container-hide">
                     {this.props.lessons.map(lesson => {
                         return <LessonContainer lesson={lesson} key={lesson.id}/> didn't work
                     })}
                 </div> */}
-                <p>Here</p>
-                {/* <Lesson /> */}
+                {this.props.selectedLesson.id ? 
+                <div>
+                    <LessonContainer courseId={this.state.courseId} lessonId={this.props.selectedLesson.id}/>
+                </div>
+                : 
+                null}
             </div>
         )
     }
@@ -63,7 +82,8 @@ const mapStateToProps = (state) => {
     return {
       lessons: state.lessons,
       user: state.user,
-      company: state.company
+      company: state.company,
+      selectedLesson: state.selectedLesson
     };
 };
 

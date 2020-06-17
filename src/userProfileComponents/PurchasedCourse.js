@@ -1,30 +1,56 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Card} from 'semantic-ui-react'
+import {Card, Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {selectingCourseLessons} from '../redux/actions'
+import LessonDashboard from '../lessonComponents/LessonDashboard'
 
-const PurchasedCourse = (props) => {
-    // console.log("purchased course props", props)
-
-    const handleClick = () => {
-        props.selectingCourseLessons(props.course.id)
+class PurchasedCourse extends React.Component {
+    constructor(){
+        super()
+        this.state = {
+            clickedCourse: false
+        }
+    }
+    
+    handleClick = () => {
+        this.setState({clickedCourse: !this.state.clickedCourse})
+        // this.props.selectingCourseLessons(this.props.course.id)
     }
 
-    return(
-        <div>
-            <Card>
-                <div className="user-course-div" onClick={null}>
-                    <h5 className="course-card-text">{props.course.name}</h5>
-                    <p className="course-card-text">{props.course.subject}</p>
-                    <p className="course-card-text">{props.course.duration}</p>
-                    <Link to={`/course/${props.course.id}/dashboard`}><button onClick={handleClick}>Begin your lessons</button></Link>
-                </div>
-            </Card>
-            <br></br>
+    handleClickLink = () => {
+        this.props.selectingCourseLessons(this.props.course.id)
+    }
+    render(){
+        // console.log("purchased course props", props)
 
-        </div>
-    )
+        return(
+            <div>
+                {/* <Grid>
+                    <Grid.Column width={15}> */}
+                        <div>
+                            <Card>
+                                <div className="user-course-div" onClick={this.handleClick}>
+                                    <h5 className="course-card-text">{this.props.course.name}</h5>
+                                    <p className="course-card-text">{this.props.course.subject}</p>
+                                    <p className="course-card-text">{this.props.course.duration}</p>
+                                    <Link to={`/course/${this.props.course.id}/lessons`}><button onClick={this.handleClickLink}>Begin your lessons</button></Link>
+                                </div>
+                            </Card>
+                            <br></br>
+                        </div>
+                    {/* </Grid.Column>
+                    <Grid.Column width={15}> */}
+                        <div>
+                            {this.state.clickedCourse ? 
+                            <LessonDashboard course={this.props.course}/>
+                            : null}
+                        </div>
+                    {/* </Grid.Column>
+                </Grid> */}
+            </div>
+        )
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {

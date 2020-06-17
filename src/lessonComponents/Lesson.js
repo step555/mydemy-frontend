@@ -57,8 +57,12 @@ class Lesson extends React.Component {
                     : 
                     null}
                     <br></br><br></br>
-                    <p>{this.props.selectedLesson.text_content}</p>
+                    {/* <p>{this.props.selectedLesson.text_content}</p> */}
+                    <div className="lesson-content-text-area-div">
+                        <textarea className="lesson-content-text-area" value={this.props.selectedLesson.text_content}></textarea>
+                    </div>
                 </div>
+                <br></br><br></br><br></br><br></br>
             </div>
         // return !this.props.selectedLesson ? null : (
         // // return (
