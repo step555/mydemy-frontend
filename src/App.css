@@ -105,6 +105,16 @@
   overflow: hidden;
 }
 
+.enlarged-course-card-image {
+  width:240px;
+  height:160px;
+  float: right;
+}
+
+.enlarged-course-card {
+  min-width: 40em;
+}
+
 .account-info {
   margin-top: -10px;
 }
@@ -445,12 +455,6 @@
 
 .centered-link {
   text-align: center;
-}
-
-.enlarged-course-card {
-  height: 500%;
-  padding-left: 500px;
-  size: 500%;
 }
 
 .enlarged-course-card-text {

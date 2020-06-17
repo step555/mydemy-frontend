@@ -194,7 +194,17 @@ const dropdownDifficultyLevelReducer = (state = "", action) => {
     }
 }
 
+const enlargedCourseReducer = (state = "", action) => {
+    switch (action.type) {
+        case "FETCHED_ENLARGED_COURSE":
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
 const rootReducer = combineReducers({
+    enlargedCourse: enlargedCourseReducer,
     courses: coursesReducer,
     user: userReducer,
     cart: cartReducer,

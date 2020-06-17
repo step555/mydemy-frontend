@@ -72,21 +72,8 @@ class CourseList extends React.Component{
     }
 }
 
-// {props.paintings.map(painting => (
-//     <PaintingListItem
-//       key={painting.id}
-//       selectPainting={props.selectPainting}
-//       painting={painting}
-
 const mapStateToProps = (state) => {
     console.log("the state you need to manipulate", state)
-    // const priceRangeArr = state.searchText.replace("$", "").replace("$", "").split("-")
-    // let priceRangeArrToInteger = [parseInt(priceRangeArr[0]), parseInt(priceRangeArr[1])]
-    // let sortedValue = priceRangeArrToInteger.filter(c => {
-    //     return c >= priceRangeArrToInteger[0] && c <= priceRangeArrToInteger[1]
-    // })
-
-    // debugger
     if(state.dropdownPrice[1] > 0){
         return {
             courses: state.courses.filter(
@@ -111,27 +98,5 @@ const mapStateToProps = (state) => {
         )})
     }};
 };
-// state.courses.filter(c => c.price >= state.dropdownPrice[0] && c.price <= state.dropdownPrice[1])
-
-//   c.price.toLowerCase().replace("$", "").includes(state.searchText.toLowerCase()) ||
-//   const priceRangeArr = value.replace("$", "").replace("$", "").split("-")
-//   let priceRangeArrToInteger = [parseInt(priceRangeArr[0]), parseInt(priceRangeArr[1])]
-//   let sortedValue = priceRangeArrToInteger.filter(c => {
-//       return c >= priceRangeArrToInteger[0] && c <= priceRangeArrToInteger[1]
-//   })
-// )
-
-// const mapDispatchToProps = (dispatch) => {
-//     console.log("mapDispatchToProps")
-    
-//     return {
-//       inputtingSearch: (info) => {dispatch( inputtingSearch(info) )}
-//     }
-// }
 
 export default connect(mapStateToProps, null)(CourseList)
-
-// export default connect(mapStateToProps, mapDispatchToProps)(CourseList)
-
-// export default CourseList
-

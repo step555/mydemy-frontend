@@ -719,6 +719,24 @@ function fetchedAllUsers(users){
     return {type: "FETCHED_ALL_USERS", payload: users}
 }
 
+function openingEnlargedCourse(course){
+    return (dispatch) => {
+        fetch(COURSES_URL + `/${course.id}`)
+        .then(resp => resp.json())
+        .then(course => {
+            dispatch(fetchedEnlargedCourse(course))
+        })
+    }
+}
+
+function closeEnlargedCourse(){
+    return { type: "FETCHED_ENLARGED_COURSE", payload: false}
+}
+
+function fetchedEnlargedCourse(value){
+    return { type: "FETCHED_ENLARGED_COURSE", payload: value }
+}
+
 function changeSearchText(value) {
     return { type: "CHANGE_SEARCH_TEXT", payload: value };
 }
@@ -730,10 +748,6 @@ function sortByDuration(value){
 function sortByPrice(value){
     const priceRangeArr = value.replace("$", "").replace("$", "").split("-")
     let priceRangeArrToInteger = [parseInt(priceRangeArr[0]), parseInt(priceRangeArr[1])]
-    // let sortedValue = priceRangeArrToInteger.filter(c => {
-    //     return c >= priceRangeArrToInteger[0] && c <= priceRangeArrToInteger[1]
-    // })
-    // return { type: "SORTED_BY_PRICE", payload: value }
     return { type: "SORTED_BY_PRICE", payload: priceRangeArrToInteger}
 }
 
@@ -741,4 +755,4 @@ function sortByDifficultyLevel(value){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
 
-export { addFinalLessonToLessonsArray, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { closeEnlargedCourse, openingEnlargedCourse, addFinalLessonToLessonsArray, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

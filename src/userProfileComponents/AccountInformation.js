@@ -4,6 +4,7 @@ import PurchasedCourse from './PurchasedCourse'
 import {Button, Grid} from 'semantic-ui-react'
 import {editingUserInfo} from '../redux/actions'
 import EditUserProfile from './EditUserProfile'
+import EnlargedCourseCard from './EnlargedCourseCard'
 
 class AccountInformation extends React.Component{
     constructor(){
@@ -25,7 +26,6 @@ class AccountInformation extends React.Component{
     }
 
     render(){
-        console.log("account information", this.props)
         return !this.props.user.currentUser || this.props.user.currentUser.courses === undefined ? null : (
         // return !this.props.user.currentUser ? null : (
             <div className="account-info-div">
@@ -63,9 +63,11 @@ class AccountInformation extends React.Component{
                                 )}
                             </div>
                         </Grid.Column>
-                        {/* <Grid.Column>
-                            // <EnlargedCourseCard handleHoverTrue={this.handleHoverTrue} handleHoverFalse={this.handleHoverFalse}/>
-                        </Grid.Column> */}
+                    {this.props.enlargedCourse.name !== undefined ? 
+                        <Grid.Column width={5}>
+                            <EnlargedCourseCard />
+                        </Grid.Column>
+                    : <h2>Hover over a course card to see more</h2>}
                 </Grid>
             </div>
         )
@@ -74,6 +76,7 @@ class AccountInformation extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => ({
+    enlargedCourse: state.enlargedCourse,
     user: state.user,
     // userCourses: state.userCourses
 })
