@@ -13,6 +13,7 @@ const Home = (props) => {
                         <br></br><br></br>
                         <h1 className="inside-top-learning-image-h1">Access thousands of online courses today!</h1>
                         <Link to="/course-list" className="inside-top-learning-image-h1"><Button>Browse Courses</Button></Link>
+                        <Link to="/about"><Button>Learn More</Button></Link>
                     </div>
                 </div>
             <br></br><br></br><br></br><br></br><br></br>
@@ -31,6 +32,7 @@ const Home = (props) => {
                         <h4>Earn Certificates</h4>
                     </Grid.Column>
                 </Grid>
+                <br></br>
             </div>
             </div>
             <br></br><br></br><br></br><br></br><br></br><br></br>

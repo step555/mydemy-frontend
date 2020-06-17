@@ -728,7 +728,13 @@ function sortByDuration(value){
 }
 
 function sortByPrice(value){
-    return { type: "SORTED_BY_PRICE", payload: value }
+    const priceRangeArr = value.replace("$", "").replace("$", "").split("-")
+    let priceRangeArrToInteger = [parseInt(priceRangeArr[0]), parseInt(priceRangeArr[1])]
+    // let sortedValue = priceRangeArrToInteger.filter(c => {
+    //     return c >= priceRangeArrToInteger[0] && c <= priceRangeArrToInteger[1]
+    // })
+    // return { type: "SORTED_BY_PRICE", payload: value }
+    return { type: "SORTED_BY_PRICE", payload: priceRangeArrToInteger}
 }
 
 function sortByDifficultyLevel(value){

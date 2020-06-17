@@ -41,8 +41,8 @@ class CourseList extends React.Component{
                     <div className="course-dropdown-container-div">
                                 <CourseDropdown />
                         <div>
-                            <p>back</p>
-                            <p>forward</p>
+                            {/* <p>back</p>
+                            <p>forward</p> */}
                         </div>
                     </div>
 
@@ -80,21 +80,46 @@ class CourseList extends React.Component{
 
 const mapStateToProps = (state) => {
     console.log("the state you need to manipulate", state)
+    // const priceRangeArr = state.searchText.replace("$", "").replace("$", "").split("-")
+    // let priceRangeArrToInteger = [parseInt(priceRangeArr[0]), parseInt(priceRangeArr[1])]
+    // let sortedValue = priceRangeArrToInteger.filter(c => {
+    //     return c >= priceRangeArrToInteger[0] && c <= priceRangeArrToInteger[1]
+    // })
+
+    // debugger
+    if(state.dropdownPrice[1] > 0){
+        return {
+            courses: state.courses.filter(
+                c => {
+                    return (
+                        c.price >= state.dropdownPrice[0] && c.price <= state.dropdownPrice[1]
+                    )
+                }
+            )
+        }
+    }else{
     return {
-    //   courses: state.courses
     courses: state.courses.filter(
         c => {
         return (
-          c.name.toLowerCase().includes(state.searchText.toLowerCase()) ||
-          c.subject.toLowerCase().includes(state.searchText.toLowerCase()) ||
-          c.company.name.toLowerCase().includes(state.searchText.toLowerCase()) ||
-          c.duration.toLowerCase().includes(state.searchText.toLowerCase()) ||
-        //   c.price.toLowerCase().replace("$", "").includes(state.searchText.toLowerCase()) ||
-          c.difficulty_level.toLowerCase().includes(state.searchText.toLowerCase())
-        )
-          }  )
-    };
+            c.name.toLowerCase().includes(state.searchText.toLowerCase()) ||
+            c.subject.toLowerCase().includes(state.searchText.toLowerCase()) ||
+            c.company.name.toLowerCase().includes(state.searchText.toLowerCase()) ||
+            c.duration.toLowerCase().includes(state.searchText.toLowerCase()) ||
+            c.difficulty_level.toLowerCase().includes(state.searchText.toLowerCase())
+
+        )})
+    }};
 };
+// state.courses.filter(c => c.price >= state.dropdownPrice[0] && c.price <= state.dropdownPrice[1])
+
+//   c.price.toLowerCase().replace("$", "").includes(state.searchText.toLowerCase()) ||
+//   const priceRangeArr = value.replace("$", "").replace("$", "").split("-")
+//   let priceRangeArrToInteger = [parseInt(priceRangeArr[0]), parseInt(priceRangeArr[1])]
+//   let sortedValue = priceRangeArrToInteger.filter(c => {
+//       return c >= priceRangeArrToInteger[0] && c <= priceRangeArrToInteger[1]
+//   })
+// )
 
 // const mapDispatchToProps = (dispatch) => {
 //     console.log("mapDispatchToProps")

@@ -21,7 +21,6 @@ class LessonDashboard extends React.Component{
     }
 
     componentDidMount(){
-        debugger
         let courseId = parseInt(this.props.match.params.courseId)
         // let courseId = parseInt(this.props.course.id)
         this.setState({courseId: courseId})
@@ -38,17 +37,16 @@ class LessonDashboard extends React.Component{
 
     render(){
         console.log("LESSON CONTAINER PROPS", this.props)
-        return !this.props.lessons || this.props.lessons.length === 0 ? null : (
+        // return !this.props.lessons || this.props.lessons.length === 0 ? null : (
+        return !this.props.lessons ? null : (
             <div>
-                <h1>Lessons</h1>
-                {this.props.user.currentUser ? 
+                {/* {this.props.user.currentUser ? 
                     <Link to="/profile"><Button>Back to Profile</Button></Link>
                 :   <Link to="/company-profile"><Button>Back to Profile</Button></Link>
-                }
+                } */}
                 <br></br>
                 
                 <div class="sidenav">
-                    <br></br><br></br>
                     {this.props.user.currentUser ? 
                         <Link to="/profile"><Button>Back to Profile</Button></Link>
                     :   <Link to="/company-profile"><Button>Back to Profile</Button></Link>

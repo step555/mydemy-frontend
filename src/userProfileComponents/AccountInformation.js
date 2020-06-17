@@ -9,7 +9,8 @@ class AccountInformation extends React.Component{
     constructor(){
         super()
         this.state = {
-            clickedEditButton: false
+            clickedEditButton: false,
+            hoveredOnCourseCard: false // refer to purchased course comments for more on how to proceed
         }
     }
     // componentDidMount(){
@@ -62,6 +63,9 @@ class AccountInformation extends React.Component{
                                 )}
                             </div>
                         </Grid.Column>
+                        {/* <Grid.Column>
+                            // <EnlargedCourseCard handleHoverTrue={this.handleHoverTrue} handleHoverFalse={this.handleHoverFalse}/>
+                        </Grid.Column> */}
                 </Grid>
             </div>
         )

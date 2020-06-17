@@ -47,7 +47,7 @@ const CourseDropdown = (props) => {
                     placeholder={"sort by price"}
                     options={byPrice} selection 
                     // onChange={(event) => props.sortByPrice(event.target.innerText)}
-                    onChange={(event) => props.changeSearchText(event.target.innerText)}
+                    onChange={(event) => props.sortByPrice(event.target.innerText)}
                     />
                 </Grid.Column>
                 <Grid.Column width={4}>
@@ -78,7 +78,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
     return {
     //   sortByDuration: (info) => {dispatch(sortByDuration(info))},
-    //   sortByPrice: (info) => {dispatch(sortByPrice(info))},
+      sortByPrice: (info) => {dispatch(sortByPrice(info))},
     //   sortByDifficultyLevel: (info) => {dispatch(sortByDifficultyLevel(info))},
       changeSearchText: (searchText) => {dispatch(changeSearchText(searchText))}
     }

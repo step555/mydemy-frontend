@@ -4,50 +4,70 @@ import {Card, Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {selectingCourseLessons} from '../redux/actions'
 import LessonDashboard from '../lessonComponents/LessonDashboard'
+import CourseModal from './CourseModal'
 
 class PurchasedCourse extends React.Component {
     constructor(){
         super()
         this.state = {
-            clickedCourse: false
+            hoveredOnCourse: false,
+            // hovered: false
         }
     }
+
+    componentDidMount(){
+        this.setState({clickedCourse: false})
+    }
     
-    handleClick = () => {
-        this.setState({clickedCourse: !this.state.clickedCourse})
+    handleHoverTrue = () => {
+        this.setState({hoveredOnCourse: true})
+        // this.props.selectingCourseLessons(this.props.course.id)
+        // call something in redux actions.js to fetch and send a payload to reducer.js
+        // get that state inside a different component
+    }
+
+    handleHoverFalse = () => {
+        this.setState({hoveredOnCourse: false})
         // this.props.selectingCourseLessons(this.props.course.id)
     }
 
     handleClickLink = () => {
         this.props.selectingCourseLessons(this.props.course.id)
     }
+
     render(){
-        // console.log("purchased course props", props)
+        console.log("purchased course props", this.props)
 
         return(
             <div>
                 {/* <Grid>
                     <Grid.Column width={15}> */}
                         <div>
-                            <Card>
-                                <div className="user-course-div" onClick={this.handleClick}>
-                                    <h5 className="course-card-text">{this.props.course.name}</h5>
-                                    <p className="course-card-text">{this.props.course.subject}</p>
-                                    <p className="course-card-text">{this.props.course.duration}</p>
-                                    <Link to={`/course/${this.props.course.id}/lessons`}><button onClick={this.handleClickLink}>Begin your lessons</button></Link>
-                                </div>
-                            </Card>
+                            {/* <Link to={`/course/${this.props.course.id}/lessons`}> */}
+                                <Card>
+                                    {/* <div className="user-course-div" onMouseOver={this.handleHoverTrue} onMouseLeave={this.handleHoverFalse} onHover={this.hoveredOverCourseCard}> */}
+                                    {/* <div className="user-course-div" onClick={this.handleClickLink}> */}
+                                    <div>
+                                        <h5 className="course-card-text">{this.props.course.name}</h5>
+                                        <p className="course-card-text">{this.props.course.subject}</p>
+                                        <p className="course-card-text">{this.props.course.duration}</p>
+                                        <div className="centered-link">
+                                            <Link to={`/course/${this.props.course.id}/lessons`}><button onClick={this.handleClickLink}>Start Learning</button></Link>
+                                        </div>
+                                    </div>
+                                </Card>
+                            {/* </Link> */}
                             <br></br>
                         </div>
-                    {/* </Grid.Column>
-                    <Grid.Column width={15}> */}
-                        <div>
-                            {this.state.clickedCourse ? 
-                            <LessonDashboard course={this.props.course}/>
-                            : null}
+                        {/* {this.state.hoveredOnCourse ? 
+                        <div classname="enlarged-course-card">
+                            <div>
+                                <h5 className="enlarged-course-card-text">{this.props.course.name}</h5>
+                                <p className="enlarged-course-card-text">{this.props.course.subject}</p>
+                                <p className="enlarged-course-card-text">{this.props.course.duration}</p>
+                            </div>
                         </div>
-                    {/* </Grid.Column>
-                </Grid> */}
+                        : null} */}
             </div>
         )
     }

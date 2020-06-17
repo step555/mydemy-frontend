@@ -127,7 +127,7 @@ class CCourse extends React.Component{
                 </Card>
                 <Grid>
                     <Grid.Column width={5}>
-                        <Link to={`/course/${this.props.course.id}/dashboard`}><button onClick={this.viewLessons}>View Lessons</button></Link>
+                        <Link to={`/course/${this.props.course.id}/lessons`}><button onClick={this.viewLessons}>View Lessons</button></Link>
                     </Grid.Column>
                     <Grid.Column width={2}>
                         <button onClick={() => this.deleteCourse(this.props.course.id)}>Delete</button>

@@ -19,7 +19,6 @@ class LessonContainer extends React.Component{
     }
 
     componentWillMount(){
-        debugger
         // let courseId = parseInt(this.props.match.params.courseId)
         // let lessonId = parseInt(this.props.match.params.lessonId)
 
@@ -32,7 +31,6 @@ class LessonContainer extends React.Component{
                 lessonId: lessonId
                 // lessonId: id
             },() => {
-                // debugger
                 console.log("before selecting lesson is called", this.state)
                 this.props.selectingLesson(this.state.lessonId)
             })
@@ -57,7 +55,7 @@ class LessonContainer extends React.Component{
         return(
             <div>
                 <br></br>
-                <Link to={`/course/${this.state.courseId}/dashboard`}><Button>Back to Course Dashboard</Button></Link>
+                {/* <Link to={`/course/${this.state.courseId}/dashboard`}><Button>Back to Course Dashboard</Button></Link> */}
                 <br></br><br></br>
                 {/* <h1 className="lesson-name-h1">{this.props.selectedLesson.course.name}</h1> */}
                 <div className="next-previous-lesson-div">
