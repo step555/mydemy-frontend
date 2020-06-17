@@ -336,7 +336,6 @@ function checkingOutCart(cart){
             is_purchased: true,
             course: cart[i].course
         }
-
         fetch(PURCHASES_URL + `/${cart[i].id}`, {
             method: "PATCH",
             headers: {"Content-Type": "application/json",
@@ -349,6 +348,7 @@ function checkingOutCart(cart){
                 if(updated.course_id === cart[j].course.id)
                     updated.course = cart[j].course
             }
+            alert("Cart checkout complete")
             dispatch(checkedOutCart(updated))
         })
         i++

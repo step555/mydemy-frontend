@@ -18,8 +18,8 @@ class Checkout extends React.Component {
     }
 
     checkingOut = () => {
-        debugger
-        checkingOutCart(this.props.cart)
+        // debugger
+        this.props.checkingOutCart(this.props.cart)
     }
 
     handleClick = () => {
@@ -33,11 +33,12 @@ class Checkout extends React.Component {
         // return (
             <div>
                 <br></br>
-                <h2 className="review-before-submission-h2">Review your order before final submission</h2>
+                <h2 className="review-before-submission-h2">Please review your order before final submission</h2>
                     <Grid>
                         {/* <div className=""> */}
                             <Grid.Column width={7}>
                                 <br></br><br></br>
+                            <div className="checkout-form-details">
                                 <Form>
                                     <Form.Field
                                         control={Input}
@@ -63,6 +64,7 @@ class Checkout extends React.Component {
                                         onChange={null}
                                     />
                                 </Form>
+                            </div>
                             </Grid.Column>
                         {/* </div> */}
                         <div className="purchase-box-div">
@@ -83,7 +85,7 @@ class Checkout extends React.Component {
                             {/* <Segment> */}
                             {/* style={{overflow: 'auto', maxHeight: 500 }} */}
                             <Card style={{minWidth: 800 }}>
-                                {this.state.clickedShowItems ? 
+                                {this.state.clickedShowItems && this.props.cart.length > 0 ? 
                                 this.props.cart.map(item => <CheckoutFormCartItem item={item} key={item.id}/>)
                                 : null}
                             </Card>

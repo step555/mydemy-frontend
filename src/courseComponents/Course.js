@@ -26,11 +26,14 @@ class Course extends React.Component{
                     null}
                     <br></br>
                     <br></br>
-                        <img src={this.props.course.picture} alt="picture" className="course-image"/>
-                    <h2>About this course</h2>
+                    <div style={{backgroundImage: `url('${this.props.course.picture}')`}} className="course-image">
+                        {/* <img src={this.props.course.picture} alt="picture" className="course-image"/> */}
+                    </div>
+                    <hr />    
+                    <h2>About this course:</h2>
                         <p>{this.props.course.text_preview}</p>
-                    <h5>Institution: {this.props.course.company.name}</h5>
-                    <h5>Subject: {this.props.course.subject}</h5>
+                    {/* <p>Institution: <strong>{this.props.course.company.name}</strong></p>
+                    <p>Subject: <strong>{this.props.course.subject}</strong></p> */}
                     <h5>Content covered in this course:</h5>
                     <ul>
                         {this.props.course.content_covered.split(", ").map(content => {
@@ -55,6 +58,10 @@ class Course extends React.Component{
                         <p className="course-side-text">Price: ${this.props.course.price}</p>
                         <p className="course-side-text">Duration: {this.props.course.duration}</p>
                         <p className="course-side-text">Difficulty level: {this.props.course.difficulty_level}</p>
+                        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                        <div style={{paddingBottom: 12}}></div>
+                        <h2><small>Institution:</small> <strong>{this.props.course.company.name}</strong></h2>
+                        <h2><small>Subject:</small> <strong>{this.props.course.subject}</strong></h2>
                     </div>
                     </Grid.Column>
                 </Grid>
