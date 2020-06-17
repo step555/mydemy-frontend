@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { connect } from "react-redux";
 import { Card, Icon, Image, Grid } from 'semantic-ui-react'
 import { Link, Route } from "react-router-dom"
@@ -9,7 +9,7 @@ class CourseListItem extends React.Component{
         console.log("Course", this.props.course)
         return (
             // <div className="course-card">
-            <div className="course-card-div"> // maxheight, maxwidth, overflow hidden 
+            <div className="course-card-div">
                 <Link to={`/course-list/${this.props.course.id}/`} >
                     <Card.Group>
                         <Card className="course-card">

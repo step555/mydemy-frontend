@@ -97,6 +97,13 @@
   object-fit: contain; 
 }
 
+.course-card-image-div {
+  max-height: 190px;
+  min-height: 190px;
+  max-width: 300px;
+  overflow: hidden;
+}
+
 .account-info {
   margin-top: -10px;
 }
