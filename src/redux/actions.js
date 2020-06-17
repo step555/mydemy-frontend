@@ -59,6 +59,10 @@ function fetchingUser(email, password, face){
                 if(user.error_message){
                     alert(user.error_message)
                 }else{
+                    if(face[0]._label && face[0]._label !== user.user.email){
+                        alert("Your face was not recognized as belonging to this user. Please try again.")
+                    }
+                    else{
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
                     // currentUser = user.user
@@ -68,12 +72,11 @@ function fetchingUser(email, password, face){
                 .then(user => {
                     if(!user.status){
                         currentUser = user
-                        debugger
                         dispatch(fetchedUser(user))
                     }
                 })
                 // dispatch(fetchedUser(user.user))
-            }
+            }}
         })
     }
 }

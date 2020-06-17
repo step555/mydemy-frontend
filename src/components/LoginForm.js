@@ -153,6 +153,7 @@ class LoginForm extends React.Component{
     }
 
     fMatch = (descriptors) => {
+        // debugger
         this.setState({face: descriptors})
     }
 

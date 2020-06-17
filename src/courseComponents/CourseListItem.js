@@ -9,11 +9,13 @@ class CourseListItem extends React.Component{
         console.log("Course", this.props.course)
         return (
             // <div className="course-card">
-            <div className="course-card-div">
+            <div className="course-card-div"> // maxheight, maxwidth, overflow hidden 
                 <Link to={`/course-list/${this.props.course.id}/`} >
                     <Card.Group>
                         <Card className="course-card">
-                            <Image classname="course-card-image" src={this.props.course.picture} />
+                            <div className="course-card-image-div">
+                                <Image classname="course-card-image" src={this.props.course.picture} />
+                            </div>
                             <Card.Content>
                                 <h3 className="course-card-text course-card-info">{this.props.course.name}</h3>
                                 <h5 className="course-card-text course-card-info">{this.props.course.subject}</h5>
