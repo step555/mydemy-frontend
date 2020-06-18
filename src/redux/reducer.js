@@ -67,7 +67,6 @@ const companyReducer = (state = [], action) => {
 const newLessonReducer = (state = [], action) => {
     switch (action.type){
         case "CREATED_NEW_LESSON":
-            debugger
             return action.payload
         default:
             return state;
@@ -88,8 +87,9 @@ const cartReducer = (state = [], action) => {
         case "FETCHED_USER_CART":
             return action.payload
         case "ADD_TO_CART":
-            debugger
-            let newState = [action.payload, ...state] // state defaulted to an array here
+            // let newState = [action.payload, ...state] // state defaulted to an array here
+            // let newState = [...action.payload] // state defaulted to an array here
+            let newState = action.payload
             return newState
         case "ALREADY_OWNED":
             return state

@@ -62,7 +62,7 @@ function fetchingUser(email, password, face){
                 if(user.error_message){
                     alert(user.error_message)
                 }else{
-                    if(face[0].length === 0 || face[0]._label && face[0]._label !== user.user.email){
+                    if( face === undefined || face[0].length === 0 || face[0]._label && face[0]._label !== user.user.email){
                         alert("Your face was not recognized as belonging to this user. Please try again.")
                     }
                     else{
@@ -100,7 +100,6 @@ function gettingProfileFetch(){
                 fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
                 .then(user => {
-        
                     if(!user.status){
                         currentUser = user
                         dispatch(gotProfileFetch(user))
@@ -113,7 +112,7 @@ function gettingProfileFetch(){
 }
 
 function gotProfileFetch(user){
-        return {type: "GOT_PROFILE_FETCH", payload: user}
+    return {type: "GOT_PROFILE_FETCH", payload: user}
 }
 
 function editingUserInfo(newUserInfo){
@@ -284,7 +283,6 @@ function addingToCart(course){
             }
         }
             if(alreadyInCartOrPurchased === true){
-                debugger
                 alert("You have either already purchased this course or it is currently inside your cart")
                 dispatch(alreadyOwned())
             }else{
@@ -350,6 +348,8 @@ function checkingOutCart(cart){
                 }
             }
             dispatch(checkedOutCart(updated))
+            window.location.reload()
+            // dispatch(gotProfileFetch(currentUser))
         })
         i++
         }
@@ -437,7 +437,6 @@ function gotCompanyProfileFetch(company){
 }
 
 function addFinalLessonToLessonsArray(lessonName, lessonText, video){ // sends state to CreateNewCourse
-    // debugger
     let finalLesson = [lessonName, lessonText, video]
     return {type: "ADDED_FINAL_LESSON", payload: finalLesson}
 }

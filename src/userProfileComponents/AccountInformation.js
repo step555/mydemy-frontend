@@ -26,6 +26,7 @@ class AccountInformation extends React.Component{
     }
 
     render(){
+        console.log(this.props.user)
         return !this.props.user.currentUser || this.props.user.currentUser.courses === undefined ? null : (
         // return !this.props.user.currentUser ? null : (
             <div className="account-info-div">
@@ -51,7 +52,6 @@ class AccountInformation extends React.Component{
                                 {this.props.user.currentUser.courses.map(course => {
                                     // debugger
                                     for(let i = 0; i < this.props.user.currentUser.purchases.length; i++){
-                                        // debugger
                                         if(course.id === this.props.user.currentUser.purchases[i].course_id && this.props.user.currentUser.purchases[i].is_purchased === true){
                                             return (
                                                 <div>

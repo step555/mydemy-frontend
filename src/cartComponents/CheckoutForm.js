@@ -43,7 +43,7 @@ class Checkout extends React.Component {
                 <br></br>
                 <h2 className="review-before-submission-h2">Please review your order before final submission</h2>
                     <Grid>
-                        {/* <div className=""> */}
+
                             <Grid.Column width={7}>
                                 <br></br><br></br>
                             <div className="checkout-form-details">
@@ -77,7 +77,7 @@ class Checkout extends React.Component {
                                 </Form>
                             </div>
                             </Grid.Column>
-                        {/* </div> */}
+
                         <div className="purchase-box-div">
                             <Grid.Column width={3}>
                                 <Button onClick={this.checkingOut}>Purchase</Button>
