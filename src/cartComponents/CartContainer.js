@@ -32,6 +32,9 @@ class CartContainer extends React.Component{
                         <h1 className="shopping-cart">Shopping Cart</h1>
                         <br></br>
                         <div className="cart-container-div">
+                        {this.props.cart.length < 1 ? 
+                        <h3>Looks like your cart is currently empty. Click <Link to="/course-list">here</Link> to browse our selection of online courses</h3>
+                        : null}
                         {this.props.cart.map(item => {
                             return ( 
                                     <CartItem key={item.id} item={item}/>
