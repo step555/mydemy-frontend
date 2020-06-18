@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Button} from 'semantic-ui-react'
+import {Form, Button, Grid} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {creatingNewCourse} from '../redux/actions'
 import {Link, Redirect} from 'react-router-dom'
@@ -151,7 +151,7 @@ class CreateNewCourse extends React.Component {
           }
 
         return (
-            <div>
+            <div style={{marginLeft: 80, marginRight: 80, marginTop: 40}}>
                 {this.state.finishedCourseInfo === false ? 
                 // if false render course form. else render lesson form container
             <div>
@@ -191,8 +191,21 @@ class CreateNewCourse extends React.Component {
                         )}
                         )}
                             {/* <button onClick={this.addInputField}>More</button> */}
-                            <br></br>                       
-                            <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Add Lessons</Form.Field>
+                            <br></br>  
+                            <div>
+                                {/* <Grid>   */}
+                                <div className="add-lessons">
+                                {/* <Grid.Column width={5}> */}
+                                    <Button onClick={this.filledOutCourseInfo} type="button" >Add Lessons</Button>
+                                {/* </Grid.Column> */}
+                                </div>
+                                {/* <div className="other-button"> */}
+                                {/* <Grid.Column width={5}> */}
+                                    {/* <Button onClick={this.filledOutLessonInfo} >Submit Information</Button> */}
+                                {/* </Grid.Column> */}
+                                {/* </div> */}
+                                {/* </Grid>   */}
+                            </div>   
                     </Form>
             </div>
             :
@@ -202,14 +215,16 @@ class CreateNewCourse extends React.Component {
             </div>
             } 
 
-                <br></br><br></br>
+                {/* <br></br><br></br> */}
                 {this.state.finished === true ? 
-                    <div>
+                    <div className="submit-information">
                         <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
-                        <Form.Field onClick={this.submit} control={Button}>Final Submit</Form.Field>
+                        <Button onClick={this.submit} >Final Submit</Button>
                     </div>
                         : 
-                        <Form.Field onClick={this.filledOutLessonInfo} control={Button}>Submit Information</Form.Field>
+                    <div className="submit-information">
+                        <Button onClick={this.filledOutLessonInfo} >Submit Information</Button>
+                    </div>
                 }
             </div>
         )

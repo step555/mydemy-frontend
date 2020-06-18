@@ -10,7 +10,7 @@ class Lesson extends React.Component {
         super()
         this.state = {
             // courseId: "",
-            // lessonId: ""
+            lessonId: "",
         }
     }
 
@@ -35,18 +35,14 @@ class Lesson extends React.Component {
         this.setState({
             // courseId: courseId,
             // lessonId: this.props.lessonId
-            lessonId: lessonId
+            lessonId: lessonId,
         })
     }
-
-    // nextLesson = () => {
-    //     this.setState({ lessonId: this.state.lessonId + 1 })
-    // }
 
     render(){
         console.log("lesson state", this.state)
         console.log("lesson props", this.props)
-        debugger
+        // debugger
         return !this.props.selectedLesson ? null : (
             <div>
                 <br></br><br></br>

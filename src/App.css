@@ -480,3 +480,17 @@
   height: 60%;
   width: 60%;
 }
+
+.submit-information {
+  text-align: right;
+  margin-left: 500px;
+  position: relative;
+  padding-top: 50px;
+  /* float: right; */
+  display: inline-block;
+}
+
+.add-lessons {
+  margin-right: 500px;
+  display: inline-block;
+}

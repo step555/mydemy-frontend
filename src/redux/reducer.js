@@ -156,6 +156,8 @@ const lessonReducer = (state = [], action) => {
     switch (action.type){
         case "SELECTED_LESSON":
             return action.payload
+        case "CLICKED_BACK_BIUTTON":
+            return action.payload
         default:
             return state
     }

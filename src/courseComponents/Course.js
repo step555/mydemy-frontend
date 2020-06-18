@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from "react-redux";
 import { Button, Grid, Column } from "semantic-ui-react";
 import { addingToCart } from "../redux/actions";
+import {Link} from 'react-router-dom'
 
 class Course extends React.Component{
     
@@ -15,17 +16,21 @@ class Course extends React.Component{
         // console.log(this.props.course)
         return !this.props.course ? null : (
             <div className="course-div">
+                <br></br>
+                <div>
+                    <Link to="/course-list"><Button>Back to course list</Button></Link>
+                    <br></br><br></br>
+                </div>
+                {/* <div className="content-covered-text-area-div"></div> */}
                 <Grid>
                     <Grid.Column width={9}>
-                        <br></br>
                     <h1>{this.props.course.name}</h1>
                     {/* cart picture? */}
                     {localStorage.user_or_company === "user" ? 
                     <Button onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
                     : 
                     null}
-                    <br></br>
-                    <br></br>
+                    <br></br><br></br>
                     <div style={{backgroundImage: `url('${this.props.course.picture}')`}} className="course-image">
                         {/* <img src={this.props.course.picture} alt="picture" className="course-image"/> */}
                     </div>
