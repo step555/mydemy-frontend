@@ -30,7 +30,6 @@ function fetchingCourses(){
         fetch(COURSES_URL)
         .then(resp => resp.json())
         .then(courses => {
-            // debugger
             
             // "one↵two↵three".replace("↵", "\n")
             allCourses = courses
@@ -240,7 +239,6 @@ function removedFromCart(purchase){
 }
 
 function fetchedTotalCompanyRevenue(total){
-    debugger
     return {type: "FETCHED_TOTAL_REVENUE", payload: total}
 }
 
@@ -260,7 +258,6 @@ function totalRevenue(){
                 }
             }
             })
-            debugger
             dispatch(fetchedTotalCompanyRevenue(total))
         })
     }

@@ -14,7 +14,6 @@ class CreateNewCourse extends React.Component {
             price: "",
             duration: "",
             subject: "",
-            videoPreview: "",
             picture: "",
             individualContentCovered: "",
             contentCovered: [],
@@ -102,13 +101,12 @@ class CreateNewCourse extends React.Component {
         if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
             alert("It appears that you have left at least one course field blank. Please ensure all required fields are filled in")
         }
-        // else if(this.state.lessonsArray.length === 0 //|| this.props.finalLesson.length === 0){ // this.state.lessonArray.length === 0
-        //     alert("You have not yet submitted any lessons")
-        // }
+        else if(this.state.lessonsArray.length === 0 && this.props.finalLesson.length === 0){ //|| this.props.finalLesson.length === 0){ // this.state.lessonArray.length === 0
+            alert("You have not yet submitted any lessons")
+        }
         else{
             this.setState({wasSubmitted: true})
             this.setState({ lessonsArray: [...this.state.lessonsArray, this.props.finalLesson] }, () => {
-                debugger
                 this.props.creatingNewCourse(this.state)
             })
         }
@@ -119,7 +117,18 @@ class CreateNewCourse extends React.Component {
     }
 
     filledOutLessonInfo = () => {
-        this.setState({finished: !this.state.finished})
+        if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
+            alert("It appears that you have left at least one course field blank. Please ensure all required fields are filled in")
+        }else{
+            this.setState({finished: !this.state.finished})
+        }
+        // if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
+        //     alert("It appears that you have left at least one course field blank. Please ensure all required fields are filled in")
+        // }else if(this.state.lessonsArray.length === 0){
+        //     alert("A course must have lessons")
+        // }else{
+        //     this.setState({finished: !this.state.finished})
+        // }
     }
 
     render(){
@@ -130,7 +139,7 @@ class CreateNewCourse extends React.Component {
             { key: '9-12', text: '9-12 weeks', value: 4 },
           ]
           
-          const difficultyOptions  =[
+          const difficultyOptions = [
             { key: 'b', text: 'beginner', value: 1 },
             { key: 'i', text: 'intermediate', value: 2 },
             { key: 'a', text: 'advanced', value: 3 },
@@ -167,7 +176,6 @@ class CreateNewCourse extends React.Component {
                             <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={""} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.Input fluid id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
                             <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
                         </Form.Group>
                         {this.state.numberOfContentCovered.map(input => {
@@ -190,7 +198,7 @@ class CreateNewCourse extends React.Component {
             :
             <div>
                 <h2><CreateNewLessonContainer submit={this.submit} addLessonsToCourse={this.addLessonsToCourse}/></h2>
-                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Add Course Information</Form.Field>
+                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Restart</Form.Field>
             </div>
             } 
 

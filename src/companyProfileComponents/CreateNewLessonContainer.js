@@ -42,7 +42,7 @@ class CreateNewLessonContainer extends React.Component{
                 video: "",
                 lessonsArray: []
             })
-            alert("Lesson has been submitted. If you like, you may create another lesson below.")
+            // alert("Lesson has been submitted. You may now create another lesson below.")
             }
         }})     
     }
@@ -75,7 +75,7 @@ class CreateNewLessonContainer extends React.Component{
                     )
                 })}
                 <br></br>
-                <Button onClick={this.addNextLesson}>Submit lesson/Add more lessons</Button>
+                <Button onClick={this.addNextLesson}>Add more lessons</Button>
             </div>
         )
     }

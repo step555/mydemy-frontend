@@ -65,7 +65,9 @@ class CompanyLoginForm extends React.Component{
                     <Button type="submit">Login</Button>
                     </Segment>
                     </Form>
-                    <Link to="/login">Click here to log in if you are a user</Link>
+                    <Message>
+                    <Link to="/login"><strong>Click here to log in if you are a user</strong></Link>
+                    </Message>
                     {/* <Link to="/login">Log in</Link> */}
                     {localStorage.user_or_company === "user" || localStorage.user_or_company === "company" ? null
                     : 
