@@ -240,6 +240,7 @@ function removedFromCart(purchase){
 }
 
 function fetchedTotalCompanyRevenue(total){
+    debugger
     return {type: "FETCHED_TOTAL_REVENUE", payload: total}
 }
 
@@ -259,6 +260,7 @@ function totalRevenue(){
                 }
             }
             })
+            debugger
             dispatch(fetchedTotalCompanyRevenue(total))
         })
     }

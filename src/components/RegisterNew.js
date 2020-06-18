@@ -1,6 +1,6 @@
 import React from 'react'
 import {Radio, Grid, Form, Header, Input, Segment, Image, Button} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import { connect } from "react-redux";
 import {creatingNewUser, creatingNewCompany} from '../redux/actions'
 import NewUserVideoInput from '../views/NewUserVideoInput';
@@ -64,6 +64,10 @@ class RegisterNew extends React.Component{
     }
 
     render(){
+        const redirectToMain = localStorage.token;
+        if (redirectToMain) {
+            return <Redirect to="/" />
+        }
         return(
             <div className="user-signup"> 
                 <Grid textAlign='center' style={{ height: '93vh'}} verticalAlign='middle' >
@@ -115,10 +119,13 @@ class RegisterNew extends React.Component{
                             />
                         </Form.Field>
                         {/* <Link to ={"/login"}> */}
+                        {this.state.user_or_company === 'user' ? 
                             <Button type="submit">Image Capture</Button>
+                        : null}
                             {this.state.clickedNext ? 
                                 <div>
                                     <Form onSubmit={this.handleSubmit}>
+                                        <h2>Analyzing... please wait until you see the blue box around your face before continuing</h2>
                                         <NewUserVideoInput getDescriptors={this.getDescriptors} />
                                         <br></br>
                                         <Button type="submit">Register</Button>

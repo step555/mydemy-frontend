@@ -115,9 +115,12 @@ const cartTotalReducer = (state = 0, action) => {
     }
 }
 
-const totalRevenueReducer = (state = 0, action) => {
+const totalRevenueReducer = (state = {}, action) => {
     switch (action.type){
         case "FETCHED_TOTAL_REVENUE":
+            // debugger
+            // let newState = {...state}
+
             return {
                 totalRevenue: action.payload
             }

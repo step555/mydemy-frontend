@@ -5,6 +5,7 @@ import CPurchase from './CPurchase'
 import EditCompanyProfile from './EditCompanyProfile'
 import {Button, Grid} from 'semantic-ui-react'
 import { Link } from "react-router-dom";
+import {totalRevenue} from '../redux/actions'
 // import ViewEditCourse from "./ViewEditCourse"
 
 class CompanyAccountInformation extends React.Component{
@@ -17,6 +18,7 @@ class CompanyAccountInformation extends React.Component{
 
     componentDidMount(){
         this.setState({ clickedEditProfileButton: false})
+        this.props.totalR()
     }
 
     handleClick = () => {
@@ -25,7 +27,7 @@ class CompanyAccountInformation extends React.Component{
     }
 
     render(){
-        // console.log("CACCOUNTINFO", this.props)
+        console.log("CACCOUNTINFO", this.props)
 
         // let filteredCourses = this.props.courses.filter(course => {
         //     // debugger
@@ -108,4 +110,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(CompanyAccountInformation)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        totalR: (info) => {dispatch( totalRevenue(info) )}
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyAccountInformation)
