@@ -216,16 +216,17 @@ class CreateNewCourse extends React.Component {
             } 
 
                 {/* <br></br><br></br> */}
-                {this.state.finished === true ? 
+                {/* {this.state.finished === true ? 
                     <div className="submit-information">
-                        <p>Please review this information before submission. THIS ACTION IS FINAL AND CANNOT BE UNDONE</p>
+                        <p>Are you sure?</p>
                         <Button onClick={this.submit} >Final Submit</Button>
                     </div>
-                        : 
+                        :  */}
                     <div className="submit-information">
-                        <Button onClick={this.filledOutLessonInfo} >Submit Information</Button>
+                        {/* <Button onClick={this.filledOutLessonInfo} >Submit Information</Button> */}
+                        <Button onClick={this.submit} >Submit Information</Button>
                     </div>
-                }
+                {/* } */}
             </div>
         )
         // ternary for was submitted starts at top. if false renders form. else renders success message

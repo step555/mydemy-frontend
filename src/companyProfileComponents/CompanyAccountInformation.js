@@ -36,7 +36,8 @@ class CompanyAccountInformation extends React.Component{
 
         return !this.props.company.currentCompany || this.props.company.currentCompany.courses === undefined ? null : (
             <div className="company-account-info-div">
-                <h1>Profile</h1>
+                <br></br>
+                <h1>Company Information</h1>
                 <Grid>
                     <Grid.Column width={5}>
                         <h4>Name</h4>
