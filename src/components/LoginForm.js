@@ -145,7 +145,11 @@ class LoginForm extends React.Component{
     handleLoginSubmit = () => {
         console.log("logging in")
         // this.props.loggingIn(this.state.email, this.state.password)
-        this.props.fetchingUser(this.state.email, this.state.password, this.state.face)
+        if(this.state.email === "" || this.state.password === ""){
+            alert("email and password fields cannot be blank")
+        }else{
+            this.props.fetchingUser(this.state.email, this.state.password, this.state.face)
+        }
     }
 
     toggleCamera = () => {

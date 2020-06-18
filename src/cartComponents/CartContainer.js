@@ -26,6 +26,7 @@ class CartContainer extends React.Component{
         
         return !this.props.cart || this.props.cart.length === undefined ? null : (
             <div>
+                <br></br><br></br><br></br>
                 <Grid>
                     <Grid.Column width={10}>
                         <h1 className="shopping-cart">Shopping Cart</h1>

@@ -130,12 +130,14 @@ function editingUserInfo(newUserInfo){
         body: JSON.stringify(obj)
     }).then(resp => resp.json())
     .then(updatedUser => {
-        currentUser = updatedUser
-        fetch(USER_URL + `/${currentUserId}`)
-        .then(resp => resp.json())
-        .then(updatedWithCoursesAndPurchases => {
-            dispatch(editedUserInfo(updatedWithCoursesAndPurchases))
-            })
+        // currentUser = updatedUser
+        currentUser.name = updatedUser.name
+        // fetch(USER_URL + `/${currentUserId}`)
+        // .then(resp => resp.json())
+        // .then(updatedWithCoursesAndPurchases => {
+            // dispatch(editedUserInfo(updatedWithCoursesAndPurchases))
+            dispatch(editedUserInfo(currentUser))
+            // })
         })
     }
 }
@@ -266,23 +268,23 @@ function totalRevenue(){
 function addingToCart(course){
     return (dispatch, getState) => {
         let alreadyInCartOrPurchased = false
-        for(let i = 0; i < course.users.length; i++){
-            if(course.users[i].id === currentUserId){
-                alreadyInCartOrPurchased = true
-                i = course.users.length
+        // for(let i = 0; i < course.users.length; i++){
+            // if(course.users[i].id === currentUserId){
+                // alreadyInCartOrPurchased = true
+                // i = course.users.length
                 // alert("You already purchased this course")
                 // dispatch(alreadyOwned())
-            }
-        }
+            // }
+        // }
 
         for(let k = 0; k < currentUser.purchases.length; k++){
             if(course.id === currentUser.purchases[k].course_id){
                 alreadyInCartOrPurchased = true
                 k = currentUser.purchases.length
-                // j = course.purchases.length
             }
         }
             if(alreadyInCartOrPurchased === true){
+                debugger
                 alert("You have either already purchased this course or it is currently inside your cart")
                 dispatch(alreadyOwned())
             }else{
@@ -302,15 +304,10 @@ function addingToCart(course){
         })
         .then(resp => resp.json())
         .then(purchase => {
-            // for(let i = 0; i < currentUser.purchases.length; i++){
-                // if(!currentUser.purchases[i].id.includes(purchase.id)){
-                    // if(currentUser.purchases[i].id === (purchase.id)){ 
-                        currentUser.purchases = [...currentUser.purchases, purchase]
-                    // }
-            // }
-            
-            purchase.course = course // experimental change
-            dispatch(addedToCart(purchase))
+                currentUser.purchases = [...currentUser.purchases, purchase]
+                purchase.course = course
+                alert("Added to cart")
+                dispatch(addedToCart(purchase))
         })
         }
     }
@@ -348,14 +345,16 @@ function checkingOutCart(cart){
         .then(resp => resp.json())
         .then(updated => {
             for(let j = 0; j < cart.length; j++){
-                if(updated.course_id === cart[j].course.id)
+                if(updated.course_id === cart[j].course.id){
                     updated.course = cart[j].course
+                }
             }
-            alert("Cart checkout complete")
             dispatch(checkedOutCart(updated))
         })
         i++
-    }}
+        }
+    alert("Cart checkout complete")
+    }
 }
 
 function checkedOutCart(updatedPurchase){
@@ -465,11 +464,7 @@ function creatingNewCourse(courseInfo){
             // content_covered: contentCovered,
             picture: courseInfo.picture,
             company_id: currentCompanyId,
-            // lessons: {
-            //     text_content: courseInfo.
-            // }
         }
-        debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -481,7 +476,6 @@ function creatingNewCourse(courseInfo){
             course.company = currentCompany
 
             let lessonObj = {}
-            debugger
             for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
                 // if video === "" then obj excludes video
                 if(courseInfo.lessonsArray[i][2] === ""){
@@ -643,7 +637,6 @@ function creatingNewUser(userInfo){
     return (dispatch) => {
         let floatArray = userInfo.descriptors[0]
         let array = Array.from(floatArray)
-        // debugger
         let obj = {
             user: { // must be nested to avoid "password can't be blank" in backend create action
                 name: userInfo.name,
@@ -662,7 +655,6 @@ function creatingNewUser(userInfo){
             body: JSON.stringify(obj)
         }).then(resp => resp.json())
         .then(user => {
-            debugger
             localStorage.setItem("token", user.token)
             localStorage.setItem("user_or_company", "user")
             currentUserId = user.id

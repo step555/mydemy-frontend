@@ -16,7 +16,7 @@ const Home = (props) => {
                         <Link to="/about"><Button>Learn More</Button></Link>
                     </div>
                 </div>
-            <br></br><br></br><br></br><br></br><br></br>
+            <br></br><br></br><br></br><br></br>
             <div className="what-you-can-do-div">
                 <Grid>
                     <Grid.Column width={4}>
@@ -32,13 +32,14 @@ const Home = (props) => {
                         <h4>Earn Certificates</h4>
                     </Grid.Column>
                 </Grid>
-                <br></br>
             </div>
-            </div>
-            <br></br><br></br><br></br><br></br><br></br><br></br>
+                <br></br><br></br>
             <div>
-                
+                <h2 style={{textAlign: "center"}}>Trusted by employers all over the world</h2>
+                <img src="../images/company-logos.png" alt="companies" id="companies"></img>
+                </div>
             </div>
+            <br></br><br></br><br></br>
         </div>
     )
 }

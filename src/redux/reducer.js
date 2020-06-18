@@ -88,6 +88,7 @@ const cartReducer = (state = [], action) => {
         case "FETCHED_USER_CART":
             return action.payload
         case "ADD_TO_CART":
+            debugger
             let newState = [action.payload, ...state] // state defaulted to an array here
             return newState
         case "ALREADY_OWNED":

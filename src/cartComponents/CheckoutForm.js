@@ -2,14 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { checkingOutCart } from "../redux/actions";
 import {Button, Form, Input, Grid, Header, Card, Segment} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import CheckoutFormCartItem from './CheckoutFormCartItem'
 
 class Checkout extends React.Component {
     constructor(){
         super()
         this.state = {
-            clickedShowItems: false
+            clickedShowItems: false,
+            checkedOut: false
         }
     }
 
@@ -19,6 +20,7 @@ class Checkout extends React.Component {
 
     checkingOut = () => {
         // debugger
+        this.setState({checkedOut: true})
         this.props.checkingOutCart(this.props.cart)
     }
 
@@ -28,6 +30,12 @@ class Checkout extends React.Component {
 
     render(){
     console.log(this.props.cartTotal)
+
+        // const redirectToCourses = false;
+        if (this.state.checkedOut) {
+            return <Redirect to="/course-list" />
+        }
+
     // return !props.user.curentUser && props.cart && props.cartTotal ? null : (
         return this.props.user.length === 0 || this.props.cartTotal === undefined ? null : (
         // return (
@@ -46,6 +54,7 @@ class Checkout extends React.Component {
                                         placeholder='Full Name'
                                         id="name"
                                         value={this.props.user.currentUser.name}
+                                        required
                                         onChange={null}
                                     />
                                     <Form.Field
@@ -54,6 +63,7 @@ class Checkout extends React.Component {
                                         placeholder='Email'
                                         id="email"
                                         value={this.props.user.currentUser.email}
+                                        required
                                         onChange={null}
                                     />
                                     <Form.Field
@@ -61,6 +71,7 @@ class Checkout extends React.Component {
                                         label='Credit Card Number'
                                         placeholder='Credit Card Number'
                                         id="creditCardNumber"
+                                        required
                                         onChange={null}
                                     />
                                 </Form>
