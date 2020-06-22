@@ -195,7 +195,7 @@ class CreateNewCourse extends React.Component {
             </div>
             :
             <div>
-                <h2><CreateNewLessonContainer submit={this.submit} addLessonsToCourse={this.addLessonsToCourse}/></h2>
+                <h2><CreateNewLessonContainer addLessonsToCourse={this.addLessonsToCourse}/></h2>
                 <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Restart</Form.Field>
             </div>
             } 

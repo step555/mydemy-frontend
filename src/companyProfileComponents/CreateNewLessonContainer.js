@@ -43,12 +43,9 @@ class CreateNewLessonContainer extends React.Component{
     }
 
     onChangeLessonInformation = (lessonInformation) => { // lessonInformation event from NewLesson
-        // debugger
-        // this.setState({[lessonInformation.target.id]: lessonInformation.target.value})
         this.setState({[lessonInformation.target.id]: lessonInformation.target.value},() => {
             this.props.addFinalLessonToLessonsArray(this.state.lessonName, this.state.lessonText, this.state.video)
         })
-        // this.props.submit(this.state.lessonsArray)
     }
 
     render(){
