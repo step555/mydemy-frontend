@@ -29,9 +29,6 @@ class CreateNewCourse extends React.Component {
         }
     }
 
-    // every time I hit add more lessons, I need to add to lesson array. the submit button submits WITH
-    // the lesson array
-
     componentWillMount(){
         this.setState({wasSubmitted: false})
         console.log(this.state.wasSubmitted)
@@ -39,9 +36,7 @@ class CreateNewCourse extends React.Component {
 
     onChangeInformation = (event) => {
         let individualContentCovered
-        // if(event.target.id !== "contentCovered"){
-            this.setState( { [event.target.id]: event.target.value } )
-        // }
+        this.setState( { [event.target.id]: event.target.value } )
 
         if(event.target.innerText === '0-3 weeks'){
             this.setState({duration: event.target.innerText})
@@ -190,21 +185,11 @@ class CreateNewCourse extends React.Component {
                             </div>
                         )}
                         )}
-                            {/* <button onClick={this.addInputField}>More</button> */}
                             <br></br>  
                             <div>
-                                {/* <Grid>   */}
                                 <div className="add-lessons">
-                                {/* <Grid.Column width={5}> */}
                                     <Button onClick={this.filledOutCourseInfo} type="button" >Add Lessons</Button>
-                                {/* </Grid.Column> */}
                                 </div>
-                                {/* <div className="other-button"> */}
-                                {/* <Grid.Column width={5}> */}
-                                    {/* <Button onClick={this.filledOutLessonInfo} >Submit Information</Button> */}
-                                {/* </Grid.Column> */}
-                                {/* </div> */}
-                                {/* </Grid>   */}
                             </div>   
                     </Form>
             </div>
@@ -214,19 +199,9 @@ class CreateNewCourse extends React.Component {
                 <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Restart</Form.Field>
             </div>
             } 
-
-                {/* <br></br><br></br> */}
-                {/* {this.state.finished === true ? 
                     <div className="submit-information">
-                        <p>Are you sure?</p>
-                        <Button onClick={this.submit} >Final Submit</Button>
+                        <Button onClick={this.submit}>Submit Information</Button>
                     </div>
-                        :  */}
-                    <div className="submit-information">
-                        {/* <Button onClick={this.filledOutLessonInfo} >Submit Information</Button> */}
-                        <Button onClick={this.submit} >Submit Information</Button>
-                    </div>
-                {/* } */}
             </div>
         )
         // ternary for was submitted starts at top. if false renders form. else renders success message

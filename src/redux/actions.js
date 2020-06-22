@@ -470,6 +470,7 @@ function creatingNewCourse(courseInfo){
             body: JSON.stringify(courseObj)
         }).then(resp => resp.json())
         .then(course => {
+            // debugger // obscure bug here
             currentCompany.courses.push(course)
             course.company = currentCompany
 
