@@ -42,8 +42,6 @@ class CreateNewLessonContainer extends React.Component{
         }   
     }
 
-    // done adding lessons? Click here. send to redux which takes in lessons array as param
-
     onChangeLessonInformation = (lessonInformation) => { // lessonInformation event from NewLesson
         // debugger
         // this.setState({[lessonInformation.target.id]: lessonInformation.target.value})
