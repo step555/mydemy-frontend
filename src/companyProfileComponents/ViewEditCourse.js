@@ -1,9 +1,9 @@
-// import React from 'react'
-// import {Form, Button, Grid} from 'semantic-ui-react'
-// import {connect} from 'react-redux'
-// import {selectingCourse, editingCourse} from '../redux/actions'
+import React from 'react'
+import {Form, Button, Grid} from 'semantic-ui-react'
+import {connect} from 'react-redux'
+import {selectingCourse, editingCourse} from '../redux/actions'
 
-// class ViewEditCourse extends React.Component{
+class ViewEditCourse extends React.Component{
 //     constructor(){
 //         super()
 //         this.state = {
@@ -255,8 +255,8 @@
 //       editingCourse: (info) => {dispatch(editingCourse(info) )}
 //     //   gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )}
 //     }
-//   }
+}
 
-// // export default ViewEditCourse
+export default ViewEditCourse
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ViewEditCourse)

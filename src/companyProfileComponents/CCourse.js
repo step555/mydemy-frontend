@@ -126,10 +126,13 @@ class CCourse extends React.Component{
                             <br></br>
                 </Card>
                 <Grid>
-                    <Grid.Column width={5}>
+                    <Grid.Column width={4}>
                         <Link to={`/course/${this.props.course.id}/lessons`}><button onClick={this.viewLessons}>View Lessons</button></Link>
                     </Grid.Column>
-                    <Grid.Column width={2}>
+                    <Grid.Column width={4}>
+                        <Link to={`/company/${this.props.course.id}/edit`}><button>Edit course</button></Link>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
                         <button onClick={() => this.deleteCourse(this.props.course.id)}>Delete</button>
                     </Grid.Column>
                 </Grid>

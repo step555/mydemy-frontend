@@ -18,7 +18,7 @@ import LoginForm from "./components/LoginForm"
 import CompanyLoginForm from "./components/CompanyLoginForm"
 import CompanyProfileContainer from "./companyProfileComponents/CompanyProfileContainer"
 import CreateNewCourse from "./companyProfileComponents/CreateNewCourse"
-import ViewEditCourse from "./companyProfileComponents/ViewEditCourse"
+import EditCourse from "./companyProfileComponents/EditCourse"
 import Home from "./components/Home"
 import RegisterNew from "./components/RegisterNew"
 import CheckoutForm from "./cartComponents/CheckoutForm"
@@ -61,7 +61,7 @@ class App extends React.Component{
         <Route path="/login" component={LoginForm}/>
         <Route path="/company-login" component={CompanyLoginForm}/>
         <Route path="/create-new-course" component={CreateNewCourse}/>
-        {/* <Route path="/company/:courseId/view-and-edit-course" component={ViewEditCourse}/> */}
+        <Route path="/company/:courseId/edit" component={EditCourse}/>
         {/* <Route path="/company/view-and-edit-course" component={ViewEditCourse}/> */}
         <Route path="/register" component={RegisterNew}/>
         <Route path="/sign-up" component={RegisterNew}/>

@@ -544,6 +544,16 @@ function selectedCourseLessons(lessons){
     return {type: "FETCHED_LESSONS", payload: lessons}
 }
 
+function selectingCourse(id){
+    return (dispatch) => {
+        fetch(COURSES_URL + `/${id}`)
+        .then(resp => resp.json())
+        .then(course => {
+            dispatch(selectedCourse(course))
+        })
+    }
+}
+
 function selectedCourse(course){
     return {type: "EDIT_SELECTED_COURSE", payload: course}
 }
@@ -595,6 +605,7 @@ function deletedCourse(course){
 function editingCourse(courseInfo){
     return (dispatch) => {
         let contentCovered
+        debugger
         if(typeof(courseInfo.contentCovered) === "string"){
             courseInfo.contentCovered = [courseInfo.contentCovered]
         }else if(courseInfo.contentCovered.includes("")){
@@ -750,4 +761,4 @@ function clickedBackButton(){
     return { type: "CLICKED_BACK_BIUTTON", payload: []}
 }
 
-export { clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, addFinalLessonToLessonsArray, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, addFinalLessonToLessonsArray, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

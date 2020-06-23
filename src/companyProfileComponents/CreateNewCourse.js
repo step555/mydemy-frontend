@@ -38,8 +38,8 @@ class CreateNewCourse extends React.Component {
         this.setState({wasSubmitted: false})
         console.log(this.state.wasSubmitted)
 
-        // create your dropdown options here? you can do a setstate in here. 
-        this.setState({ durationOptions: [
+        this.setState({ 
+            durationOptions: [
             { key: '0-3', text: '0-3 weeks', value: 1 },
             { key: '3-6', text: '3-6 weeks', value: 2 },
             { key: '6-9', text: '6-9 weeks', value: 3 },
