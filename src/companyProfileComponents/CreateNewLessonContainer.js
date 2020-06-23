@@ -55,7 +55,7 @@ class CreateNewLessonContainer extends React.Component{
                 {this.state.numberOfLessons.map(input => {
                     return (
                     <div>
-                        <NewLesson onChangeLessonInformation={this.onChangeLessonInformation}/>
+                        <NewLesson onChangeLessonInformation={this.onChangeLessonInformation} lessonName={this.state.lessonName} video={this.state.video} lessonText={this.state.lessonText} />
                     </div>
                     )
                 })}

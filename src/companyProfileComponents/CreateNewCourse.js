@@ -23,8 +23,12 @@ class CreateNewCourse extends React.Component {
             wasSubmitted: false,
             finishedCourseInfo: false,
             clickedViewLessons: false,
-            selectedDurationValue: null,
-            selectedDifficultyLevelValue: null,
+
+            durationOptions: null,
+            selectedDuration: null,
+
+            difficultyOptions: null,
+            selectedDifficulty: null,
 
             lessonsArray: []
         }
@@ -33,7 +37,20 @@ class CreateNewCourse extends React.Component {
     componentWillMount(){
         this.setState({wasSubmitted: false})
         console.log(this.state.wasSubmitted)
+
         // create your dropdown options here? you can do a setstate in here. 
+        this.setState({ durationOptions: [
+            { key: '0-3', text: '0-3 weeks', value: 1 },
+            { key: '3-6', text: '3-6 weeks', value: 2 },
+            { key: '6-9', text: '6-9 weeks', value: 3 },
+            { key: '9-12', text: '9-12 weeks', value: 4 },
+            ], 
+            difficultyOptions: [
+                { key: 'b', text: 'beginner', value: 1 },
+                { key: 'i', text: 'intermediate', value: 2 },
+                { key: 'a', text: 'advanced', value: 3 },
+            ],
+        })
     }
 
     onChangeInformation = (event) => {
@@ -41,21 +58,42 @@ class CreateNewCourse extends React.Component {
         this.setState( { [event.target.id]: event.target.value } )
 
         if(event.target.innerText === '0-3 weeks'){
-            this.setState({duration: event.target.innerText})
+            this.setState({
+                duration: event.target.innerText,
+                selectedDuration: 1
+            })
         }else if(event.target.innerText === '3-6 weeks'){
-            this.setState({duration: event.target.innerText})
+            this.setState({
+                duration: event.target.innerText,
+                selectedDuration: 2
+            })
         }else if (event.target.innerText === '6-9 weeks'){
-            this.setState({duration: event.target.innerText})
+            this.setState({
+                duration: event.target.innerText,
+                selectedDuration: 3
+            })
         }else if(event.target.innerText === '9-12 weeks'){
-            this.setState({duration: event.target.innerText})
+            this.setState({
+                duration: event.target.innerText,
+                selectedDuration: 4
+            })
         }
 
         if(event.target.innerText === 'beginner'){
-            this.setState({difficultyLevel: event.target.innerText})
+            this.setState({
+                difficultyLevel: event.target.innerText,
+                selectedDifficulty: 1
+            })
         }else if(event.target.innerText === 'intermediate'){
-            this.setState({difficultyLevel: event.target.innerText})
+            this.setState({
+                difficultyLevel: event.target.innerText,
+                selectedDifficulty: 2
+            })
         }else if (event.target.innerText === 'advanced'){
-            this.setState({difficultyLevel: event.target.innerText})
+            this.setState({
+                difficultyLevel: event.target.innerText,
+                selectedDifficulty: 3
+            })
         }
 
         // if(event.target.id === "contentCovered"){
@@ -129,18 +167,18 @@ class CreateNewCourse extends React.Component {
     }
 
     render(){
-        const durationOptions = [
-            { key: '0-3', text: '0-3 weeks', value: 1 },
-            { key: '3-6', text: '3-6 weeks', value: 2 },
-            { key: '6-9', text: '6-9 weeks', value: 3 },
-            { key: '9-12', text: '9-12 weeks', value: 4 },
-          ]
+        // const durationOptions = [
+        //     { key: '0-3', text: '0-3 weeks', value: 1 },
+        //     { key: '3-6', text: '3-6 weeks', value: 2 },
+        //     { key: '6-9', text: '6-9 weeks', value: 3 },
+        //     { key: '9-12', text: '9-12 weeks', value: 4 },
+        //   ]
           
-          const difficultyOptions = [
-            { key: 'b', text: 'beginner', value: 1 },
-            { key: 'i', text: 'intermediate', value: 2 },
-            { key: 'a', text: 'advanced', value: 3 },
-          ]
+        //   const difficultyOptions = [
+        //     { key: 'b', text: 'beginner', value: 1 },
+        //     { key: 'i', text: 'intermediate', value: 2 },
+        //     { key: 'a', text: 'advanced', value: 3 },
+        //   ]
 
           const redirectToProfile = this.state.wasSubmitted;
           if (redirectToProfile === true) {
@@ -161,13 +199,13 @@ class CreateNewCourse extends React.Component {
                             <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={this.state.courseDescription} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={this.state.duration} onChange={this.onChangeInformation} required
+                            <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={this.state.selectedDuration} onChange={this.onChangeInformation} required
                             fluid
-                            options={durationOptions}
+                            options={this.state.durationOptions}
                             />
-                            <Form.Select fluid id="dificultyLevel" label='Difficulty Level' placeholder='difficulty level' defaultValue={this.state.dificultyLevel} onChange={this.onChangeInformation} required
+                            <Form.Select fluid id="difficultyLevel" label='Difficulty Level' placeholder='difficulty level' defaultValue={this.state.selectedDifficulty} onChange={this.onChangeInformation} required
                             fluid
-                            options={difficultyOptions}
+                            options={this.state.difficultyOptions}
                             />
                             <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={this.state.subject} onChange={this.onChangeInformation} required/>
                             <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={this.state.price} onChange={this.onChangeInformation} required/>
@@ -198,7 +236,7 @@ class CreateNewCourse extends React.Component {
             :
             <div>
                 <h2><CreateNewLessonContainer addLessonsToCourse={this.addLessonsToCourse}/></h2>
-                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Restart</Form.Field>
+                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field>
             </div>
             } 
                     <div className="submit-information">
