@@ -23,7 +23,8 @@ class CreateNewCourse extends React.Component {
             wasSubmitted: false,
             finishedCourseInfo: false,
             clickedViewLessons: false,
-            confirmBeforeGoingToCourse: false,
+            selectedDurationValue: null,
+            selectedDifficultyLevelValue: null,
 
             lessonsArray: []
         }
@@ -32,6 +33,7 @@ class CreateNewCourse extends React.Component {
     componentWillMount(){
         this.setState({wasSubmitted: false})
         console.log(this.state.wasSubmitted)
+        // create your dropdown options here? you can do a setstate in here. 
     }
 
     onChangeInformation = (event) => {
@@ -153,34 +155,34 @@ class CreateNewCourse extends React.Component {
                 <h3>New Course Creation Form</h3>
                 <Form>
                         <Form.Group widths='equal'>
-                            <Form.Input fluid id="courseName" label='Course Name' placeholder='course name' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            <Form.Input fluid id="courseName" label='Course Name' placeholder='course name' defaultValue={this.state.courseName} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={this.state.courseDescription} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={""} onChange={this.onChangeInformation} required
+                            <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={this.state.duration} onChange={this.onChangeInformation} required
                             fluid
                             options={durationOptions}
                             />
-                            <Form.Select fluid id="dificultyLevel" label='Difficulty Level' placeholder='difficulty level' defaultValue={""} onChange={this.onChangeInformation} required
+                            <Form.Select fluid id="dificultyLevel" label='Difficulty Level' placeholder='difficulty level' defaultValue={this.state.dificultyLevel} onChange={this.onChangeInformation} required
                             fluid
                             options={difficultyOptions}
                             />
-                            <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={""} onChange={this.onChangeInformation} required/>
-                            <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={""} onChange={this.onChangeInformation} required/>
+                            <Form.Input fluid id="subject" label='Subject' placeholder='subject' defaultValue={this.state.subject} onChange={this.onChangeInformation} required/>
+                            <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={this.state.price} onChange={this.onChangeInformation} required/>
                         </Form.Group>
                         <Form.Group widths="equal">
-                            <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={""} onChange={this.onChangeInformation}/>
+                            <Form.Input fluid id="picture" label='Picture' placeholder='upload picture url here (optional)' defaultValue={this.state.picture} onChange={this.onChangeInformation}/>
                         </Form.Group>
-                        {this.state.numberOfContentCovered.map(input => {
+                        {this.state.numberOfContentCovered.map(input => { // this was originally needed as content covered was an array in the back end. I can likely refactor this
                         return (
                             <div>
                                 {/* <Form.Group widths="equal">
                                     <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
                                 </Form.Group> */}
                                 <Form.Group widths="equal">
-                                    <Form.TextArea fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
+                                    <Form.TextArea fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={this.state.contentCovered} onChange={this.onChangeInformation} required/>
                                 </Form.Group>
                             </div>
                         )}
