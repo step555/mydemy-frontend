@@ -9,15 +9,34 @@ class CreateNewLessonContainer extends React.Component{
         super()
         this.state = {
             numberOfLessons: [1],
-            lessonName: "",
-            lessonText: "",
-            video: "",
+            // lessonName: "",
+            // lessonText: "",
+            // video: "",
             lessonsArray: []
         }
     }
 
-    addNextLesson = () => {
-        
+    onChangeLessonInformation = (lesson) => {
+        let updatedLessonsArray = [...this.state.lessonsArray]
+        updatedLessonsArray.length = this.state.numberOfLessons.length
+        for(let i = 0; i < this.state.numberOfLessons.length; i++){
+            if(lesson.index === i){
+                updatedLessonsArray[i] = lesson
+                // updatedLessonsArray.push(lesson)
+                if(updatedLessonsArray[i].lessonName !== "" && updatedLessonsArray[i].lessonText !== "" && updatedLessonsArray[i].video !== ""){
+                    this.setState({
+                        lessonsArray: [...this.state.lessonsArray, updatedLessonsArray[i]]
+                    })
+                }
+            }
+        }
+        // this.setState({lessonsArray: updatedLessonsArray})
+        // debugger
+    }
+
+    addNextLesson = (newLessonState) => {
+        debugger
+        // grab last element from array and do these checks?
         if(this.state.video.length > 0 && !this.state.video.includes('youtube.com/embed')){ // https://www.youtube.com/embed/nghuHvKLhJA
             alert("Please use a valid youtube embed")
         }else if(this.state.lessonName.length === 0 || this.state.lessonText.length === 0){
@@ -42,25 +61,24 @@ class CreateNewLessonContainer extends React.Component{
         }   
     }
 
-    onChangeLessonInformation = (lessonInformation) => { // lessonInformation event from NewLesson
-        this.setState({[lessonInformation.target.id]: lessonInformation.target.value},() => {
-            this.props.addFinalLessonToLessonsArray(this.state.lessonName, this.state.lessonText, this.state.video)
-        })
-    }
-
     render(){
         return (
             <div>
-                <h1>Create Your Lessons Here</h1>
-                {this.state.numberOfLessons.map(input => {
-                    return (
-                    <div>
-                        <NewLesson onChangeLessonInformation={this.onChangeLessonInformation} lessonName={this.state.lessonName} video={this.state.video} lessonText={this.state.lessonText} />
-                    </div>
-                    )
-                })}
-                <br></br>
-                <Button onClick={this.addNextLesson}>Add more lessons</Button>
+                {this.props.finishedCourseInfo === true ?
+                <div>
+                    <h1>Create Your Lessons Here</h1>
+                    {this.state.numberOfLessons.map((input, index) => {
+                        return (
+                        <div>
+                            <NewLesson index={index} lessonIndexContent={this.onChangeLessonInformation} lessonName={this.state.lessonName} video={this.state.video} lessonText={this.state.lessonText} />
+                        </div>
+                        )
+                    })}
+                    <br></br>
+                    <Button onClick={this.addNextLesson}>Add more lessons</Button>
+                </div>
+                : null 
+                }
             </div>
         )
     }

@@ -38,8 +38,8 @@ class CreateNewCourse extends React.Component {
         this.setState({wasSubmitted: false})
         console.log(this.state.wasSubmitted)
 
-        this.setState({ 
-            durationOptions: [
+        // create your dropdown options here? you can do a setstate in here. 
+        this.setState({ durationOptions: [
             { key: '0-3', text: '0-3 weeks', value: 1 },
             { key: '3-6', text: '3-6 weeks', value: 2 },
             { key: '6-9', text: '6-9 weeks', value: 3 },
@@ -226,23 +226,28 @@ class CreateNewCourse extends React.Component {
                         )}
                         )}
                             <br></br>  
-                            <div>
-                                <div className="add-lessons">
-                                    <Button onClick={this.filledOutCourseInfo} type="button" >Add Lessons</Button>
-                                </div>
-                            </div>   
+
                     </Form>
             </div>
             :
+            null } 
+            {this.state.finishedCourseInfo === false ? 
             <div>
-                <h2><CreateNewLessonContainer addLessonsToCourse={this.addLessonsToCourse}/></h2>
-                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field>
+                <div className="add-lessons">
+                    <Button onClick={this.filledOutCourseInfo} type="button">Add Lessons</Button>
+                </div>
             </div>
-            } 
+                : 
+                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field>
+            }
+            <div>
+                <CreateNewLessonContainer finishedCourseInfo={this.state.finishedCourseInfo} addLessonsToCourse={this.addLessonsToCourse}/>
+                {/* <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field> */}
+            </div>
                     <div className="submit-information">
                         <Button onClick={this.submit}>Submit Information</Button>
                     </div>
-            </div>
+        </div>
         )
         // ternary for was submitted starts at top. if false renders form. else renders success message
     }
