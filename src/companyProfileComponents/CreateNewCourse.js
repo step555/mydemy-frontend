@@ -141,6 +141,7 @@ class CreateNewCourse extends React.Component {
         }
         else{
             this.setState({wasSubmitted: true})
+            debugger
             this.setState({ lessonsArray: [...this.state.lessonsArray, this.props.finalLesson] }, () => {
                 this.props.creatingNewCourse(this.state)
             })
@@ -255,7 +256,9 @@ class CreateNewCourse extends React.Component {
 
 const mapStateToProps = (state) => {
     console.log(state.finalLesson)
+    console.log("added", state.addedNewLesson)
     return {
+        newLesson: state.addedNewLesson,
         finalLesson: state.finalLesson
     }
 }

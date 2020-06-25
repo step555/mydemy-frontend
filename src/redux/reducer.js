@@ -17,6 +17,16 @@ const coursesReducer = (state = [], action) => {
     }
 }
 
+// const addingLessonsReducer = (state = [], action) => {
+//     switch (action.type) {
+//         case "ADDING_TO_LESSONS_ARRAY":
+//             debugger
+//             return action.payload
+//         default: 
+//             return state;
+//     }
+// }
+
 const userReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER":
@@ -156,7 +166,7 @@ const lessonReducer = (state = [], action) => {
     switch (action.type){
         case "SELECTED_LESSON":
             return action.payload
-        case "CLICKED_BACK_BIUTTON":
+        case "CLICKED_BACK_BUTTON":
             return action.payload
         default:
             return state
@@ -227,7 +237,8 @@ const rootReducer = combineReducers({
     lessons: selectCourseLessonsReducer,
     selectedLesson: lessonReducer,
     newLesson: newLessonReducer,
-    finalLesson: finalLessonReducer
+    finalLesson: finalLessonReducer, 
+    // addedNewLesson: addingLessonsReducer
   });
   
   export default rootReducer;

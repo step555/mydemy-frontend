@@ -463,6 +463,7 @@ function creatingNewCourse(courseInfo){
             picture: courseInfo.picture,
             company_id: currentCompanyId,
         }
+        debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -758,7 +759,15 @@ function sortByDifficultyLevel(value){
 }
 
 function clickedBackButton(){
-    return { type: "CLICKED_BACK_BIUTTON", payload: []}
+    return { type: "CLICKED_BACK_BUTTON", payload: []}
 }
 
-export { selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, addFinalLessonToLessonsArray, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+// function addingToLessonsArray(lesson){
+//     // let lessonsArray = []
+//     let lessonsArray = [lesson.lessonName, lesson.lessonText, lesson.video]
+//     console.log(lessonsArray)
+//     debugger
+//     return { type: "ADDING_TO_LESSONS_ARRAY", payload: lessonsArray}
+// }
+
+export {  selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, addFinalLessonToLessonsArray, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
