@@ -96,53 +96,26 @@ class CreateNewCourse extends React.Component {
             })
         }
 
-        // if(event.target.id === "contentCovered"){
-        //     individualContentCovered = event.target.value // this state changes whenever you type something
-        //     // this issue is dealt with by having contentCovered state be updated only after you click more
-        //     this.setState({individualContentCovered: individualContentCovered})
-        // }
         if(event.target.id === "subject"){
             let forcedCapitalization = event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1) // in case user does not capitalize first letter
             this.setState({subject: forcedCapitalization})
         }
         
     }
-
-    // addInputField = () => { // this function does not render last element of new array when clicking submit btn
-    //     console.log("adding field")
-        
-    //     let newNumInput = [...this.state.numberOfContentCovered, 1]
-    //     this.setState({numberOfContentCovered: newNumInput})
-    //     let newContentCoveredArray
-    //     // on add input field, add individualContentCovered to contentCovered array
-    //     // debugger
-    //     if(this.state.individualContentCovered === "" && this.state.contentCovered.length === 0){
-    //         newContentCoveredArray = [...this.state.contentCovered, this.props.selectedCourse.course.content_covered[0]]
-    //         this.setState({contentCovered: newContentCoveredArray})
-    //     }else{
-    //         newContentCoveredArray = [...this.state.contentCovered, this.state.individualContentCovered]
-    //         this.setState({contentCovered: newContentCoveredArray})
-    //     }
-
-    //     this.setState({individualContentCovered: ""})
-    // }
     
     filledOutCourseInfo = () => {
         this.setState({finishedCourseInfo: !this.state.finishedCourseInfo})
     }
 
     submit = () => {
-        // this.setState({lessonArray: lessonArray})
         if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
             alert("It appears that you have left at least one course field blank. Please ensure all required fields are filled in")
         }
-        else if(this.state.lessonsArray.length === 0 && this.props.finalLesson.length === 0){ //|| this.props.finalLesson.length === 0){ // this.state.lessonArray.length === 0
+        else if(this.state.lessonsArray.length === 0 && this.props.finalLesson.length === 0){
             alert("You have not yet submitted any lessons")
         }
         else{
             this.setState({wasSubmitted: true})
-            debugger
-            // this.setState({ lessonsArray: [...this.state.lessonsArray, this.props.finalLesson] }, () => {
             this.setState({ lessonsArray: [...this.state.lessonsArray] }, () => {
                 this.props.creatingNewCourse(this.state)
             })
@@ -160,13 +133,6 @@ class CreateNewCourse extends React.Component {
         }else{
             this.setState({finished: !this.state.finished})
         }
-        // if(this.state.courseName === "" || this.state.courseDescription === "" || this.state.difficultyLevel === "" || this.state.price === "" || this.state.duration === "" || this.state.subject === "" || this.state.contentCovered === ""){
-        //     alert("It appears that you have left at least one course field blank. Please ensure all required fields are filled in")
-        // }else if(this.state.lessonsArray.length === 0){
-        //     alert("A course must have lessons")
-        // }else{
-        //     this.setState({finished: !this.state.finished})
-        // }
     }
 
     render(){
@@ -207,9 +173,6 @@ class CreateNewCourse extends React.Component {
                         {this.state.numberOfContentCovered.map(input => { // this was originally needed as content covered was an array in the back end. I can likely refactor this
                         return (
                             <div>
-                                {/* <Form.Group widths="equal">
-                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={""} onChange={this.onChangeInformation} required/>
-                                </Form.Group> */}
                                 <Form.Group widths="equal">
                                     <Form.TextArea fluid id="contentCovered" label='Content Covered' placeholder='content covered' defaultValue={this.state.contentCovered} onChange={this.onChangeInformation} required/>
                                 </Form.Group>
@@ -217,7 +180,6 @@ class CreateNewCourse extends React.Component {
                         )}
                         )}
                             <br></br>  
-
                     </Form>
             </div>
             :
@@ -245,11 +207,9 @@ class CreateNewCourse extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.finalLesson)
-    console.log("added", state.addedNewLesson)
     return {
         newLesson: state.addedNewLesson,
-        finalLesson: state.finalLesson
+        // finalLesson: state.finalLesson
     }
 }
 

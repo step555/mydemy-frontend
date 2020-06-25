@@ -435,21 +435,9 @@ function gotCompanyProfileFetch(company){
     return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
 }
 
-function addFinalLessonToLessonsArray(lessonName, lessonText, video){ // sends state to CreateNewCourse
-    let finalLesson = [lessonName, lessonText, video]
-    return {type: "ADDED_FINAL_LESSON", payload: finalLesson}
-}
-
 function creatingNewCourse(courseInfo){
     console.log("before dispatch", courseInfo)
     return (dispatch) => {
-        // if(typeof(courseInfo.contentCovered) === "string"){
-        //     courseInfo.contentCovered = [courseInfo.contentCovered]
-        // }else if(courseInfo.contentCovered.includes("")){
-        //     courseInfo.contentCovered = courseInfo.contentCovered.filter(i => i !== "")
-        // }
-
-        // let contentCovered = `${courseInfo.contentCovered}`
         let courseObj = {
             name: courseInfo.courseName,
             text_preview: courseInfo.courseDescription,
@@ -459,7 +447,6 @@ function creatingNewCourse(courseInfo){
             subject: courseInfo.subject,
             difficulty_level: courseInfo.difficultyLevel,
             content_covered: courseInfo.contentCovered,
-            // content_covered: contentCovered,
             picture: courseInfo.picture,
             company_id: currentCompanyId,
             lessons: courseInfo.lessonsArray
@@ -472,7 +459,7 @@ function creatingNewCourse(courseInfo){
             body: JSON.stringify(courseObj)
         }).then(resp => resp.json())
         .then(course => {
-            // debugger // obscure bug here
+            // debugger // obscure bug here... not sure how it happened during the dry run of my presentation
             currentCompany.courses.push(course)
             course.company = currentCompany
 
@@ -771,4 +758,4 @@ function clickedBackButton(){
 //     return { type: "ADDING_TO_LESSONS_ARRAY", payload: lessonsArray}
 // }
 
-export {  selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, addFinalLessonToLessonsArray, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export {  selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

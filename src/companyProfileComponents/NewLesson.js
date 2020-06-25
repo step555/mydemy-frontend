@@ -22,7 +22,6 @@
 import React from 'react'
 import {Form, TextArea, Button} from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {addFinalLessonToLessonsArray} from '../redux/actions'
 
 class NewLesson extends React.Component{
     constructor(){
@@ -43,24 +42,17 @@ class NewLesson extends React.Component{
 
     componentDidUpdate(){
         console.log("updated")
-        // call function from parent (make it?) to 
-        // X NOT addToNumLessons!!! X
-        // call function to add to parent array... needs to be on an onChange type function
-
-        // function inside parent array below:
         this.props.parentOnChangeLessonInformation(this.state)
     }
 
     onChangeLessonInformation = (lessonInformation) => { 
         this.setState({[lessonInformation.target.id]: lessonInformation.target.value},() => { // set state of individual items
             this.setState({individualLessonArray: [this.state.lessonName, this.state.lessonText, this.state.video]},() => { // add items to array
-                this.props.addFinalLessonToLessonsArray(this.state.lessonName, this.state.lessonText, this.state.video) // for final submit collects information
             })
         })
     }
 
-    addNextLesson = () => { // may need to remove from this component. using your current method prevents lessons from being edited inside new lesson comps
-        // find way to add lessons ONLY if final submit is hit...
+    addNextLesson = () => { 
         if(this.state.video.length > 0 && !this.state.video.includes('youtube.com/embed')){ // https://www.youtube.com/embed/nghuHvKLhJA
             alert("Please use a valid youtube embed")
         }
@@ -68,7 +60,7 @@ class NewLesson extends React.Component{
             alert("All required lesson fields must be filled in")
         }else{
             this.setState({clickedAddLesson: !this.state.clickedAddLesson})
-            // this.props.addingToLessonsArray(this.state) // redux actions.js. maybe delete this
+
             this.props.addToNumLessons(this.state)
         }
     }
@@ -98,8 +90,7 @@ class NewLesson extends React.Component{
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // addingToLessonsArray: (lesson) => {dispatch( addingToLessonsArray(lesson) )},
-        addFinalLessonToLessonsArray: (lessonName, lessonText, video) => {dispatch( addFinalLessonToLessonsArray(lessonName, lessonText, video) )}
+        // addFinalLessonToLessonsArray: (lessonName, lessonText, video) => {dispatch( addFinalLessonToLessonsArray(lessonName, lessonText, video) )}
     }
 }
 
