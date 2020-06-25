@@ -17,6 +17,10 @@ class CreateNewLessonContainer extends React.Component{
         }
     }
 
+    componentDidUpdate(){
+        this.props.addLessonsArrayToCourseState(this.state.lessonsArray)
+    }
+
     parentOnChangeLessonInformation = (lesson) => {
         // debugger
         let updatedLessonsArray = [...this.state.lessonsArray]

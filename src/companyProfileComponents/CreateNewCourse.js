@@ -142,14 +142,16 @@ class CreateNewCourse extends React.Component {
         else{
             this.setState({wasSubmitted: true})
             debugger
-            this.setState({ lessonsArray: [...this.state.lessonsArray, this.props.finalLesson] }, () => {
+            // this.setState({ lessonsArray: [...this.state.lessonsArray, this.props.finalLesson] }, () => {
+            this.setState({ lessonsArray: [...this.state.lessonsArray] }, () => {
                 this.props.creatingNewCourse(this.state)
             })
         }
     }
 
-    addLessonsToCourse = (lessonArray) => {
-        this.setState({lessonsArray: [...this.state.lessonsArray, lessonArray]})
+    addLessonsArrayToCourseState = (lessonsArray) => {
+        this.setState({lessonsArray: lessonsArray},() => {
+        })
     }
 
     filledOutLessonInfo = () => {
@@ -168,18 +170,6 @@ class CreateNewCourse extends React.Component {
     }
 
     render(){
-        // const durationOptions = [
-        //     { key: '0-3', text: '0-3 weeks', value: 1 },
-        //     { key: '3-6', text: '3-6 weeks', value: 2 },
-        //     { key: '6-9', text: '6-9 weeks', value: 3 },
-        //     { key: '9-12', text: '9-12 weeks', value: 4 },
-        //   ]
-          
-        //   const difficultyOptions = [
-        //     { key: 'b', text: 'beginner', value: 1 },
-        //     { key: 'i', text: 'intermediate', value: 2 },
-        //     { key: 'a', text: 'advanced', value: 3 },
-        //   ]
 
           const redirectToProfile = this.state.wasSubmitted;
           if (redirectToProfile === true) {
@@ -242,7 +232,7 @@ class CreateNewCourse extends React.Component {
                 <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field>
             }
             <div>
-                <CreateNewLessonContainer finishedCourseInfo={this.state.finishedCourseInfo} addLessonsToCourse={this.addLessonsToCourse}/>
+                <CreateNewLessonContainer finishedCourseInfo={this.state.finishedCourseInfo} addLessonsArrayToCourseState={this.addLessonsArrayToCourseState}/>
                 {/* <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field> */}
             </div>
                     <div className="submit-information">

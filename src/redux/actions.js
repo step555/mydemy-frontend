@@ -462,6 +462,7 @@ function creatingNewCourse(courseInfo){
             // content_covered: contentCovered,
             picture: courseInfo.picture,
             company_id: currentCompanyId,
+            lessons: courseInfo.lessonsArray
         }
         debugger
         fetch(COURSES_URL, {
