@@ -19,6 +19,7 @@ class CreateNewLessonContainer extends React.Component{
     }
 
     parentOnChangeLessonInformation = (lesson) => {
+        // debugger
         let updatedLessonsArray = [...this.state.lessonsArray]
         updatedLessonsArray.length = this.state.numberOfLessons.length
         for(let i = 0; i < this.state.numberOfLessons.length; i++){
@@ -35,9 +36,37 @@ class CreateNewLessonContainer extends React.Component{
         }
     }
    
-    addToNumLessons = (lesson) => {
+    addToNumLessons = () => {
         let newNumLessons = [...this.state.numberOfLessons, 1]
         this.setState({numberOfLessons: newNumLessons})
+    }
+
+    decreaseNumLessons = (index, individualLessonArray) => {
+        let updated
+        // let updated = this.state.lessonsArray
+        let newNumLessons = this.state.numberOfLessons.pop()
+        this.setState({numNumLessons: newNumLessons})
+        for(let i = 0; i < this.state.lessonsArray.length; i++){
+            if(index === i){
+                // updated = this.state.lessonsArray.splice(i, 1) // only returns what you wanted to delete
+                // debugger
+                // this.state.lessonsArray
+                // updated = this.state.lessonsArray.filter(element => {
+                //     const t = this
+                //     // debugger
+                //     return element[0] !== individualLessonArray[0]
+                // })
+                // this.setState({ lessonsArray: this.state.lessonsArray.splice(i, 1) })
+
+                delete this.state.lessonsArray[i]
+                // debugger
+                updated = this.state.lessonsArray.filter(item => item)
+                console.log("works here?", updated) // this is still deleting the below lesson...
+                this.setState({lessonsArray: updated},() => console.log(this.state.lessonsArray))
+            }
+        }
+        // debugger
+        // this.setState({lessonsArray: [...updated]},() => console.log("updated", this.state.lessonsArray))
     }
 
     render(){
@@ -48,9 +77,9 @@ class CreateNewLessonContainer extends React.Component{
                     <h1>Create Your Lessons Here</h1>
                     {this.state.numberOfLessons.map((input, index) => {
                         return (
-                        <div>
-                            <NewLesson index={index} parentOnChangeLessonInformation={this.parentOnChangeLessonInformation} addToNumLessons={this.addToNumLessons} />
-                        </div>
+                            <div>
+                                <NewLesson decreaseNumLessons={this.decreaseNumLessons} index={index} parentOnChangeLessonInformation={this.parentOnChangeLessonInformation} addToNumLessons={this.addToNumLessons} />
+                            </div>
                         )
                     })}
                     <br></br>

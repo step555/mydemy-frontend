@@ -37,12 +37,16 @@ class NewLesson extends React.Component{
     }
 
     componentWillMount(){
+        // this.setState({clickedAddLesson: false})
         this.setState({index: this.props.index})
     }
 
     componentDidUpdate(){
         console.log("updated")
-        this.props.parentOnChangeLessonInformation(this.state)
+        // this.setState({clickedAddLesson: false}) // this causes an error. don't try it
+        // if(this.state.individualLessonArray.length > 0){
+            this.props.parentOnChangeLessonInformation(this.state)
+        // }
     }
 
     onChangeLessonInformation = (lessonInformation) => { 
@@ -65,6 +69,12 @@ class NewLesson extends React.Component{
         }
     }
 
+    deleteCurrentLesson = () => {
+        this.setState({individualLessonArray: []})
+        this.props.decreaseNumLessons(this.state.index, this.state.individualLessonArray) // delete parent array at this index
+        this.setState({clickedAddLesson: false})
+    }
+
     render(){
         return (
             <Form>
@@ -79,7 +89,7 @@ class NewLesson extends React.Component{
                 <Button onClick={this.addNextLesson}>Add new lesson</Button>
             : 
             <div>
-                <Button>Delete</Button>
+                <Button onClick={this.deleteCurrentLesson}>Delete</Button>
                 <br></br>
             </div>
             }
