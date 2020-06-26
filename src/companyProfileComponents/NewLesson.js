@@ -31,7 +31,6 @@ class NewLesson extends React.Component{
             lessonText: "",
             video: "",
             index: null,
-            clickedAddLesson: false,
             individualLessonArray: [] // put all lessons here until submit?
         }
     }
@@ -42,7 +41,7 @@ class NewLesson extends React.Component{
     }
 
     componentDidUpdate(){
-        console.log("updated")
+        // console.log("updated")
         // this.setState({clickedAddLesson: false}) // this causes an error. don't try it
         // if(this.state.individualLessonArray.length > 0){
             this.props.parentOnChangeLessonInformation(this.state)
@@ -51,9 +50,10 @@ class NewLesson extends React.Component{
 
     onChangeLessonInformation = (lessonInformation) => { 
         this.setState({[lessonInformation.target.id]: lessonInformation.target.value},() => { // set state of individual items
-            this.setState({individualLessonArray: [this.state.lessonName, this.state.lessonText, this.state.video]},() => { // add items to array
+            this.setState({individualLessonArray: [this.state.lessonName, this.state.lessonText, this.state.video]},() => { // add items to array     
+                // this.props.parentOnChangeLessonInformation(this.state)
             })
-        })
+        })   
     }
 
     addNextLesson = () => { 
@@ -63,7 +63,7 @@ class NewLesson extends React.Component{
         else if(this.state.lessonName.length === 0 || this.state.lessonText.length === 0){
             alert("All required lesson fields must be filled in")
         }else{
-            this.setState({clickedAddLesson: !this.state.clickedAddLesson})
+            // this.setState({clickedAddLesson: !this.state.clickedAddLesson})
 
             this.props.addToNumLessons(this.state)
         }
@@ -71,8 +71,8 @@ class NewLesson extends React.Component{
 
     deleteCurrentLesson = () => {
         this.setState({individualLessonArray: []})
-        this.props.decreaseNumLessons(this.state.index, this.state.individualLessonArray) // delete parent array at this index
-        this.setState({clickedAddLesson: false})
+        this.props.decreaseNumLessons(this.state.index, this.state.individualLessonArray) // delete from parent array at this index
+        // this.setState({clickedAddLesson: false})
     }
 
     render(){
@@ -85,9 +85,10 @@ class NewLesson extends React.Component{
                 <Form.Input fluid id="video" label="Video Embed" placeholder='embed your video here' defaultValue={this.state.video} onChange={(event) => this.onChangeLessonInformation(event)}/>
                 <Form.Field fluid control={TextArea} type="text" id="lessonText" label="Lesson Text" placeholder="lesson text" defaultValue={this.state.lessonText} onChange={(event) => this.onChangeLessonInformation(event)} required/>
             {/* </Form.Group> */}
-            {this.state.clickedAddLesson === false ? 
                 <Button onClick={this.addNextLesson}>Add new lesson</Button>
-            : 
+            {this.props.numberOfLessons.length < 2 ? 
+            null 
+            :
             <div>
                 <Button onClick={this.deleteCurrentLesson}>Delete</Button>
                 <br></br>

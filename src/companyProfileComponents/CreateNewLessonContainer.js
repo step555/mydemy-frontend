@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Form, TextArea, Button} from 'semantic-ui-react'
 import NewLesson from './NewLesson'
+// import {storeIndividualLessonArrays} from '../redux/actions'
 // import {} from '../redux/actions'
 
 class CreateNewLessonContainer extends React.Component{
@@ -15,7 +16,9 @@ class CreateNewLessonContainer extends React.Component{
     }
 
     componentDidUpdate(){
+        // console.log("updated")
         this.props.addLessonsArrayToCourseState(this.state.lessonsArray)
+        // this.props.storeIndividualLessonArrays(this.state.lessonsArray)
     }
 
     parentOnChangeLessonInformation = (lesson) => {
@@ -37,36 +40,47 @@ class CreateNewLessonContainer extends React.Component{
     }
    
     addToNumLessons = () => {
-        let newNumLessons = [...this.state.numberOfLessons, 1]
-        this.setState({numberOfLessons: newNumLessons})
+        for(let i = 0; i < this.state.lessonsArray.length; i++){
+            if( this.state.lessonsArray[i][2].length > 0 && !this.state.video.includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
+                alert("Please use a valid youtube embed")
+            }else if( this.state.lessonsArray[i][0].length === 0 || this.state.lessonsArray[i][1].length === 0 ){
+                alert("All required lesson fields must be filled in")
+            }else{
+                let newNumLessons = [...this.state.numberOfLessons, 1]
+                this.setState({numberOfLessons: newNumLessons})
+            }
+        }
     }
 
     decreaseNumLessons = (index, individualLessonArray) => {
         let updated
         // let updated = this.state.lessonsArray
         let newNumLessons = this.state.numberOfLessons.pop()
-        this.setState({numNumLessons: newNumLessons})
+        this.setState({newNumLessons: newNumLessons})
         for(let i = 0; i < this.state.lessonsArray.length; i++){
             if(index === i){
                 // updated = this.state.lessonsArray.splice(i, 1) // only returns what you wanted to delete
-                // debugger
-                // this.state.lessonsArray
                 // updated = this.state.lessonsArray.filter(element => {
                 //     const t = this
                 //     // debugger
-                //     return element[0] !== individualLessonArray[0]
+                    // return element[0] !== individualLessonArray[0]
                 // })
-                // this.setState({ lessonsArray: this.state.lessonsArray.splice(i, 1) })
+                this.setState({ lessonsArray: this.state.lessonsArray.splice(i, 1) })
 
-                delete this.state.lessonsArray[i]
+                // delete this.state.lessonsArray[i]
+                // delete updated[i]
                 // debugger
-                updated = this.state.lessonsArray.filter(item => item)
-                console.log("works here?", updated) // this is still deleting the below lesson...
-                this.setState({lessonsArray: updated},() => console.log(this.state.lessonsArray))
+                // updated.filter(item => item)
+
+                // updated = this.state.lessonsArray.filter(item => item)
+                // console.log("works here?", updated) // this is still deleting the below lesson...
+                // this.setState({lessonsArray: updated},() => console.log(this.state.lessonsArray))
+                // this.setState({lessonsArray: this.state.lessonsArray},() => console.log(this.state.lessonsArray))
             }
         }
         // debugger
-        // this.setState({lessonsArray: [...updated]},() => console.log("updated", this.state.lessonsArray))
+        // this.setState({lessonsArray: updated},() => console.log("updated", this.state.lessonsArray))
+        // this.setState({lessonsArray: this.state.lessonsArray},() => console.log("done", this.state.lessonsArray))
     }
 
     render(){
@@ -78,7 +92,7 @@ class CreateNewLessonContainer extends React.Component{
                     {this.state.numberOfLessons.map((input, index) => {
                         return (
                             <div>
-                                <NewLesson decreaseNumLessons={this.decreaseNumLessons} index={index} parentOnChangeLessonInformation={this.parentOnChangeLessonInformation} addToNumLessons={this.addToNumLessons} />
+                                <NewLesson numberOfLessons={this.state.numberOfLessons} decreaseNumLessons={this.decreaseNumLessons} index={index} parentOnChangeLessonInformation={this.parentOnChangeLessonInformation} addToNumLessons={this.addToNumLessons} />
                             </div>
                         )
                     })}
@@ -100,7 +114,7 @@ class CreateNewLessonContainer extends React.Component{
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        // storeIndividualLessonArrays: (info) => {dispatch( storeIndividualLessonArrays(info) )}
     }
 }
 

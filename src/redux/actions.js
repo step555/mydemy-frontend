@@ -750,12 +750,10 @@ function clickedBackButton(){
     return { type: "CLICKED_BACK_BUTTON", payload: []}
 }
 
-// function addingToLessonsArray(lesson){
-//     // let lessonsArray = []
-//     let lessonsArray = [lesson.lessonName, lesson.lessonText, lesson.video]
-//     console.log(lessonsArray)
-//     debugger
-//     return { type: "ADDING_TO_LESSONS_ARRAY", payload: lessonsArray}
+// function storeIndividualLessonArrays(lessonsArray){
+//     return (dispatch) => {
+//         console.log("hit", lessonsArray)
+//     }
 // }
 
-export {  selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

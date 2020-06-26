@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {creatingNewCourse} from '../redux/actions'
 import {Link, Redirect} from 'react-router-dom'
 import CreateNewLessonContainer from './CreateNewLessonContainer'
+import NewLesson from './NewLesson'
 
 class CreateNewCourse extends React.Component {
     constructor(){
@@ -30,15 +31,16 @@ class CreateNewCourse extends React.Component {
             difficultyOptions: null,
             selectedDifficulty: null,
 
-            lessonsArray: []
+            lessonsArray: [],
+
+            alwaysFalse: false
         }
     }
 
     componentWillMount(){
         this.setState({wasSubmitted: false})
-        console.log(this.state.wasSubmitted)
+        // console.log(this.state.wasSubmitted)
 
-        // create your dropdown options here? you can do a setstate in here. 
         this.setState({ durationOptions: [
             { key: '0-3', text: '0-3 weeks', value: 1 },
             { key: '3-6', text: '3-6 weeks', value: 2 },
@@ -191,10 +193,12 @@ class CreateNewCourse extends React.Component {
                 </div>
             </div>
                 : 
-                <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field>
+                <div>
+                    <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Restart</Form.Field>
+                    <CreateNewLessonContainer finishedCourseInfo={this.state.finishedCourseInfo} addLessonsArrayToCourseState={this.addLessonsArrayToCourseState}/>
+                </div>
             }
             <div>
-                <CreateNewLessonContainer finishedCourseInfo={this.state.finishedCourseInfo} addLessonsArrayToCourseState={this.addLessonsArrayToCourseState}/>
                 {/* <Form.Field onClick={this.filledOutCourseInfo} type="button" control={Button}>Back to Course Information</Form.Field> */}
             </div>
                     <div className="submit-information">
