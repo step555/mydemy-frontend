@@ -1,12 +1,12 @@
 import React from "react"
 import { Segment, Container, Grid, List, Header} from "semantic-ui-react"
+import {Link} from 'react-router-dom'
 
 class Footer extends React.Component {
 
     render() {
         return (
         <div className="footer">
-            <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
             <Segment inverted vertical style={{ padding: '1em 0em' }}>
                 <Container>
                     <Grid divided inverted stackable>
@@ -16,22 +16,22 @@ class Footer extends React.Component {
                         <List link inverted>
                             <List.Item as='a'>Sitemap</List.Item>
                             <List.Item as='a'>Contact Us</List.Item>
-                            <List.Item as='a'>More Ways to Find Jobs</List.Item>
-                            <List.Item as='a'>Career Advisors</List.Item>
+                            <Link to="about"><List.Item as='a'>About Us</List.Item></Link>
+                            <List.Item as='a'>Lorem Ipsum</List.Item>
                         </List>
                         </Grid.Column>
                         <Grid.Column width={5}>
                         <Header inverted as='h4' content='Services' />
                         <List link inverted>
                             <List.Item as='a'>Technical Resume Help</List.Item>
-                            <List.Item as='a'>Quick Job Fixer</List.Item>
-                            <List.Item as='a'>Unlimited Supply exchange</List.Item>
-                            <List.Item as='a'>Did We mention Resume Help?</List.Item>
+                            <List.Item as='a'>Leave a Review</List.Item>
+                            <List.Item as='a'>Our Products</List.Item>
+                            <List.Item as='a'>Find a Career with Us</List.Item>
                         </List>
                         </Grid.Column>
                         <Grid.Column width={5}>
                         <Header as='h4' inverted>
-                            BASSY JOBS
+                            MYDEMY
                         </Header>
                         <p>
                             COPYRIGHT 2020 

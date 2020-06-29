@@ -247,10 +247,6 @@
   background-color: white;
 }
 
-/* .course-container-div {
-
-} */
-
 .course-dropdown-container-div {
   margin-left: 550px;
   position: relative;
@@ -525,9 +521,8 @@
 }
 
 .footer {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  left: 0;
   width: 100%;
   /* overflow-y: auto; */
 }
@@ -536,4 +531,14 @@
   justify-content: center;
   display: flex;
   align-items: center;
+}
+
+.course-container {
+  width: 100%;
+  padding-bottom: 200px;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
 }

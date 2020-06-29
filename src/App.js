@@ -50,9 +50,8 @@ class App extends React.Component{
   render(){
   return (
     <div className="app">
-
       <Navbar />
-      {/* <Footer /> */}
+      <Footer />
       <Switch>
         <Route path="/course-list/:courseId" component={Course}/>
         <Route path="/course-list" component={CourseContainer}/>
@@ -81,7 +80,6 @@ class App extends React.Component{
           deleteAppFromState={this.deleteAppFromState}
           currentJobListings={this.state.currentUserJobListings}
         /> */}
-
     </div>
     )
   }
