@@ -26,6 +26,8 @@ class CourseList extends React.Component{
     render(){
         console.log("sorted courses", this.props.courses)
         return(
+    <div>
+        <div>
             <div clasName="course-container-div">
                 <div className="courses-top-div">
                         {/* <Grid.Column> */}
@@ -68,6 +70,8 @@ class CourseList extends React.Component{
                     </Grid>
                 </div>
             </div>
+        </div>
+    </div>
         )
     }
 }

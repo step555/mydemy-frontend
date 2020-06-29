@@ -6,7 +6,11 @@ class UserProfileContainer extends React.Component{
     render(){
         return(
             <div>
-                <AccountInformation/>
+                <div className="gray-field">
+                    <div className="white-field">
+                        <AccountInformation/>
+                    </div>
+                </div>
             </div>
         )
     }

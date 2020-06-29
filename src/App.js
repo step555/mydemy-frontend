@@ -26,6 +26,7 @@ import LessonDashboard from "./lessonComponents/LessonDashboard"
 import Lesson from './lessonComponents/Lesson'
 import LessonContainer from './lessonComponents/LessonContainer'
 import About from './components/About'
+import Footer from './components/Footer'
 
 class App extends React.Component{
 
@@ -51,6 +52,7 @@ class App extends React.Component{
     <div className="app">
 
       <Navbar />
+      {/* <Footer /> */}
       <Switch>
         <Route path="/course-list/:courseId" component={Course}/>
         <Route path="/course-list" component={CourseContainer}/>

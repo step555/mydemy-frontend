@@ -10,8 +10,12 @@ class CompanyProfileContainer extends React.Component{
     // }
     render(){
         return(
-            <div>
-                <CompanyAccountInformation />
+            <div className="gray-field">
+                <div className="white-field">
+                    <div>
+                        <CompanyAccountInformation />
+                    </div>
+                </div>
             </div>
         )
     }

@@ -97,6 +97,7 @@ class CreateNewLessonContainer extends React.Component{
                         )
                     })}
                     <br></br>
+                    {/* button for delete here and now inside NewLesson? That way I can just pop a number... */}
                     {/* <Button onClick={this.addNextLesson}>Add more lessons</Button> */}
                 </div>
                 : null 

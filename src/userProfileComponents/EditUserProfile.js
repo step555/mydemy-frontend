@@ -25,6 +25,7 @@ class EditUserProfile extends React.Component {
             alert("You cannot leave a field blank")
             return null
         }
+        this.props.back()
         this.props.editingUserInfo(this.state)
     }
 
@@ -34,7 +35,8 @@ class EditUserProfile extends React.Component {
     render(){
         console.log("EDITING", this.props)
         return(
-            <div>
+            <div className="edit-account-info-div">
+                <br></br>
                 <Grid style={{ height: '75vh'}} className="user-login">
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Form>
@@ -44,7 +46,16 @@ class EditUserProfile extends React.Component {
                             <Form.Group widths="equal">
                                 <Form.Input fluid id="email" label='Email' placeholder='Email' defaultValue={this.props.user.currentUser.email} onChange={this.onChangeInformation} required/>
                             </Form.Group>
-                            <Form.Field onClick={() => this.edit(this.props)} control={Button}>Submit</Form.Field>
+                            <div className="edit-account-info-buttons">
+                                <Grid>
+                                    <Grid.Column width={8}>
+                                        <Form.Field onClick={() => this.edit(this.props)} control={Button}>Submit</Form.Field>
+                                    </Grid.Column>
+                                    <Grid.Column width={4}>
+                                        <Button onClick={this.props.back}>Back</Button>
+                                    </Grid.Column>  
+                                </Grid>  
+                            </div>
                         </Form>
                     </Grid.Column>
                 </Grid>

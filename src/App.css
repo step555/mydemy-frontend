@@ -76,13 +76,14 @@
 
 .course-card-div {
   width: 350px;
-  /* padding-right: 50px; */
+  padding-right: 50px;
   padding-left: 20px;
   display: flex;
   justify-content: space-between;
-  width:auto; 
-  text-align:center; 
-  padding:20px; 
+  width: auto; 
+  text-align: center; 
+  position: relative;
+  
 }
 
 .course-card-text {
@@ -163,10 +164,6 @@
 
 .shopping-cart {
   margin-left: 30px;
-}
-
-.account-info-div {
-  margin-left: 50px;
 }
 
 .account-purchases-div {
@@ -253,13 +250,6 @@
 /* .course-container-div {
 
 } */
-
-.courses-top-div {
-  margin-top: 50px;
-  height: 150px;
-  position: relative;
-  border-bottom: 0.5px solid gray;
-}
 
 .course-dropdown-container-div {
   margin-left: 550px;
@@ -493,4 +483,57 @@
 .add-lessons {
   margin-right: 500px;
   display: inline-block;
+}
+
+.white-field {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 100px;
+  margin-bottom: 270px;
+  background-color: white;
+  /* box-shadow: 0 3px 3px 0 #000; */
+  box-shadow: 0 5px 5px 1px #BEBEBE;
+  overflow: hidden;
+}
+
+.gray-field {
+  /* padding-top: 75px; */
+  /* padding-left: 15px; */
+  /* padding-right: 15px; */
+  background-color: #E8E8E8;
+  /* width: 100%; */
+  overflow: hidden;
+}
+
+.account-info-div {
+  /* margin-left: 50px; */
+  margin-top: 50px;
+  text-align: center;
+}
+
+.edit-account-info-div {
+  margin-bottom: -300px;
+  margin-left: 300px;
+  /* text-align: center; */
+}
+
+.courses-top-div {
+  margin-top: 0px;
+  height: 150px;
+  position: relative;
+  border-bottom: 0.5px solid gray;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* overflow-y: auto; */
+}
+
+.edit-account-info-buttons {
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
