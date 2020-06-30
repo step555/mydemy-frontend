@@ -114,6 +114,11 @@
 
 .enlarged-course-card {
   min-width: 40em;
+  z-index: 1;
+}
+
+.enlarged-course-card-div {
+  position: fixed;
 }
 
 .account-info {
@@ -508,7 +513,7 @@
 }
 
 .edit-account-info-div {
-  margin-bottom: -300px;
+  margin-bottom: -375px;
   margin-left: 300px;
   /* text-align: center; */
 }
@@ -525,6 +530,7 @@
   bottom: 0;
   width: 100%;
   /* overflow-y: auto; */
+  z-index: 2;
 }
 
 .edit-account-info-buttons {
@@ -542,3 +548,7 @@
   position: relative;
   min-height: 100vh;
 }
+
+/* .return-to-profile-button {
+
+} */

@@ -78,6 +78,7 @@ const Navbar = (props) => {
                 // </div>
                 <div className="navlist-right">
                     {props.user.currentUser ? <Link to="/profile">Profile</Link> : null}
+                    {props.user.currentUser ? <Link to="user-courses">Your Courses</Link> : null}
                     {props.company.currentCompany ? <Link to="/company-profile">Profile</Link> : null}
                     {!props.user.currentUser ? null : <Link to="/cart">Cart</Link>}
                     <Link to="/" onClick={handleClick}>Log out</Link> 

@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import PurchasedCourse from './PurchasedCourse'
+// import PurchasedCourse from './PurchasedCourse'
 import {Button, Grid} from 'semantic-ui-react'
 import {editingUserInfo} from '../redux/actions'
 import EditUserProfile from './EditUserProfile'
-import EnlargedCourseCard from './EnlargedCourseCard'
+// import EnlargedCourseCard from './EnlargedCourseCard'
+import {Link} from 'react-router-dom'
 
 class AccountInformation extends React.Component{
     constructor(){
@@ -38,6 +39,7 @@ class AccountInformation extends React.Component{
                             <p className="account-info">{this.props.user.currentUser.email}</p>
                             <br></br>
                         <Button onClick={this.handleClick}>Edit Profile Information</Button>
+                        <Link to={`/user-courses`}><Button>View Your Courses</Button></Link>
                     </div>
                         :
                         <div>

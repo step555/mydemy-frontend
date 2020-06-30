@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 import {selectingCourseLessons, deletingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
-// import Footer from "./components/Footer";
 // import Login from './components/Login';
 // import About from './components/About';
 import CourseContainer from "./courseComponents/CourseContainer";
@@ -27,6 +26,7 @@ import Lesson from './lessonComponents/Lesson'
 import LessonContainer from './lessonComponents/LessonContainer'
 import About from './components/About'
 import Footer from './components/Footer'
+import UserCoursesContainer from './userProfileComponents/UserCoursesContainer'
 
 class App extends React.Component{
 
@@ -51,7 +51,8 @@ class App extends React.Component{
   return (
     <div className="app">
       <Navbar />
-      <Footer />
+      {/* <Footer /> */}
+      {/* the footer needs to be fixed. currently it blocks things or things go over the footer... */}
       <Switch>
         <Route path="/course-list/:courseId" component={Course}/>
         <Route path="/course-list" component={CourseContainer}/>
@@ -71,6 +72,7 @@ class App extends React.Component{
         {/* <Route path="/course/:courseId/:lessonId" component={Lesson}/> */}
         <Route path="/course/:courseId/lessons/:lessonId" component={LessonContainer}/>
         <Route path="/about" component={About}/>
+        <Route path="/user-courses" component={UserCoursesContainer}/>
         <Route path="/" component={Home}/>
       </Switch>
 
