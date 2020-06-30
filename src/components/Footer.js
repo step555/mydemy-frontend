@@ -17,13 +17,11 @@ class Footer extends React.Component {
                             <List.Item as='a'>Sitemap</List.Item>
                             <List.Item as='a'>Contact Us</List.Item>
                             <Link to="about"><List.Item as='a'>About Us</List.Item></Link>
-                            <List.Item as='a'>Lorem Ipsum</List.Item>
                         </List>
                         </Grid.Column>
                         <Grid.Column width={5}>
                         <Header inverted as='h4' content='Services' />
                         <List link inverted>
-                            <List.Item as='a'>Technical Resume Help</List.Item>
                             <List.Item as='a'>Leave a Review</List.Item>
                             <List.Item as='a'>Our Products</List.Item>
                             <List.Item as='a'>Find a Career with Us</List.Item>

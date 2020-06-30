@@ -48,6 +48,10 @@ class Checkout extends React.Component {
                                 <br></br><br></br>
                             <div className="checkout-form-details">
                                 <Form>
+                                    <div className="checkout-back-button">
+                                        <Link to="/cart"><Button>Back</Button></Link>
+                                        <br></br><br></br>
+                                    </div>
                                     <Form.Field
                                         control={Input}
                                         label='Full Name'
@@ -100,6 +104,7 @@ class Checkout extends React.Component {
                                 this.props.cart.map(item => <CheckoutFormCartItem item={item} key={item.id}/>)
                                 : null}
                             </Card>
+                            <br></br><br></br><br></br><br></br><br></br><br></br>
                             {/* </Segment> */}
                         </Grid.Column>
                     </Grid>

@@ -31,7 +31,7 @@ class NewLesson extends React.Component{
             lessonText: "",
             video: "",
             index: null,
-            individualLessonArray: [] // put all lessons here until submit?
+            individualLessonArray: [], // put all lessons here until submit?
         }
     }
 
@@ -69,11 +69,11 @@ class NewLesson extends React.Component{
         }
     }
 
-    deleteCurrentLesson = () => {
-        this.setState({individualLessonArray: []})
-        this.props.decreaseNumLessons(this.state.index, this.state.individualLessonArray) // delete from parent array at this index
-        // this.setState({clickedAddLesson: false})
-    }
+    // deleteCurrentLesson = () => {
+    //     this.setState({individualLessonArray: []})
+    //     this.props.decreaseNumLessons(this.state.index, this.state.individualLessonArray) // delete from parent array at this index
+    //     // this.setState({clickedAddLesson: false})
+    // }
 
     render(){
         return (
@@ -90,7 +90,7 @@ class NewLesson extends React.Component{
             null 
             :
             <div>
-                <Button onClick={this.deleteCurrentLesson}>Delete</Button>
+                {/* <Button onClick={this.deleteCurrentLesson}>Delete</Button> */}
                 <br></br>
             </div>
             }

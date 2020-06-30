@@ -51,7 +51,7 @@ class App extends React.Component{
   return (
     <div className="app">
       <Navbar />
-      {/* <Footer /> */}
+      <Footer />
       {/* the footer needs to be fixed. currently it blocks things or things go over the footer... */}
       <Switch>
         <Route path="/course-list/:courseId" component={Course}/>

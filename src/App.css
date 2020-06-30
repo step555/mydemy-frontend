@@ -140,6 +140,11 @@
 
 .course-div {
   margin-left: 100px;
+  margin-bottom: 100px;
+}
+
+.course-inner-div {
+  overflow: auto;
 }
 
 .dollar-bill {
@@ -185,7 +190,7 @@
 }
 
 .company-account-info-purchases-div {
-  padding-left: 150px;
+  padding-left: 100px;
 }
 
 .home-div {
@@ -395,9 +400,9 @@
   height: 200px;
 }
 
-.content-covered-text-area-div {
+/* .content-covered-text-area-div {
   margin-left: -40px;
-}
+} */
 
 .lesson-content-text-area-div {
   text-align: center;
@@ -526,8 +531,10 @@
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
+  flex-shrink: 0;
+  position: fixed;
+  /* bottom: -50px; */
+  bottom: -10px;
   width: 100%;
   /* overflow-y: auto; */
   z-index: 2;
@@ -551,4 +558,16 @@
 
 /* .return-to-profile-button {
 
+} */
+
+.company-account-information-div {
+  overflow: auto;
+}
+
+/* .cart-div {
+  overflow: auto;
+} */
+
+/* .checkout-back-button {
+  
 } */

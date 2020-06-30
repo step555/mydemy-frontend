@@ -206,6 +206,7 @@ class LoginForm extends React.Component{
                                     <Button onClick={this.toggleCamera}>Back to username and password</Button>
                                     <Button type="submit">Login</Button>
                                 </Form>
+                                <br></br><br></br><br></br><br></br>
                             </div>
                         }
                     <Message>

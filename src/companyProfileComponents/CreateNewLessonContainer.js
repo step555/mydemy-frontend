@@ -40,7 +40,9 @@ class CreateNewLessonContainer extends React.Component{
     }
    
     addToNumLessons = () => {
+        // debugger
         for(let i = 0; i < this.state.lessonsArray.length; i++){
+            // debugger
             if( this.state.lessonsArray[i][2].length > 0 && !this.state.video.includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
                 alert("Please use a valid youtube embed")
             }else if( this.state.lessonsArray[i][0].length === 0 || this.state.lessonsArray[i][1].length === 0 ){
@@ -78,9 +80,25 @@ class CreateNewLessonContainer extends React.Component{
                 // this.setState({lessonsArray: this.state.lessonsArray},() => console.log(this.state.lessonsArray))
             }
         }
-        // debugger
         // this.setState({lessonsArray: updated},() => console.log("updated", this.state.lessonsArray))
         // this.setState({lessonsArray: this.state.lessonsArray},() => console.log("done", this.state.lessonsArray))
+    }
+
+    deletedLastLesson = () => {
+        let updatedLArr = this.state.lessonsArray
+        let updatedNumArr = this.state.numberOfLessons
+        
+        if(this.state.numberOfLessons.length > this.state.lessonsArray.length){
+            updatedNumArr.pop()
+            this.setState({numberOfLessons: updatedNumArr})
+        }else if(this.state.numberOfLessons.length === this.state.lessonsArray.length){
+            updatedLArr.pop()
+            updatedNumArr.pop()
+            this.setState({
+                lessonsArray: updatedLArr,
+                numberOfLessons: updatedNumArr
+            })
+        }
     }
 
     render(){
@@ -99,6 +117,10 @@ class CreateNewLessonContainer extends React.Component{
                     <br></br>
                     {/* button for delete here and now inside NewLesson? That way I can just pop a number... */}
                     {/* <Button onClick={this.addNextLesson}>Add more lessons</Button> */}
+                    {this.state.numberOfLessons.length > 1 ? 
+                    <Button onClick={this.deletedLastLesson}>Delete</Button>
+                    : null
+                    }
                 </div>
                 : null 
                 }

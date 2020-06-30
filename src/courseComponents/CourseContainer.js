@@ -71,6 +71,7 @@ class CourseList extends React.Component{
                 </div>
             </div>
         </div>
+        <br></br><br></br><br></br>
     </div>
         )
     }

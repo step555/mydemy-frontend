@@ -204,6 +204,7 @@ class CreateNewCourse extends React.Component {
                     <div className="submit-information">
                         <Button onClick={this.submit}>Submit Information</Button>
                     </div>
+                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
         </div>
         )
         // ternary for was submitted starts at top. if false renders form. else renders success message

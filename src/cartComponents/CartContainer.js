@@ -25,7 +25,7 @@ class CartContainer extends React.Component{
         console.log("Cart contents", this.props)
         
         return !this.props.cart || this.props.cart.length === undefined ? null : (
-            <div>
+            <div className="cart-div">
                 <br></br><br></br><br></br>
                 <Grid>
                     <Grid.Column width={10}>
@@ -53,6 +53,7 @@ class CartContainer extends React.Component{
                         }
                     </Grid.Column>
                 </Grid>
+                <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
             </div>
         )
     }

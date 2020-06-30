@@ -37,6 +37,7 @@ const Home = (props) => {
             <div>
                 <h2 style={{textAlign: "center"}}>Trusted by employers all over the world</h2>
                 <img src="../../../images/company-logos.png" alt="companies" id="companies"></img>
+                <br></br><br></br><br></br><br></br><br></br><br></br>
                 </div>
             </div>
             <br></br><br></br><br></br>

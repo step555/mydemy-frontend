@@ -17,7 +17,7 @@ const UserCoursesContainer = (props) => {
                     <div classname="return-to-profile-button">
                         <Grid.Column width={2}>
                             <br></br><br></br>
-                                <Link to="/profile"><Button>View Profile</Button></Link>
+                                <Link to="/profile"><Button>View Profile Information</Button></Link>
                         </Grid.Column>
                     </div>
                     <Grid.Column width={5}>

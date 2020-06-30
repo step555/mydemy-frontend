@@ -17,7 +17,7 @@ class Course extends React.Component{
         return !this.props.course ? null : (
             <div className="course-div">
                 <br></br>
-                <div>
+                <div className="course-inner-div">
                     <Link to="/course-list"><Button>Back to course list</Button></Link>
                     <br></br><br></br>
                 </div>
@@ -37,22 +37,11 @@ class Course extends React.Component{
                     <hr />    
                     <h2>About this course:</h2>
                         <p>{this.props.course.text_preview}</p>
-                    {/* <p>Institution: <strong>{this.props.course.company.name}</strong></p>
-                    <p>Subject: <strong>{this.props.course.subject}</strong></p> */}
                     <h5>Content covered in this course:</h5>
-                    <ul>
-                        {/* {this.props.course.content_covered.split(", ").map(content => {
-                            debugger
-                            return <li>{content}</li>
-                        })} */}
-                        {/* {this.props.course.content_covered.split(", ").map(content => {
-                            debugger
-                            return <textarea>{content}</textarea>
-                        })} */}
                     <div className="content-covered-text-area-div">
                         <textarea className="content-covered-text-area" value={this.props.course.content_covered}></textarea>
+                        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                     </div>
-                    </ul>
                     </Grid.Column>
                     <Grid.Column width={0}>
                     <div>
