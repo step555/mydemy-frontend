@@ -137,6 +137,7 @@ class RegisterNew extends React.Component{
                         </Form>
                     </Grid.Column>
                 </Grid>
+                <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
             </div>
         )
     }

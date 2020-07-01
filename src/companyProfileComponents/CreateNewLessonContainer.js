@@ -43,7 +43,7 @@ class CreateNewLessonContainer extends React.Component{
         // debugger
         for(let i = 0; i < this.state.lessonsArray.length; i++){
             // debugger
-            if( this.state.lessonsArray[i][2].length > 0 && !this.state.video.includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
+            if( this.state.lessonsArray[i][2].length > 0 && !this.state.lessonsArray[i][2].includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
                 alert("Please use a valid youtube embed")
             }else if( this.state.lessonsArray[i][0].length === 0 || this.state.lessonsArray[i][1].length === 0 ){
                 alert("All required lesson fields must be filled in")

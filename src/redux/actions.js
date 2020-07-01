@@ -58,13 +58,8 @@ function fetchingUser(email, password, face){
             body: JSON.stringify(obj)
             }).then(resp => resp.json())
             .then(user => { // does not fetch courses and purchases of user
-                if(user.error_message){
-                    alert(user.error_message)
-                }else{
-                    if( face === undefined || face[0] === undefined || face[0].length === 0 || face[0]._label && face[0]._label !== user.user.email){
-                        alert("Your face was not recognized as belonging to this user. Please try again.")
-                    }
-                    else{
+                
+                if(user.user.email === "nofacialrec@demo.com"){ // prevent facial recognition being used on this user
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
                     // currentUser = user.user
@@ -77,8 +72,31 @@ function fetchingUser(email, password, face){
                         dispatch(fetchedUser(user))
                     }
                 })
+
+                }else{
+                
+                    if(user.error_message){
+                        alert(user.error_message)
+                    }else{
+                        if( face === undefined || face[0] === undefined || face[0].length === 0 || face[0]._label && face[0]._label !== user.user.email){
+                            alert("Your face was not recognized as belonging to this user. Please try again.")
+                        }
+                        else{
+                        localStorage.setItem("token", user.token)
+                        localStorage.setItem("user_or_company", "user")
+                        // currentUser = user.user
+                        currentUserId = user.user.id
+                    fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
+                    .then(resp => resp.json())
+                    .then(user => {
+                        if(!user.status){
+                            currentUser = user
+                            dispatch(fetchedUser(user))
+                        }
+                    })
                 // dispatch(fetchedUser(user.user))
-            }}
+                }}
+            } // else statement closing bracket for !== nofacialrec@demo.com
         })
     }
 }
@@ -465,87 +483,135 @@ function creatingNewCourse(courseInfo){
 
             newlyCreatedCourse = course
             newlyCreatedCourse.lessons = []
+            dispatch(createdNewCompanyCourse(currentCompany))
 
-            let lessonObj = {}
-            for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
-                // if video === "" then obj excludes video
-                if(courseInfo.lessonsArray[i][2] === ""){
-                    lessonObj = {
-                        course_id: course.id,
-                        lesson_name: courseInfo.lessonsArray[i][0],
-                        text_content: courseInfo.lessonsArray[i][1],
-                        lesson_number: courseInfo.lessonsArray[i][i]
-                    }
-                    console.log("if lessonObj", lessonObj)
-                    fetch(LESSON_URL, {
-                        method: "POST",
-                        headers: {"Content-Type": "application/json",
-                        "Accept": "application/json"},
-                        body: JSON.stringify(lessonObj)
-                    }).then(resp => resp.json())
-                    .then(lesson => {
-                        console.log("lesson", lesson)
-                        newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
-                        // debugger
-                        console.log("newlyCreatedCourse", newlyCreatedCourse)
-                        // dispatch(createdNewLesson)
-                        dispatch(createdNewLesson(lesson))
-                    })
-                    dispatch(createdNewCompanyCourse(currentCompany))
+            async function creatingNewLessons(courseInfo, course){
+                // return async (dispatch) => {
+                    let lessonObj = {}
+                    for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
+                        // post request(s) that happen inside this for loop are somehow acting in an async manner?
+                        // if video === "" then obj excludes video
+                        if(courseInfo.lessonsArray[i][2] === ""){
+                            lessonObj = {
+                                course_id: course.id,
+                                lesson_name: courseInfo.lessonsArray[i][0],
+                                text_content: courseInfo.lessonsArray[i][1],
+                                lesson_number: courseInfo.lessonsArray[i][i]
+                            }
+                            }else{
+                                lessonObj = {
+                                    course_id: course.id,
+                                    lesson_name: courseInfo.lessonsArray[i][0],
+                                    text_content: courseInfo.lessonsArray[i][1],
+                                    video: courseInfo.lessonsArray[i][2],
+                                    lesson_number: courseInfo.lessonsArray[i][i]
+                                }
+                            }
+
+                            if(lessonObj.lesson_number === ""){ // previously final lesson number was just "". this code gives it the correct number
+                            lessonObj.lesson_number = courseInfo.lessonsArray[i][i-1]
+                            }
+                            console.log("lessonObj", lessonObj)
+                            // debugger
+                            const settings = {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(lessonObj)
+                            }
+                                const fetchResponse = await fetch(LESSON_URL, settings)
+                                const data = await fetchResponse.json();
+                                newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, data]
+                            dispatch(createdNewLesson(data))
+                        }
                     dispatch(createdNewCourse(newlyCreatedCourse))
                 }
-                // else include video
-                else{
-                    lessonObj = {
-                        course_id: course.id,
-                        lesson_name: courseInfo.lessonsArray[i][0],
-                        text_content: courseInfo.lessonsArray[i][1],
-                        video: courseInfo.lessonsArray[i][2],
-                        lesson_number: courseInfo.lessonsArray[i][i]
-                    }
-                    console.log("if lessonObj", lessonObj)
-                    fetch(LESSON_URL, {
-                        method: "POST",
-                        headers: {"Content-Type": "application/json",
-                        "Accept": "application/json"},
-                        body: JSON.stringify(lessonObj)
-                    }).then(resp => resp.json())
-                    .then(lesson => {
-                        console.log("lesson", lesson)
-                        newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
-                        // debugger
-                        console.log("newlyCreatedCourse", newlyCreatedCourse)
-                        // dispatch(createdNewLesson)
-                        dispatch(createdNewLesson(lesson))
-                    })
-                    dispatch(createdNewCompanyCourse(currentCompany))
-                    dispatch(createdNewCourse(newlyCreatedCourse))
-                }
-                // newlyCreatedCourse = course
-                // newlyCreatedCourse.lessons = []
-                // debugger
-                // console.log("final lessonObj", lessonObj)
-                // fetch(LESSON_URL, {
-                //     method: "POST",
-                //     headers: {"Content-Type": "application/json",
-                //     "Accept": "application/json"},
-                //     body: JSON.stringify(lessonObj)
-                // }).then(resp => resp.json())
-                // .then(lesson => {
-                //     console.log("lesson", lesson)
-                //     newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
-                //     // debugger
-                //     console.log("newlyCreatedCourse", newlyCreatedCourse)
-                //     // dispatch(createdNewLesson)
-                //     dispatch(createdNewLesson(lesson))
-                // })
-            }
-            // dispatch(createdNewCompanyCourse(currentCompany))
-            // dispatch(createdNewCourse(newlyCreatedCourse))
+            creatingNewLessons(courseInfo, course)
+            })
+        }
+    }
 
-            // window.location.reload()
-            // alert("Adding your course to our system. Click Ok to continue")
-        })
+    // async function creatingNewLessons(courseInfo, course){
+    //     // return async (dispatch) => {
+    //         let lessonObj = {}
+    //         for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
+    //             // post request(s) that happen inside this for loop are somehow acting in an async manner?
+    //             // if video === "" then obj excludes video
+    //             // debugger
+    //             if(courseInfo.lessonsArray[i][2] === ""){
+    //                 lessonObj = {
+    //                     course_id: course.id,
+    //                     lesson_name: courseInfo.lessonsArray[i][0],
+    //                     text_content: courseInfo.lessonsArray[i][1],
+    //                     lesson_number: courseInfo.lessonsArray[i][i]
+    //                 }
+    //                 if(lessonObj.lesson_number === ""){ // previously final lesson number was just "". this code gives it the correct number
+    //                     lessonObj.lesson_number = courseInfo.lessonsArray[i][i-1]
+    //                 }
+    //                 console.log("if lessonObj", lessonObj)
+    //                 // debugger
+    //                 const settings = {
+    //                     method: 'POST',
+    //                     headers: {
+    //                         Accept: 'application/json',
+    //                         'Content-Type': 'application/json',
+    //                     },
+    //                     body: JSON.stringify(lessonObj)
+    //                 }
+    //                 // try {
+    //                     // debugger
+    //                     const fetchResponse = await fetch(LESSON_URL, settings)
+    //                     const data = await fetchResponse.json();
+    //                     // debugger
+    //                     newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, data]
+    //                     // return data
+    //                 // }catch(e){
+    //                 //     return e;
+    //                 // }
+                    
+    //             }
+    //             // else include video
+    //             else{
+    //                 lessonObj = {
+    //                     course_id: course.id,
+    //                     lesson_name: courseInfo.lessonsArray[i][0],
+    //                     text_content: courseInfo.lessonsArray[i][1],
+    //                     video: courseInfo.lessonsArray[i][2],
+    //                     lesson_number: courseInfo.lessonsArray[i][i]
+    //                 }
+    //                 console.log("if lessonObj", lessonObj)
+    //                 fetch(LESSON_URL, {
+    //                     method: "POST",
+    //                     headers: {"Content-Type": "application/json",
+    //                     "Accept": "application/json"},
+    //                     body: JSON.stringify(lessonObj)
+    //                 }).then(resp => resp.json())
+    //                 .then(lesson => {
+    //                     console.log("lesson", lesson)
+    //                     newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
+    //                     // debugger
+    //                     console.log("newlyCreatedCourse", newlyCreatedCourse)
+    //                     // dispatch(createdNewLesson)
+    //                     // dispatch(createdNewLesson(lesson))
+    //                 })
+    //                 // dispatch(createdNewCompanyCourse(currentCompany))
+    //                 // dispatch(createdNewCourse(newlyCreatedCourse))
+    //             }
+    //         // }
+    //         return newlyCreatedCourse
+    //         // finishingCreatingCoursesAndLessons(newlyCreatedCourse)
+    // }}
+
+function finishingCreatingCoursesAndLessons(newlyCreatedCourse){
+    console.log("before final dispatch")
+    return (dispatch) => {
+        console.log("almost at the reducer function")
+        debugger
+        dispatch(createdNewCourse(newlyCreatedCourse))
+
+        // dispatch(createdNewLesson)
     }
 }
 
@@ -798,4 +864,4 @@ function clickedBackButton(){
 //     }
 // }
 
-export { selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { finishingCreatingCoursesAndLessons, selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

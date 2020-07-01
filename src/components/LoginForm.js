@@ -168,7 +168,7 @@ class LoginForm extends React.Component{
             return <Redirect to="/" />
         }
         return(
-            <div>
+            <div className="login-form">
                 <Grid textAlign='center' style={{ height: '75vh'}} verticalAlign='middle' className="user-login">
                 <Grid.Column style={{ maxWidth: 450 }}>
                     {this.state.toggleCam === false ? 
@@ -194,7 +194,15 @@ class LoginForm extends React.Component{
                             onChange={this.handleChange}
                             value={this.state.password}
                         />
+                    {this.state.email === "nofacialrec@demo.com" && this.state.password === "demo" ? 
+                    <div>
+                        <Form onSubmit={this.handleLoginSubmit}>
+                            <Button type="submit">Login</Button>
+                        </Form>
+                    </div>
+                    : 
                     <Button type="submit">Move on to facial recognition</Button>
+                    }
                     {/* <Button type="submit">Login</Button> */}
                     </Segment>
                     </Form>
@@ -206,7 +214,7 @@ class LoginForm extends React.Component{
                                     <Button onClick={this.toggleCamera}>Back to username and password</Button>
                                     <Button type="submit">Login</Button>
                                 </Form>
-                                <br></br><br></br><br></br><br></br>
+                                {/* <br></br><br></br><br></br><br></br> */}
                             </div>
                         }
                     <Message>
@@ -215,9 +223,9 @@ class LoginForm extends React.Component{
                     {/* <Link to="/login">Log in</Link> */}
                     {localStorage.user_or_company === "user" || localStorage.user_or_company === "company" ? null
                     : 
-                    <Message>
-                    <Link to="/sign-up">Don't have an account? Sign up here</Link>
-                    </Message>
+                        <Message>
+                            <Link to="/sign-up">Don't have an account? Sign up here</Link>
+                        </Message>
                     }
                 </Grid.Column>
                 </Grid>

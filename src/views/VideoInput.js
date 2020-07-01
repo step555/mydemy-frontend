@@ -89,7 +89,6 @@ class VideoInput extends Component {
           users[i].face = [users[i].face]
           userInfo = users[i]
           
-
           await loadModels();
           //{Me: {…}, Cherprang: {…}}
           // console.log(JSON_PROFILE)
