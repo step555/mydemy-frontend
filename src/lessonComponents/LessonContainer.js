@@ -53,7 +53,7 @@ class LessonContainer extends React.Component{
         // console.log("lesson container props", this.props)
         // console.log("Lesson container lessons state", this.state)
         return(
-            <div>
+            <div className="lesson-container-div">
                 <br></br>
                 {/* <Link to={`/course/${this.state.courseId}/dashboard`}><Button>Back to Course Dashboard</Button></Link> */}
                 <br></br><br></br>

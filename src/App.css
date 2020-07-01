@@ -416,15 +416,15 @@
 
 /* Fixed sidenav, full height */
 .sidenav {
-  height: 100%;
+  height: 90%;
   width: 200px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   top: 50px;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   padding-top: 20px;
 }
 
@@ -446,6 +446,10 @@
 /* On mouse-over */
 .sidenav a:hover, .dropdown-btn:hover {
   color: #f1f1f1;
+}
+
+.lesson-container-div {
+  overflow: hidden;
 }
 
 .active {
@@ -532,7 +536,7 @@
 
 .footer {
   flex-shrink: 0;
-  position: fixed;
+  position: absolute;
   /* bottom: -50px; */
   bottom: -10px;
   width: 100%;
