@@ -61,7 +61,7 @@ function fetchingUser(email, password, face){
                 if(user.error_message){
                     alert(user.error_message)
                 }else{
-                    if( face === undefined || face[0].length === 0 || face[0]._label && face[0]._label !== user.user.email){
+                    if( face === undefined || face[0] === undefined || face[0].length === 0 || face[0]._label && face[0]._label !== user.user.email){
                         alert("Your face was not recognized as belonging to this user. Please try again.")
                     }
                     else{

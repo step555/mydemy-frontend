@@ -58,7 +58,7 @@ class Lesson extends React.Component {
                         <textarea className="lesson-content-text-area" value={this.props.selectedLesson.text_content}></textarea>
                     </div>
                 </div>
-                <br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
             </div>
         // return !this.props.selectedLesson ? null : (
         // // return (
