@@ -130,6 +130,7 @@ function editingUserInfo(newUserInfo){
     .then(updatedUser => {
         // currentUser = updatedUser
         currentUser.name = updatedUser.name
+        currentUser.email = updatedUser.email
         // fetch(USER_URL + `/${currentUserId}`)
         // .then(resp => resp.json())
         // .then(updatedWithCoursesAndPurchases => {
@@ -451,7 +452,6 @@ function creatingNewCourse(courseInfo){
             company_id: currentCompanyId,
             lessons: courseInfo.lessonsArray
         }
-        debugger
         fetch(COURSES_URL, {
             method: "POST",
             headers: {"Content-Type": "application/json",
@@ -463,6 +463,9 @@ function creatingNewCourse(courseInfo){
             currentCompany.courses.push(course)
             course.company = currentCompany
 
+            newlyCreatedCourse = course
+            newlyCreatedCourse.lessons = []
+
             let lessonObj = {}
             for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
                 // if video === "" then obj excludes video
@@ -471,9 +474,25 @@ function creatingNewCourse(courseInfo){
                         course_id: course.id,
                         lesson_name: courseInfo.lessonsArray[i][0],
                         text_content: courseInfo.lessonsArray[i][1],
-                        // video: null,
                         lesson_number: courseInfo.lessonsArray[i][i]
                     }
+                    console.log("if lessonObj", lessonObj)
+                    fetch(LESSON_URL, {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json",
+                        "Accept": "application/json"},
+                        body: JSON.stringify(lessonObj)
+                    }).then(resp => resp.json())
+                    .then(lesson => {
+                        console.log("lesson", lesson)
+                        newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
+                        // debugger
+                        console.log("newlyCreatedCourse", newlyCreatedCourse)
+                        // dispatch(createdNewLesson)
+                        dispatch(createdNewLesson(lesson))
+                    })
+                    dispatch(createdNewCompanyCourse(currentCompany))
+                    dispatch(createdNewCourse(newlyCreatedCourse))
                 }
                 // else include video
                 else{
@@ -484,22 +503,45 @@ function creatingNewCourse(courseInfo){
                         video: courseInfo.lessonsArray[i][2],
                         lesson_number: courseInfo.lessonsArray[i][i]
                     }
+                    console.log("if lessonObj", lessonObj)
+                    fetch(LESSON_URL, {
+                        method: "POST",
+                        headers: {"Content-Type": "application/json",
+                        "Accept": "application/json"},
+                        body: JSON.stringify(lessonObj)
+                    }).then(resp => resp.json())
+                    .then(lesson => {
+                        console.log("lesson", lesson)
+                        newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
+                        // debugger
+                        console.log("newlyCreatedCourse", newlyCreatedCourse)
+                        // dispatch(createdNewLesson)
+                        dispatch(createdNewLesson(lesson))
+                    })
+                    dispatch(createdNewCompanyCourse(currentCompany))
+                    dispatch(createdNewCourse(newlyCreatedCourse))
                 }
-                newlyCreatedCourse = course
-                newlyCreatedCourse.lessons = []
-                fetch(LESSON_URL, {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json",
-                    "Accept": "application/json"},
-                    body: JSON.stringify(lessonObj)
-                }).then(resp => resp.json())
-                .then(lesson => {
-                    newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
-                    dispatch(createdNewLesson)
-                })
+                // newlyCreatedCourse = course
+                // newlyCreatedCourse.lessons = []
+                // debugger
+                // console.log("final lessonObj", lessonObj)
+                // fetch(LESSON_URL, {
+                //     method: "POST",
+                //     headers: {"Content-Type": "application/json",
+                //     "Accept": "application/json"},
+                //     body: JSON.stringify(lessonObj)
+                // }).then(resp => resp.json())
+                // .then(lesson => {
+                //     console.log("lesson", lesson)
+                //     newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
+                //     // debugger
+                //     console.log("newlyCreatedCourse", newlyCreatedCourse)
+                //     // dispatch(createdNewLesson)
+                //     dispatch(createdNewLesson(lesson))
+                // })
             }
-            dispatch(createdNewCompanyCourse(currentCompany))
-            dispatch(createdNewCourse(newlyCreatedCourse))
+            // dispatch(createdNewCompanyCourse(currentCompany))
+            // dispatch(createdNewCourse(newlyCreatedCourse))
 
             // window.location.reload()
             // alert("Adding your course to our system. Click Ok to continue")

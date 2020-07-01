@@ -47,7 +47,6 @@ class LessonDashboard extends React.Component{
     }
 
     render(){
-        console.log("LESSON CONTAINER PROPS", this.props)
         // return !this.props.lessons || this.props.lessons.length === 0 ? null : (
         return !this.props.lessons ? null : (
             <div>
