@@ -491,12 +491,15 @@ function creatingNewCourse(courseInfo){
                     for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
                         // post request(s) that happen inside this for loop are somehow acting in an async manner?
                         // if video === "" then obj excludes video
+                        let lessonNumber = i + 1
+                        console.log(lessonNumber)
                         if(courseInfo.lessonsArray[i][2] === ""){
                             lessonObj = {
                                 course_id: course.id,
                                 lesson_name: courseInfo.lessonsArray[i][0],
                                 text_content: courseInfo.lessonsArray[i][1],
-                                lesson_number: courseInfo.lessonsArray[i][i]
+                                // lesson_number: courseInfo.lessonsArray[i][i],
+                                lesson_number: lessonNumber
                             }
                             }else{
                                 lessonObj = {
@@ -504,7 +507,8 @@ function creatingNewCourse(courseInfo){
                                     lesson_name: courseInfo.lessonsArray[i][0],
                                     text_content: courseInfo.lessonsArray[i][1],
                                     video: courseInfo.lessonsArray[i][2],
-                                    lesson_number: courseInfo.lessonsArray[i][i]
+                                    // lesson_number: courseInfo.lessonsArray[i][i],
+                                    lesson_number: lessonNumber
                                 }
                             }
 
@@ -533,88 +537,6 @@ function creatingNewCourse(courseInfo){
         }
     }
 
-    // async function creatingNewLessons(courseInfo, course){
-    //     // return async (dispatch) => {
-    //         let lessonObj = {}
-    //         for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
-    //             // post request(s) that happen inside this for loop are somehow acting in an async manner?
-    //             // if video === "" then obj excludes video
-    //             // debugger
-    //             if(courseInfo.lessonsArray[i][2] === ""){
-    //                 lessonObj = {
-    //                     course_id: course.id,
-    //                     lesson_name: courseInfo.lessonsArray[i][0],
-    //                     text_content: courseInfo.lessonsArray[i][1],
-    //                     lesson_number: courseInfo.lessonsArray[i][i]
-    //                 }
-    //                 if(lessonObj.lesson_number === ""){ // previously final lesson number was just "". this code gives it the correct number
-    //                     lessonObj.lesson_number = courseInfo.lessonsArray[i][i-1]
-    //                 }
-    //                 console.log("if lessonObj", lessonObj)
-    //                 // debugger
-    //                 const settings = {
-    //                     method: 'POST',
-    //                     headers: {
-    //                         Accept: 'application/json',
-    //                         'Content-Type': 'application/json',
-    //                     },
-    //                     body: JSON.stringify(lessonObj)
-    //                 }
-    //                 // try {
-    //                     // debugger
-    //                     const fetchResponse = await fetch(LESSON_URL, settings)
-    //                     const data = await fetchResponse.json();
-    //                     // debugger
-    //                     newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, data]
-    //                     // return data
-    //                 // }catch(e){
-    //                 //     return e;
-    //                 // }
-                    
-    //             }
-    //             // else include video
-    //             else{
-    //                 lessonObj = {
-    //                     course_id: course.id,
-    //                     lesson_name: courseInfo.lessonsArray[i][0],
-    //                     text_content: courseInfo.lessonsArray[i][1],
-    //                     video: courseInfo.lessonsArray[i][2],
-    //                     lesson_number: courseInfo.lessonsArray[i][i]
-    //                 }
-    //                 console.log("if lessonObj", lessonObj)
-    //                 fetch(LESSON_URL, {
-    //                     method: "POST",
-    //                     headers: {"Content-Type": "application/json",
-    //                     "Accept": "application/json"},
-    //                     body: JSON.stringify(lessonObj)
-    //                 }).then(resp => resp.json())
-    //                 .then(lesson => {
-    //                     console.log("lesson", lesson)
-    //                     newlyCreatedCourse.lessons = [...newlyCreatedCourse.lessons, lesson]
-    //                     // debugger
-    //                     console.log("newlyCreatedCourse", newlyCreatedCourse)
-    //                     // dispatch(createdNewLesson)
-    //                     // dispatch(createdNewLesson(lesson))
-    //                 })
-    //                 // dispatch(createdNewCompanyCourse(currentCompany))
-    //                 // dispatch(createdNewCourse(newlyCreatedCourse))
-    //             }
-    //         // }
-    //         return newlyCreatedCourse
-    //         // finishingCreatingCoursesAndLessons(newlyCreatedCourse)
-    // }}
-
-function finishingCreatingCoursesAndLessons(newlyCreatedCourse){
-    console.log("before final dispatch")
-    return (dispatch) => {
-        console.log("almost at the reducer function")
-        debugger
-        dispatch(createdNewCourse(newlyCreatedCourse))
-
-        // dispatch(createdNewLesson)
-    }
-}
-
 function createdNewLesson(lesson){
     return {type: "CREATED_NEW_LESSON", payload: lesson}
 }
@@ -632,6 +554,7 @@ function selectingCourseLessons(id){
         fetch(COURSES_URL + `/${id}`)
         .then(resp => resp.json())
         .then(course => {
+            console.log("selectingCourseLessons", course)
             dispatch(selectedCourseLessons(course.lessons))
         })
     }
@@ -683,6 +606,18 @@ function deletingCourse(courseId){
             let updatedCourses = currentCompany.courses.filter(course => {
                 return course.id !== courseId
             })
+            debugger
+            // try a bisection search here when looking at all courses to find the course lessons you want deleted
+            // for(let i = 0; i < course.lessons.length; i++){
+            //     fetch(LESSON_URL + `/${course.lessons[i].id}`, {
+            //         method: "DELETE",
+            //         headers: {"Content-Type": "application/json",
+            //         "Accept": "application/json"}
+            //     }).then(resp => resp.json())
+            //     .then(lesson => {
+            //         debugger
+            //     })
+            // }
             // dispatch(deletedCourse(updatedCourses))
             currentCompany.courses = updatedCourses
             dispatch(deletedCompanyCourse(currentCompany))
@@ -858,10 +793,4 @@ function clickedBackButton(){
     return { type: "CLICKED_BACK_BUTTON", payload: []}
 }
 
-// function storeIndividualLessonArrays(lessonsArray){
-//     return (dispatch) => {
-//         console.log("hit", lessonsArray)
-//     }
-// }
-
-export { finishingCreatingCoursesAndLessons, selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }
+export { selectingCourse, clickedBackButton, closeEnlargedCourse, openingEnlargedCourse, createdNewLesson, selectingLesson, sortByDuration, sortByPrice, sortByDifficultyLevel, changeSearchText, fetchingAllUsers, creatingNewUser, creatingNewCompany, editingCourse, selectingCourseLessons, deletingCourse, creatingNewCourse, editingCompanyInfo, editingUserInfo, removingFromCart, totalRevenue, fetchingCompany, logoutUser, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, addingToCart, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch }

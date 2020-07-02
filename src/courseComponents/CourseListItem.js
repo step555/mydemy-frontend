@@ -6,7 +6,6 @@ import Course from "./Course"
 
 class CourseListItem extends React.Component{
     render(){
-        console.log("Course", this.props.course)
         return (
             // <div className="course-card">
             <div className="course-card-div">
