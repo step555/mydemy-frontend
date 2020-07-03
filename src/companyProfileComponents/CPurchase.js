@@ -13,12 +13,14 @@ class CPurchase extends React.Component{
             if(c.id === this.props.purchase.course_id){
             //     let pCourse = c
             this.props.purchase.course = c
+            // debugger
             }
         })
         this.props.users.filter(u => {
             if(u.id === this.props.purchase.user_id){
             //     let pCourse = c
             this.props.purchase.user = u
+            // debugger
             }
         })
         return(

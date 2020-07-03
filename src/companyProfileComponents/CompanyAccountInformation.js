@@ -81,18 +81,12 @@ class CompanyAccountInformation extends React.Component{
                         <h4>Total Revenue: ${this.props.totalRevenue.totalRevenue}</h4>
                         <h4>User Purchases: </h4>
                         {this.props.company.currentCompany.purchases.map(purchase => {
-                            // this.props.courses.map(course => {
-                                // if(course.id === purchase.id && purchase.is_purchased === true){
-                                //         let cPurchase = purchase
-                                //         debugger
+                                        // debugger
                                     return (
                                         <div>
                                             <CPurchase purchase={purchase}/>
-                                            {/* <CPurchase course={course}/> */}
                                         </div>
                                     )
-                                // }
-                            // })
                         })}
                         </div>
                     </Grid.Column>
@@ -103,6 +97,7 @@ class CompanyAccountInformation extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+    console.log(state.company.currentCompany)
     return {
       company: state.company,
       totalRevenue: state.totalRevenue,

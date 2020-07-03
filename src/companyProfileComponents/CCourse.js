@@ -47,9 +47,12 @@ class CCourse extends React.Component{
         this.setState({ show: false });
     };
 
-    deleteCourse = (courseId) => {
-        console.log("deleting")
-        this.props.deletingCourse(courseId)
+    deleteCourse = (courseId, lessons) => {
+        console.log("deleting", lessons)
+        // this.props.deletingCourse(courseId, lessons)
+        let courseIdAndLessons = {courseId, lessons}
+        // debugger
+        this.props.deletingCourse(courseIdAndLessons)
     }
 
     viewLessons = () => {
@@ -133,7 +136,7 @@ class CCourse extends React.Component{
                         <Link to={`/company/${this.props.course.id}/edit`}><button>Edit course</button></Link>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                        <button onClick={() => this.deleteCourse(this.props.course.id)}>Delete</button>
+                        <button onClick={() => this.deleteCourse(this.props.course.id, this.props.course.lessons)}>Delete</button>
                     </Grid.Column>
                 </Grid>
             <br></br>
@@ -147,7 +150,7 @@ ReactDOM.render(<CCourse />, container)
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        deletingCourse: (info) => {dispatch( deletingCourse(info) )},
+        deletingCourse: (courseIdAndLessons) => {dispatch( deletingCourse(courseIdAndLessons) )},
         editingCourse: (info) => {dispatch(editingCourse(info) )},
         selectingCourseLessons: (info) => {dispatch( selectingCourseLessons(info) )}
     }

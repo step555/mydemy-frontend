@@ -593,9 +593,9 @@ function selectedLesson(lesson){
     return {type: "SELECTED_LESSON", payload: lesson}
 }
 
-function deletingCourse(courseId){
+function deletingCourse(courseIdAndLessons){
     return (dispatch) => {
-        fetch(COURSES_URL + `/${courseId}`, {
+        fetch(COURSES_URL + `/${courseIdAndLessons.courseId}`, {
             method: "DELETE",
             headers: {"Content-Type": "application/json",
             "Accept": "application/json"}
@@ -604,25 +604,23 @@ function deletingCourse(courseId){
             console.log(course)
             dispatch(deletedCourse(course))
             let updatedCourses = currentCompany.courses.filter(course => {
-                return course.id !== courseId
+                return course.id !== courseIdAndLessons.courseId
             })
-            debugger
-            // try a bisection search here when looking at all courses to find the course lessons you want deleted
-            // for(let i = 0; i < course.lessons.length; i++){
-            //     fetch(LESSON_URL + `/${course.lessons[i].id}`, {
-            //         method: "DELETE",
-            //         headers: {"Content-Type": "application/json",
-            //         "Accept": "application/json"}
-            //     }).then(resp => resp.json())
-            //     .then(lesson => {
-            //         debugger
-            //     })
-            // }
+            
+            for(let i = 0; i < courseIdAndLessons.lessons.length; i++){
+                fetch(LESSON_URL + `/${courseIdAndLessons.lessons[i].id}`, {
+                    method: "DELETE",
+                    headers: {"Content-Type": "application/json",
+                    "Accept": "application/json"}
+                })//.then(resp => resp.json())
+                //.then(lesson => {
+                //})
+            }
             // dispatch(deletedCourse(updatedCourses))
             currentCompany.courses = updatedCourses
             dispatch(deletedCompanyCourse(currentCompany))
             // window.location.reload()
-            })
+        })
     }
 }
 
