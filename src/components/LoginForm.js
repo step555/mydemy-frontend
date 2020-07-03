@@ -137,14 +137,8 @@ class LoginForm extends React.Component{
         console.log(this.state)
     };
 
-    // componentDidMount(){
-    //     this.props.fetchingUser()
-    //     this.props.fetchingUserCart()
-    // }
-
     handleLoginSubmit = () => {
         console.log("logging in")
-        // this.props.loggingIn(this.state.email, this.state.password)
         if(this.state.email === "" || this.state.password === ""){
             alert("email and password fields cannot be blank")
         }else{
@@ -157,7 +151,6 @@ class LoginForm extends React.Component{
     }
 
     fMatch = (descriptors) => {
-        // debugger
         this.setState({face: descriptors})
     }
 
@@ -177,7 +170,6 @@ class LoginForm extends React.Component{
                         key="mini"
                         onSubmit={this.toggleCamera}
                         >
-                        {/* <Form.Group widths="equal"> */}
                         <Segment stacked>
                         <Form.Input
                             label="email"
@@ -203,7 +195,6 @@ class LoginForm extends React.Component{
                     : 
                     <Button type="submit">Move on to facial recognition</Button>
                     }
-                    {/* <Button type="submit">Login</Button> */}
                     </Segment>
                     </Form>
                         :
@@ -214,13 +205,11 @@ class LoginForm extends React.Component{
                                     <Button onClick={this.toggleCamera}>Back to username and password</Button>
                                     <Button type="submit">Login</Button>
                                 </Form>
-                                {/* <br></br><br></br><br></br><br></br> */}
                             </div>
                         }
                     <Message>
                     <Link to="/company-login"><strong>Click here to log in here if you are an institution of learning</strong></Link>
                     </Message>
-                    {/* <Link to="/login">Log in</Link> */}
                     {localStorage.user_or_company === "user" || localStorage.user_or_company === "company" ? null
                     : 
                         <Message>
@@ -238,10 +227,7 @@ const mapDispatchToProps = (dispatch) => {
 
     console.log("mapDispatchToProps")
     return {
-        // loggingIn: (email, password) => {dispatch( loggingIn(email, password) )}
         fetchingUser: (email, password, face) => {dispatch( fetchingUser(email, password, face) )}
     }
 }
 export default withRouter(connect(null, mapDispatchToProps)(LoginForm));
-
-// export default LoginForm

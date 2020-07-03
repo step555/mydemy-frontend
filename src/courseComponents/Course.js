@@ -7,13 +7,10 @@ import {Link} from 'react-router-dom'
 class Course extends React.Component{
     
     addToCart = (props) => {
-        // debugger
         this.props.addingToCart(props.course)
-        // this.props.dispatch({ type: "ADD_TO_CART", payload: props.course})
     }
 
     render(){
-        // console.log(this.props.course)
         return !this.props.course ? null : (
             <div className="course-div">
                 <br></br>
@@ -21,18 +18,15 @@ class Course extends React.Component{
                     <Link to="/course-list"><Button>Back to course list</Button></Link>
                     <br></br><br></br>
                 </div>
-                {/* <div className="content-covered-text-area-div"></div> */}
                 <Grid>
                     <Grid.Column width={9}>
                     <h1>{this.props.course.name}</h1>
-                    {/* cart picture? */}
                     {localStorage.user_or_company === "user" ? 
                     <Button onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
                     : 
                     null}
                     <br></br><br></br>
                     <div style={{backgroundImage: `url('${this.props.course.picture}')`}} className="course-image">
-                        {/* <img src={this.props.course.picture} alt="picture" className="course-image"/> */}
                     </div>
                     <hr />    
                     <h2>About this course:</h2>
@@ -88,5 +82,3 @@ const mapDispatchToProps = (dispatch) => {
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course)
-
-// export default Course

@@ -19,7 +19,6 @@ class Checkout extends React.Component {
     }
 
     checkingOut = () => {
-        // debugger
         this.setState({checkedOut: true})
         this.props.checkingOutCart(this.props.cart)
     }
@@ -31,14 +30,11 @@ class Checkout extends React.Component {
     render(){
     console.log(this.props.cartTotal)
 
-        // const redirectToCourses = false;
         if (this.state.checkedOut) {
             return <Redirect to="/course-list" />
         }
 
-    // return !props.user.curentUser && props.cart && props.cartTotal ? null : (
         return this.props.user.length === 0 || this.props.cartTotal === undefined ? null : (
-        // return (
             <div>
                 <br></br>
                 <h2 className="review-before-submission-h2">Please review your order before final submission</h2>
@@ -97,15 +93,12 @@ class Checkout extends React.Component {
                             <div className="checkout-courses-div">
                                 <h3 className="checkout-show-items" onClick={this.handleClick}>Courses</h3>
                             </div>
-                            {/* <Segment> */}
-                            {/* style={{overflow: 'auto', maxHeight: 500 }} */}
                             <Card style={{minWidth: 800 }}>
                                 {this.state.clickedShowItems && this.props.cart.length > 0 ? 
                                 this.props.cart.map(item => <CheckoutFormCartItem item={item} key={item.id}/>)
                                 : null}
                             </Card>
                             <br></br><br></br><br></br><br></br><br></br><br></br>
-                            {/* </Segment> */}
                         </Grid.Column>
                     </Grid>
             </div>
@@ -114,7 +107,6 @@ class Checkout extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // debugger
     return {
         user: state.user,
         cart: state.cart,

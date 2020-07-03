@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import CartItem from './CartItem'
 import {Grid} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-// import {cartTotal} from './redux/actions'
 import { checkingOutCart, fetchingUserCart } from "../redux/actions";
 
 class CartContainer extends React.Component{

@@ -6,7 +6,6 @@ import EditCompanyProfile from './EditCompanyProfile'
 import {Button, Grid} from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import {totalRevenue} from '../redux/actions'
-// import ViewEditCourse from "./ViewEditCourse"
 
 class CompanyAccountInformation extends React.Component{
     constructor(){
@@ -27,13 +26,6 @@ class CompanyAccountInformation extends React.Component{
     }
 
     render(){
-        // console.log("CACCOUNTINFO", this.props)
-
-        // let filteredCourses = this.props.courses.filter(course => {
-        //     // debugger
-        //     return course.company_id === this.props.company.currentCompany.id
-        // })
-
         return !this.props.company.currentCompany || this.props.company.currentCompany.courses === undefined ? null : (
             <div className="company-account-info-div">
                 <br></br>
@@ -93,7 +85,6 @@ const mapStateToProps = (state) => {
       company: state.company,
       totalRevenue: state.totalRevenue,
       courses: state.courses,
-    //   purchases: state.purchases // does not currently exist in store
     };
 };
 

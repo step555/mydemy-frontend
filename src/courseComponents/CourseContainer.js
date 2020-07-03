@@ -30,34 +30,15 @@ class CourseList extends React.Component{
         <div>
             <div clasName="course-container-div">
                 <div className="courses-top-div">
-                        {/* <Grid.Column> */}
                             <Searchbar />
-                            {/* <h1 className="courses-title">Browse Our Courses Here</h1>
-                            <div class="wrapper">
-                                <input class="search" placeholder="Search" type="text" name="search" onChange={(event) => this.handleChange(event)}></input>
-                            </div> */}
-                        {/* </Grid.Column> */}
-                        {/* <Grid.Column>
-
-                        </Grid.Column> */}
                     <div className="course-dropdown-container-div">
                                 <CourseDropdown />
                         <div>
-                            {/* <p>back</p>
-                            <p>forward</p> */}
                         </div>
                     </div>
 
                 </div>
                 <br></br><br></br>
-                {/* {this.props.course.name} */}
-                {/* <Switch>
-                    <Route
-                        path="/course-list/:courseId"
-                        component={CourseContainer}
-                    />
-                </Switch> */}
-                {/* searchbar here */}
                 <div className="course-container">
                     <Grid relaxed columns={4}>
                         {this.props.courses.map(course => {

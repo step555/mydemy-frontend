@@ -11,7 +11,6 @@ const Searchbar = props => (
             placeholder="Search by course name or organization" 
             type="text" 
             name="search" 
-            // value={props.value} 
             onChange={(event) => props.changeSearchText(event.target.value)}>
             </input>
         </div>

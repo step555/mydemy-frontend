@@ -1,13 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Card, Form, Grid, Button} from 'semantic-ui-react'
-// import ViewEditCourse from './ViewEditCourse'
 import {connect} from 'react-redux'
 import {deletingCourse, editingCourse, selectingCourseLessons} from '../redux/actions'
 import CCourseModal from './CCourseModal'
 import ReactDOM from 'react-dom'
 
-// const CCourse = (this.props) => {
 class CCourse extends React.Component{
     constructor(){
         super()
@@ -35,7 +33,6 @@ class CCourse extends React.Component{
     componentWillMount(){
         this.setState({
             editing: true,
-            // submitted: false   
         })
     }
 
@@ -49,9 +46,7 @@ class CCourse extends React.Component{
 
     deleteCourse = (courseId, lessons) => {
         console.log("deleting", lessons)
-        // this.props.deletingCourse(courseId, lessons)
         let courseIdAndLessons = {courseId, lessons}
-        // debugger
         this.props.deletingCourse(courseIdAndLessons)
     }
 
@@ -101,24 +96,16 @@ class CCourse extends React.Component{
                         <Form.Input id="price" label='Price' type="number" placeholder='price' value={this.props.course.price} onChange={this.onChangeInformation}/>
                         <Form.Input id="videoPreview" label='Video Preview' placeholder='upload video preview url here (optional)' value={this.props.course.video_preview} onChange={this.onChangeInformation}/>
                         <Form.Input id="picture" label='Picture' placeholder='upload picture url here (optional)' value={this.props.course.picture} onChange={this.onChangeInformation}/>
-                        {/* <Form.Input fluid the FLUID messes up the form input field/> */}
                     </Form.Group>
                         <div>
-                            {/* {this.props.course.content_covered.split(", ").map(content => { */}
-                                {/* return (                                     */}
-                                <Form.Group widths="equal">
-                                    {/* <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' onClick={(event) => this.selectedExistingContentCoveredIndex(event)} value={content} onChange={this.onChangeContentCoveredInformation}/> */}
-                                    {/* <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' value={content}/> */}
-                                    <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' value={this.props.course.content_covered}/>
-                                </Form.Group>
-                                {/* ) */}
-                                {/* })} */}
+                            <Form.Group widths="equal">
+                                <Form.Input fluid id="contentCovered" label='Content Covered' placeholder='content covered' value={this.props.course.content_covered}/>
+                            </Form.Group>
                         </div>
 
                         <br></br><br></br>
                 </Form>
             </CCourseModal>
-            {/* <button type="button" onClick={this.showModal}>Open</button> */}
                 <Card onClick={this.showModal}>
                     <h5 className="account-info">ID: {this.props.course.id}</h5>
                     <h5 className="account-info">Name: {this.props.course.name}</h5>

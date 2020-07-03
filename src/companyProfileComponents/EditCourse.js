@@ -72,9 +72,6 @@ class EditCourse extends React.Component{
                         <Form.Group widths="equal">
                             <Form.TextArea fluid id="courseDescription" label='Course Description' placeholder='course description' defaultValue={this.props.selectedCourse.course.text_preview} onChange={this.onChangeInformation} required/>
                         </Form.Group>
-                        {/* <Form.Group widths="equal">
-                            <Form.Input fluid id="price" label='Price' type="number" placeholder='price' defaultValue={this.props.selectedCourse.course.price} onChange={this.onChangeInformation} required/>
-                        </Form.Group> */}
                         <Form.Group widths="equal">
                             <Form.Select fluid id="duration" label='Duration' placeholder='duration' defaultValue={this.props.selectedDuration} onChange={this.onChangeInformation} required
                             fluid
@@ -146,7 +143,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         selectingCourse: (id) => {dispatch(selectingCourse(id) )},
         editingCourse: (info) => {dispatch(editingCourse(info) )}
-    //   gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )}
     }
 }
 

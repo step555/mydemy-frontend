@@ -17,16 +17,6 @@ const coursesReducer = (state = [], action) => {
     }
 }
 
-// const addingLessonsReducer = (state = [], action) => {
-//     switch (action.type) {
-//         case "ADDING_TO_LESSONS_ARRAY":
-//             debugger
-//             return action.payload
-//         default: 
-//             return state;
-//     }
-// }
-
 const userReducer = (state = [], action) => {
     switch (action.type) {
         case "FETCHED_USER":

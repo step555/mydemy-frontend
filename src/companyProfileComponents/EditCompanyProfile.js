@@ -13,8 +13,6 @@ class EditCompanyProfile extends React.Component {
         }
     }
 
-    // page refreshes upon submit?
-
     onChangeInformation = (event) => {
         console.log("event", event.target.value)
         this.setState( { [event.target.id]: event.target.value } )

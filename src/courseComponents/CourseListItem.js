@@ -7,7 +7,6 @@ import Course from "./Course"
 class CourseListItem extends React.Component{
     render(){
         return (
-            // <div className="course-card">
             <div className="course-card-div">
                 <Link to={`/course-list/${this.props.course.id}/`} >
                     <Card.Group>

@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {creatingNewCourse} from '../redux/actions'
 import {Link, Redirect} from 'react-router-dom'
 import CreateNewLessonContainer from './CreateNewLessonContainer'
-import NewLesson from './NewLesson'
 
 class CreateNewCourse extends React.Component {
     constructor(){
@@ -39,7 +38,6 @@ class CreateNewCourse extends React.Component {
 
     componentWillMount(){
         this.setState({wasSubmitted: false})
-        // console.log(this.state.wasSubmitted)
 
         this.setState({ durationOptions: [
             { key: '0-3', text: '0-3 weeks', value: 1 },
@@ -214,7 +212,6 @@ class CreateNewCourse extends React.Component {
 const mapStateToProps = (state) => {
     return {
         newLesson: state.addedNewLesson,
-        // finalLesson: state.finalLesson
     }
 }
 
@@ -225,5 +222,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateNewCourse)
-
-// export default CreateNewCourse

@@ -1,7 +1,6 @@
 import React from 'react'
 
 const LessonVideo = (props) => {
-    // debugger
     console.log("lesson video props", props)
     return (
         <div>

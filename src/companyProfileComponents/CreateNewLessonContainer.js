@@ -2,8 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Form, TextArea, Button} from 'semantic-ui-react'
 import NewLesson from './NewLesson'
-// import {storeIndividualLessonArrays} from '../redux/actions'
-// import {} from '../redux/actions'
 
 class CreateNewLessonContainer extends React.Component{
     constructor(){
@@ -16,13 +14,10 @@ class CreateNewLessonContainer extends React.Component{
     }
 
     componentDidUpdate(){
-        // console.log("updated")
         this.props.addLessonsArrayToCourseState(this.state.lessonsArray)
-        // this.props.storeIndividualLessonArrays(this.state.lessonsArray)
     }
 
     parentOnChangeLessonInformation = (lesson) => {
-        // debugger
         let updatedLessonsArray = [...this.state.lessonsArray]
         updatedLessonsArray.length = this.state.numberOfLessons.length
         for(let i = 0; i < this.state.numberOfLessons.length; i++){
@@ -40,9 +35,7 @@ class CreateNewLessonContainer extends React.Component{
     }
    
     addToNumLessons = () => {
-        // debugger
         for(let i = 0; i < this.state.lessonsArray.length; i++){
-            // debugger
             if( this.state.lessonsArray[i][2].length > 0 && !this.state.lessonsArray[i][2].includes('youtube.com/embed') ){ // https://www.youtube.com/embed/nghuHvKLhJA
                 alert("Please use a valid youtube embed")
             }else if( this.state.lessonsArray[i][0].length === 0 || this.state.lessonsArray[i][1].length === 0 ){
@@ -56,32 +49,13 @@ class CreateNewLessonContainer extends React.Component{
 
     decreaseNumLessons = (index, individualLessonArray) => {
         let updated
-        // let updated = this.state.lessonsArray
         let newNumLessons = this.state.numberOfLessons.pop()
         this.setState({newNumLessons: newNumLessons})
         for(let i = 0; i < this.state.lessonsArray.length; i++){
             if(index === i){
-                // updated = this.state.lessonsArray.splice(i, 1) // only returns what you wanted to delete
-                // updated = this.state.lessonsArray.filter(element => {
-                //     const t = this
-                //     // debugger
-                    // return element[0] !== individualLessonArray[0]
-                // })
                 this.setState({ lessonsArray: this.state.lessonsArray.splice(i, 1) })
-
-                // delete this.state.lessonsArray[i]
-                // delete updated[i]
-                // debugger
-                // updated.filter(item => item)
-
-                // updated = this.state.lessonsArray.filter(item => item)
-                // console.log("works here?", updated) // this is still deleting the below lesson...
-                // this.setState({lessonsArray: updated},() => console.log(this.state.lessonsArray))
-                // this.setState({lessonsArray: this.state.lessonsArray},() => console.log(this.state.lessonsArray))
             }
         }
-        // this.setState({lessonsArray: updated},() => console.log("updated", this.state.lessonsArray))
-        // this.setState({lessonsArray: this.state.lessonsArray},() => console.log("done", this.state.lessonsArray))
     }
 
     deletedLastLesson = () => {
@@ -115,8 +89,6 @@ class CreateNewLessonContainer extends React.Component{
                         )
                     })}
                     <br></br>
-                    {/* button for delete here and now inside NewLesson? That way I can just pop a number... */}
-                    {/* <Button onClick={this.addNextLesson}>Add more lessons</Button> */}
                     {this.state.numberOfLessons.length > 1 ? 
                     <Button onClick={this.deletedLastLesson}>Delete</Button>
                     : null
@@ -129,16 +101,4 @@ class CreateNewLessonContainer extends React.Component{
     }
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-
-//     };
-// };
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        // storeIndividualLessonArrays: (info) => {dispatch( storeIndividualLessonArrays(info) )}
-    }
-}
-
-export default connect(null, mapDispatchToProps)(CreateNewLessonContainer)
+export default connect(null, null)(CreateNewLessonContainer)

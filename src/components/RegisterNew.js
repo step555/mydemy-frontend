@@ -55,7 +55,6 @@ class RegisterNew extends React.Component{
     }
 
     getDescriptors = (descriptors) => {
-        // debugger
         this.setState({descriptors: descriptors})
     }
 
@@ -105,7 +104,6 @@ class RegisterNew extends React.Component{
                                 name='radioGroup'
                                 value='user'
                                 checked={this.state.user_or_company === 'user'}
-                                // onChange={this.handleRadioChange}
                                 onClick={this.isUser}
                             />
                         </Form.Field>
@@ -118,7 +116,6 @@ class RegisterNew extends React.Component{
                                 onClick={this.isCompany}
                             />
                         </Form.Field>
-                        {/* <Link to ={"/login"}> */}
                         {this.state.user_or_company === 'user' ? 
                             <Button type="submit">Image Capture</Button>
                         : null}
@@ -132,7 +129,6 @@ class RegisterNew extends React.Component{
                                     </Form>
                                 </div>
                             : null}
-                        {/* </Link> */}
                         </Segment>
                         </Form>
                     </Grid.Column>

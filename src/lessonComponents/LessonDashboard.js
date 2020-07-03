@@ -17,16 +17,12 @@ class LessonDashboard extends React.Component{
     }
     
     componentWillMount(){
-        // let courseId = parseInt(this.props.match.params.courseId)
-        // this.setState({courseId: courseId})
-        // this.props.clickedBackButton()
         this.setState({showLesson: false})
         this.setState({lessonId: null})
     }
 
     componentDidMount(){
         let courseId = parseInt(this.props.match.params.courseId)
-        // let courseId = parseInt(this.props.course.id)
         this.setState({courseId: courseId})
         this.props.selectingCourseLessons(courseId) 
     }
@@ -50,10 +46,6 @@ class LessonDashboard extends React.Component{
         // return !this.props.lessons || this.props.lessons.length === 0 ? null : (
         return !this.props.lessons ? null : (
             <div>
-                {/* {this.props.user.currentUser ? 
-                    <Link to="/profile"><Button>Back to Profile</Button></Link>
-                :   <Link to="/company-profile"><Button>Back to Profile</Button></Link>
-                } */}
                 <br></br>
                 
                 <div class="sidenav">
@@ -65,16 +57,6 @@ class LessonDashboard extends React.Component{
                         return <Link to={`/course/${this.state.courseId}/lessons/${lesson.id}`} onClick={() => this.handleClick(lesson.id)}>{lesson.lesson_name}</Link>
                     })}
                 </div>
-
-
-                    {/* {this.props.lessons.map(lesson => {
-                        return <Link to={`/course/${this.state.courseId}/lessons/${lesson.id}`} onClick={() => this.handleClick(lesson.id)}>{lesson.lesson_name}</Link>
-                    })} */}
-                {/* <div className="lesson-container-hide">
-                    {this.props.lessons.map(lesson => {
-                        return <LessonContainer lesson={lesson} key={lesson.id}/> didn't work
-                    })}
-                </div> */}
                 {this.props.selectedLesson.id && this.state.showLesson === true ? 
                 <div>
                     <LessonContainer courseId={this.state.courseId} lessonId={this.props.selectedLesson.id}/>

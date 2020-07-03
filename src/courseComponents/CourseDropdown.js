@@ -35,9 +35,7 @@ const CourseDropdown = (props) => {
                     clearable 
                     placeholder={"sort by duration"}
                     options={byDuration} selection 
-                    // onChange={(event) => props.sortByDuration(event.target.innerText)}
-                    onChange={(event) => props.changeSearchText(event.target.innerText)}
-                    // value={props.value}       
+                    onChange={(event) => props.changeSearchText(event.target.innerText)}    
                     />
                 </Grid.Column>
                 <Grid.Column width={4}>
@@ -46,7 +44,6 @@ const CourseDropdown = (props) => {
                     clearable 
                     placeholder={"sort by price"}
                     options={byPrice} selection 
-                    // onChange={(event) => props.sortByPrice(event.target.innerText)}
                     onChange={(event) => props.sortByPrice(event.target.innerText)}
                     />
                 </Grid.Column>
@@ -56,7 +53,6 @@ const CourseDropdown = (props) => {
                     clearable 
                     placeholder={"Sort by difficulty level"}
                     options={byDifficultyLevel} selection 
-                    // onChange={(event) => props.sortByDifficultyLevel(event.target.innerText)}
                     onChange={(event) => props.changeSearchText(event.target.innerText)}
                     />
                 </Grid.Column>
@@ -67,19 +63,13 @@ const CourseDropdown = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-    //   courses: state.courses
-        // sortedByDuration: state.sortedByDuration,
-        // sortedByPrice: state.sortedByPrice,
-        // sortedByDifficultyLevel: state.sortedByDifficultyLevel,
         value: state.searchText
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-    //   sortByDuration: (info) => {dispatch(sortByDuration(info))},
       sortByPrice: (info) => {dispatch(sortByPrice(info))},
-    //   sortByDifficultyLevel: (info) => {dispatch(sortByDifficultyLevel(info))},
       changeSearchText: (searchText) => {dispatch(changeSearchText(searchText))}
     }
 }
