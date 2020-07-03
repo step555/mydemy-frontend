@@ -68,20 +68,11 @@ class CompanyAccountInformation extends React.Component{
                                 }
                         )}
                     </Grid.Column>
-                        {/* {this.filteredCourses.map(course => {
-                            return (
-                                    <div>
-                                        <CCourse course={course}/>
-                                    </div>
-                                )
-                            }
-                        )} */}
                     <Grid.Column width={6}>
                         <div className="company-account-info-purchases-div">
                         <h4>Total Revenue: ${this.props.totalRevenue.totalRevenue}</h4>
                         <h4>User Purchases: </h4>
                         {this.props.company.currentCompany.purchases.map(purchase => {
-                                        // debugger
                                     return (
                                         <div>
                                             <CPurchase purchase={purchase}/>

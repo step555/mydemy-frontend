@@ -619,7 +619,6 @@ function deletingCourse(courseIdAndLessons){
             // dispatch(deletedCourse(updatedCourses))
             currentCompany.courses = updatedCourses
             dispatch(deletedCompanyCourse(currentCompany))
-            // window.location.reload()
         })
     }
 }
