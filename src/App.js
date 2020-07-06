@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
 // import {selectingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
-import {selectingCourseLessons, deletingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
+// import {selectingCourseLessons, deletingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 // import {fetchingUser} from './redux/actions'
 import Navbar from "./components/Navbar";
 // import Login from './components/Login';
@@ -87,43 +87,41 @@ class App extends React.Component{
   }
 }
 
-const mapStateToProps = (state) => {
-  // debugger
-  return {
-    courses: state.courses,
-    user: state.user,
-    cart: state.cart,
-    cartTotal: state.cartTotal,
-    company: state.company,
-    totalRevenue: state.totalRevenue,
-    lessons: state.lessons
-  };
-};
+// const mapStateToProps = (state) => {
+//   // debugger
+//   return {
+//     courses: state.courses,
+//     user: state.user,
+//     cart: state.cart,
+//     cartTotal: state.cartTotal,
+//     company: state.company,
+//     totalRevenue: state.totalRevenue,
+//     lessons: state.lessons
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchingCourses: () => {dispatch( fetchingCourses() )},
-    fetchingUser: () => {dispatch( fetchingUser() )},
-    fetchingCompany: () => {dispatch( fetchingCompany() )},
-    fetchingUserCart: () => {dispatch( fetchingUserCart() )},
-    cartTotal: () => {dispatch( cartTotal() )},
-    gettingProfileFetch: () => {dispatch(gettingProfileFetch() )},
-    gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )},
-    totalRevenue: () => {dispatch(totalRevenue() )},
-    // login: () => {dispatch( login() )}
-    removingFromCart: () => {dispatch(removingFromCart() )},
-    // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
-    creatingNewCourse: () => {dispatch(creatingNewCourse() )},
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     fetchingCourses: () => {dispatch( fetchingCourses() )},
+//     fetchingUser: () => {dispatch( fetchingUser() )},
+//     fetchingCompany: () => {dispatch( fetchingCompany() )},
+//     fetchingUserCart: () => {dispatch( fetchingUserCart() )},
+//     cartTotal: () => {dispatch( cartTotal() )},
+//     gettingProfileFetch: () => {dispatch(gettingProfileFetch() )},
+//     gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )},
+//     totalRevenue: () => {dispatch(totalRevenue() )},
+//     // login: () => {dispatch( login() )}
+//     removingFromCart: () => {dispatch(removingFromCart() )},
+//     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
+//     creatingNewCourse: () => {dispatch(creatingNewCourse() )},
 
-    // selectingCourse: () => {dispatch(selectingCourse() )}
+//     // selectingCourse: () => {dispatch(selectingCourse() )}
 
-    deletingCourse: () => {dispatch(deletingCourse() )},
-    selectingCourseLessons: () => {dispatch(selectingCourseLessons() )},
-  }
-}
+//     deletingCourse: () => {dispatch(deletingCourse() )},
+//     selectingCourseLessons: () => {dispatch(selectingCourseLessons() )},
+//   }
+// }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
-// export default withRouter(connect(null, {fetchingCourses: fetchingCourses})(App))
-
-// export default App;
+export default withRouter(conect(null, null)(App));

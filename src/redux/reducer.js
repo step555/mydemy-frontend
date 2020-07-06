@@ -96,7 +96,7 @@ const cartReducer = (state = [], action) => {
         case "CHECKOUT_CART":
             return action.payload
         case "REMOVED_FROM_CART":
-            let stateWithoutRemovedItem = state.filter(p => p.id !== action.payload.id)
+            let stateWithoutRemovedItem = state.filter(p => p.id !== action.payload.id) // you already did this earlier!
             // return {...stateWithoutRemovedItem} // this was returning state as an object which interfered with show cart
             return [...stateWithoutRemovedItem]
         default:

@@ -249,6 +249,7 @@ function removingFromCart(item){
         // debugger // below line is prone to errors
         currentUser.purchases = currentUser.purchases.filter(p => p.id !== purchase.id)
         dispatch(removedFromCart(purchase))
+        // dispatch(removedFromCart(currentUser.purchases))
         })
     }
 }
