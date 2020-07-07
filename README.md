@@ -1,3 +1,25 @@
+## Mydemy | Frontend
+MyDemy is an online learning platform written with a React-Redux frontend and a Rails API backend that allows individuals to further their skillset and increase their knowledge through purchasing online courses and then viewing the lessons that these courses have. It also allows companies to create courses for consumption as well as view who purchased their courses.
+
+Non-company users have full CRUD capability through the ability to edit their information as well as interact with online courses.
+
+Company users have full CRUD capability through the ability to edit their information as well as create, view and delete courses.
+
+This application incorporates facial recognition via face-api, conditional component rendering, form validations, dynamic forms, two separate types of accounts, and a cart system.
+
+## Demo
+
+
+## Installation
+
+Note that this application requires both the frontend and the backend to work properly. Click <a href="https://github.com/sdornel/mydemy-backend">here</a> for instructions on installing and setting up the backend. <strong>Please ensure that you have followed all backend instructions before proceeding with the frotend installation.</strong>
+
+Run npm install to install all dependencies.
+
+In order to begin, clone or download the repository to your computer. If you are already in your computer's terminal, cd into the directory. If you are in your computer's Finder or Explorer, right-click and select an option to open the directory in your terminal.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
