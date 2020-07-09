@@ -2,12 +2,8 @@ import React from 'react';
 import './App.css';
 import { Route, Switch, withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-// import {selectingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
-// import {selectingCourseLessons, deletingCourse, creatingNewCourse, removingFromCart, totalRevenue, fetchingCompany, fetchingCourses, fetchingUser, fetchingUserCart, cartTotal, checkingOutCart, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
-// import {fetchingUser} from './redux/actions'
+import {fetchingCourses, gettingProfileFetch, gettingCompanyProfileFetch} from './redux/actions'
 import Navbar from "./components/Navbar";
-// import Login from './components/Login';
-// import About from './components/About';
 import CourseContainer from "./courseComponents/CourseContainer";
 import Course from "./courseComponents/Course";
 import UserProfileContainer from "./userProfileComponents/UserProfileContainer";
@@ -22,7 +18,7 @@ import Home from "./components/Home"
 import RegisterNew from "./components/RegisterNew"
 import CheckoutForm from "./cartComponents/CheckoutForm"
 import LessonDashboard from "./lessonComponents/LessonDashboard"
-import Lesson from './lessonComponents/Lesson'
+// import Lesson from './lessonComponents/Lesson'
 import LessonContainer from './lessonComponents/LessonContainer'
 import About from './components/About'
 import Footer from './components/Footer'
@@ -32,96 +28,83 @@ class App extends React.Component{
 
   componentDidMount(){
     this.props.fetchingCourses()
-    // this.props.fetchingUser()
-
     this.props.gettingProfileFetch()
     this.props.gettingCompanyProfileFetch()
-
-    if(localStorage.token && localStorage.user_or_company === "user"){
+    // if(localStorage.token && localStorage.user_or_company === "user"){
       // debugger
-      this.props.fetchingUserCart()
-    }
-    this.props.cartTotal()
-
-    this.props.totalRevenue()
-
+      // this.props.fetchingUserCart()
+    // }
+    // this.props.fetchingUser()
+    // this.props.totalRevenue()
+    // this.props.cartTotal()
     // this.props.checkingOutCart() // ???
   }
   render(){
-  return (
-    <div className="app">
-      <Navbar />
-      <Footer />
-      {/* the footer needs to be fixed. currently it blocks things or things go over the footer... */}
-      <Switch>
-        <Route path="/course-list/:courseId" component={Course}/>
-        <Route path="/course-list" component={CourseContainer}/>
-        <Route path="/profile" component={UserProfileContainer}/>
-        <Route path="/company-profile" component={CompanyProfileContainer}/>
-        <Route path="/cart" component={CartContainer}/>
-        <Route path="/account" component={AccountInformation}/>
-        <Route path="/login" component={LoginForm}/>
-        <Route path="/company-login" component={CompanyLoginForm}/>
-        <Route path="/create-new-course" component={CreateNewCourse}/>
-        <Route path="/company/:courseId/edit" component={EditCourse}/>
-        {/* <Route path="/company/view-and-edit-course" component={ViewEditCourse}/> */}
-        <Route path="/register" component={RegisterNew}/>
-        <Route path="/sign-up" component={RegisterNew}/>
-        <Route path="/checkout" component={CheckoutForm}/>
-        <Route path="/course/:courseId/lessons" component={LessonDashboard}/>
-        {/* <Route path="/course/:courseId/:lessonId" component={Lesson}/> */}
-        <Route path="/course/:courseId/lessons/:lessonId" component={LessonContainer}/>
-        <Route path="/about" component={About}/>
-        <Route path="/user-courses" component={UserCoursesContainer}/>
-        <Route path="/" component={Home}/>
-      </Switch>
-
-      {/* <Route exact path="/profile" render={() => <ProfileContainer 
-          user={this.state.user} 
-          applications={this.state.applications}
-          deleteAppFromState={this.deleteAppFromState}
-          currentJobListings={this.state.currentUserJobListings}
-        /> */}
-    </div>
+    return (
+      <div className="app">
+        <Navbar />
+        <Footer />
+        <Switch>
+          <Route path="/course-list/:courseId" component={Course}/>
+          <Route path="/course-list" component={CourseContainer}/>
+          <Route path="/profile" component={UserProfileContainer}/>
+          <Route path="/company-profile" component={CompanyProfileContainer}/>
+          <Route path="/cart" component={CartContainer}/>
+          <Route path="/account" component={AccountInformation}/>
+          <Route path="/login" component={LoginForm}/>
+          <Route path="/company-login" component={CompanyLoginForm}/>
+          <Route path="/create-new-course" component={CreateNewCourse}/>
+          <Route path="/company/:courseId/edit" component={EditCourse}/>
+          {/* <Route path="/company/view-and-edit-course" component={ViewEditCourse}/> */}
+          <Route path="/register" component={RegisterNew}/>
+          <Route path="/sign-up" component={RegisterNew}/>
+          <Route path="/checkout" component={CheckoutForm}/>
+          <Route path="/course/:courseId/lessons" component={LessonDashboard}/>
+          {/* <Route path="/course/:courseId/:lessonId" component={Lesson}/> */}
+          <Route path="/course/:courseId/lessons/:lessonId" component={LessonContainer}/>
+          <Route path="/about" component={About}/>
+          <Route path="/user-courses" component={UserCoursesContainer}/>
+          <Route path="/" component={Home}/>
+        </Switch>
+      </div>
     )
   }
 }
 
 // const mapStateToProps = (state) => {
 //   // debugger
-//   return {
-//     courses: state.courses,
+  // return {
+    // courses: state.courses,
 //     user: state.user,
 //     cart: state.cart,
 //     cartTotal: state.cartTotal,
 //     company: state.company,
 //     totalRevenue: state.totalRevenue,
 //     lessons: state.lessons
-//   };
+  // };
 // };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     fetchingCourses: () => {dispatch( fetchingCourses() )},
-//     fetchingUser: () => {dispatch( fetchingUser() )},
-//     fetchingCompany: () => {dispatch( fetchingCompany() )},
-//     fetchingUserCart: () => {dispatch( fetchingUserCart() )},
-//     cartTotal: () => {dispatch( cartTotal() )},
-//     gettingProfileFetch: () => {dispatch(gettingProfileFetch() )},
-//     gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )},
-//     totalRevenue: () => {dispatch(totalRevenue() )},
-//     // login: () => {dispatch( login() )}
-//     removingFromCart: () => {dispatch(removingFromCart() )},
-//     // checkingOutCart: () => {dispatch( checkingOutCart() )} // ???
-//     creatingNewCourse: () => {dispatch(creatingNewCourse() )},
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchingCourses: () => {dispatch( fetchingCourses() )},
+    gettingProfileFetch: () => {dispatch(gettingProfileFetch() )},
+    gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )},
 
-//     // selectingCourse: () => {dispatch(selectingCourse() )}
-
-//     deletingCourse: () => {dispatch(deletingCourse() )},
-//     selectingCourseLessons: () => {dispatch(selectingCourseLessons() )},
-//   }
-// }
+  }
+}
+    // fetchingCompany: () => {dispatch( fetchingCompany() )},
+    // deletingCourse: () => {dispatch(deletingCourse() )},
+    // selectingCourseLessons: () => {dispatch(selectingCourseLessons() )},
+    // totalRevenue: () => {dispatch(totalRevenue() )},
+    // fetchingUser: () => {dispatch( fetchingUser() )},
+    // fetchingUserCart: () => {dispatch( fetchingUserCart() )},
+    // cartTotal: () => {dispatch( cartTotal() )},
+    // removingFromCart: () => {dispatch(removingFromCart() )},
+    // checkingOutCart: () => {dispatch( checkingOutCart() )}, // ???
+    // creatingNewCourse: () => {dispatch(creatingNewCourse() )},
+    // login: () => {dispatch( login() )},
+    // selectingCourse: () => {dispatch(selectingCourse() )},
 
 // export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
-export default withRouter(conect(null, null)(App));
+export default withRouter(connect(null, mapDispatchToProps)(App));

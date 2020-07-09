@@ -8,7 +8,8 @@ class CompanyLoginForm extends React.Component{
         super()
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            loggedIn: false
         }
     }
 
@@ -19,13 +20,19 @@ class CompanyLoginForm extends React.Component{
 
     handleLoginSubmit = () => {
         console.log("logging in")
-        this.props.fetchingCompany(this.state.email, this.state.password)
+        if(this.state.email === "" || this.state.password === ""){
+            alert("email and password fields cannot be blank")
+        }else{
+            this.setState({loggedIn: !this.state.loggedIn})
+            this.props.fetchingCompany(this.state.email, this.state.password)
+        }
     }
 
     render(){
 
         const redirectToMain = localStorage.token;
-        if (redirectToMain) {
+        if (redirectToMain || this.state.loggedIn === true) {
+            // debugger
             return <Redirect to="/" />
         }
         return(
