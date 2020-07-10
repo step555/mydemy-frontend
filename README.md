@@ -31,5 +31,6 @@ JavaScript ES6 | ReactJS | Redux | HTML5 | CSS3 | Semantic-UI React | face-api.j
   The page will reload if you make any edits and errors will show up in the console.
   
 NOTE: If you wish to avoid using facial recognition when logging in as an existing user, use the following information to log in:
+<br />
 user: nofacialrec@demo.com
 password: demo
