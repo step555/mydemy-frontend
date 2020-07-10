@@ -33,4 +33,5 @@ JavaScript ES6 | ReactJS | Redux | HTML5 | CSS3 | Semantic-UI React | face-api.j
 NOTE: If you wish to avoid using facial recognition when logging in as an existing user, use the following information to log in:
 <br />
 user: nofacialrec@demo.com
+<br />
 password: demo
