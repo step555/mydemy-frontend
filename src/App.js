@@ -41,7 +41,8 @@ class App extends React.Component{
   }
   render(){
     return (
-      <div className="app">
+      <div className="App">
+        <div style={{ margin: "auto", width: 400 }}>
         <Navbar />
         <Footer />
         <Switch>
@@ -55,56 +56,45 @@ class App extends React.Component{
           <Route path="/company-login" component={CompanyLoginForm}/>
           <Route path="/create-new-course" component={CreateNewCourse}/>
           <Route path="/company/:courseId/edit" component={EditCourse}/>
-          {/* <Route path="/company/view-and-edit-course" component={ViewEditCourse}/> */}
+
           <Route path="/register" component={RegisterNew}/>
           <Route path="/sign-up" component={RegisterNew}/>
           <Route path="/checkout" component={CheckoutForm}/>
           <Route path="/course/:courseId/lessons" component={LessonDashboard}/>
-          {/* <Route path="/course/:courseId/:lessonId" component={Lesson}/> */}
+
           <Route path="/course/:courseId/lessons/:lessonId" component={LessonContainer}/>
           <Route path="/about" component={About}/>
           <Route path="/user-courses" component={UserCoursesContainer}/>
           <Route path="/" component={Home}/>
         </Switch>
+        </div>
       </div>
     )
   }
 }
-
-// const mapStateToProps = (state) => {
-//   // debugger
-  // return {
-    // courses: state.courses,
-//     user: state.user,
-//     cart: state.cart,
-//     cartTotal: state.cartTotal,
-//     company: state.company,
-//     totalRevenue: state.totalRevenue,
-//     lessons: state.lessons
-  // };
-// };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchingCourses: () => {dispatch( fetchingCourses() )},
     gettingProfileFetch: () => {dispatch(gettingProfileFetch() )},
     gettingCompanyProfileFetch: () => {dispatch(gettingCompanyProfileFetch() )},
-
   }
 }
-    // fetchingCompany: () => {dispatch( fetchingCompany() )},
-    // deletingCourse: () => {dispatch(deletingCourse() )},
-    // selectingCourseLessons: () => {dispatch(selectingCourseLessons() )},
-    // totalRevenue: () => {dispatch(totalRevenue() )},
-    // fetchingUser: () => {dispatch( fetchingUser() )},
-    // fetchingUserCart: () => {dispatch( fetchingUserCart() )},
-    // cartTotal: () => {dispatch( cartTotal() )},
-    // removingFromCart: () => {dispatch(removingFromCart() )},
-    // checkingOutCart: () => {dispatch( checkingOutCart() )}, // ???
-    // creatingNewCourse: () => {dispatch(creatingNewCourse() )},
-    // login: () => {dispatch( login() )},
-    // selectingCourse: () => {dispatch(selectingCourse() )},
-
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
 export default withRouter(connect(null, mapDispatchToProps)(App));
+// export default (App);
+
+// import React from 'react';
+// import './App.css';
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <div style={{width: 400}}>
+//       <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default App;
