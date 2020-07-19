@@ -7,6 +7,8 @@ Company users have full CRUD capability through the ability to edit their inform
 
 This application incorporates facial recognition via face-api, conditional component rendering, form validations, dynamic forms, two separate types of accounts, and a cart system.
 
+This application runs best on a desktop.
+
 ## Demo
 <a href="https://www.youtube.com/watch?v=mbfqRm0EfKI">MyDemy</a>
 
