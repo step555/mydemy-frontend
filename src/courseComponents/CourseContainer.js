@@ -33,10 +33,10 @@ class CourseList extends React.Component{
                             <Searchbar />
                     <div className="course-dropdown-container-div">
                                 <CourseDropdown />
-                        <div>
-                        </div>
-                    </div>
-
+                    <div>
+                </div>
+                <br></br><br></br><br></br><br></br><br></br><br></br>
+            </div>
                 </div>
                 <br></br><br></br>
                 <div className="course-container">

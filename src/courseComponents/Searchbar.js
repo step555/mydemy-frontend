@@ -6,7 +6,8 @@ import { changeSearchText } from "../redux/actions";
 const Searchbar = props => (
     <div style={{paddingTop: 20}}>
         <h1 className="courses-title">Browse Our Courses Here</h1>
-        <div class="wrapper">
+        <br /><br />
+        <div className="search-div">
             <input class="search" 
             placeholder="Search by course name or organization" 
             type="text" 

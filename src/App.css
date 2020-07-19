@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  width: 400px;
 }
 
 .App-logo {
@@ -262,11 +261,9 @@
   margin-left: 550px;
   position: relative;
   bottom: 70px;
-  /* height: 150px; */
-  
 }
 
-.course_line {  
+.course-line {  
   margin: 25px 0;
   height: 1px;
   background: black;
@@ -533,7 +530,7 @@
 }
 
 .courses-top-div {
-  margin-top: 0px;
+  margin-top: 10px;
   height: 150px;
   position: relative;
   border-bottom: 0.5px solid gray;
@@ -557,7 +554,7 @@
 
 .course-container {
   width: 100%;
-  padding-bottom: 200px;
+  /* padding-bottom: 200px; */
 }
 
 .app {
@@ -583,4 +580,8 @@
 
 .login-form {
   padding-bottom: 350px;
+}
+
+.search-div {
+  margin-right: 840px;
 }

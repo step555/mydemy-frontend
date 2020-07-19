@@ -42,9 +42,9 @@ class App extends React.Component{
   render(){
     return (
       <div className="App">
-        <div style={{ margin: "auto", width: 400 }}>
+        {/* <div style={{ margin: "auto", width: 400 }}> */}
         <Navbar />
-        <Footer />
+        {/* <Footer /> */}
         <Switch>
           <Route path="/course-list/:courseId" component={Course}/>
           <Route path="/course-list" component={CourseContainer}/>
@@ -67,7 +67,7 @@ class App extends React.Component{
           <Route path="/user-courses" component={UserCoursesContainer}/>
           <Route path="/" component={Home}/>
         </Switch>
-        </div>
+        {/* </div> */}
       </div>
     )
   }
