@@ -15,16 +15,19 @@ class Course extends React.Component{
             <div className="course-div">
                 <br></br>
                 <div className="course-inner-div">
+                    <br></br>
                     <Link to="/course-list"><Button>Back to course list</Button></Link>
                     <br></br><br></br>
                 </div>
                 <Grid>
                     <Grid.Column width={9}>
+                <div style={{textAlign: "left"}}>
                     <h1>{this.props.course.name}</h1>
                     {localStorage.user_or_company === "user" ? 
                     <Button onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
                     : 
                     null}
+                </div>
                     <br></br><br></br>
                     <div style={{backgroundImage: `url('${this.props.course.picture}')`}} className="course-image">
                     </div>

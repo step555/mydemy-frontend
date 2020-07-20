@@ -135,7 +135,8 @@
 
 .course-side-text {
   font-weight: bold;
-  font-size: 24px
+  font-size: 24px;
+  text-align: left;
 }
 
 .course-div {
@@ -145,6 +146,8 @@
 
 .course-inner-div {
   overflow: auto;
+  text-align: left;
+  /* margin-right: 1100px; */
 }
 
 .dollar-bill {
