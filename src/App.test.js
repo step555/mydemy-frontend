@@ -3,8 +3,8 @@ import { shallow, mount, render } from 'enzyme';
 import App from './App';
 // import Navbar from "./components/Navbar";
 
-import configureMockStore from 'redux-mock-store';
-const mockStore = configureMockStore();
+// import configureMockStore from 'redux-mock-store';
+// const mockStore = configureMockStore();
 
 describe("App", () => {
   const fetchingCourses = jest.fn();

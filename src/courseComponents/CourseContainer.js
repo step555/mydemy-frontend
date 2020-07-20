@@ -24,36 +24,36 @@ class CourseList extends React.Component{
     }
 
     render(){
-        console.log("sorted courses", this.props.courses)
+        // console.log("sorted courses", this.props.courses)
         return(
-    <div>
-        <div>
-            <div clasName="course-container-div">
-                <div className="courses-top-div">
-                            <Searchbar />
-                    <div className="course-dropdown-container-div">
-                                <CourseDropdown />
-                    <div>
+            <div>
+                <div>
+                    <div clasName="course-container-div">
+                        <div className="courses-top-div">
+                                    <Searchbar />
+                            <div className="course-dropdown-container-div">
+                                        <CourseDropdown />
+                            <div>
+                        </div>
+                        <br></br><br></br><br></br><br></br><br></br><br></br>
+                    </div>
+                        </div>
+                        <br></br><br></br>
+                        <div className="course-container">
+                            <Grid relaxed columns={4}>
+                                {this.props.courses.map(course => {
+                                    return ( 
+                                        <Grid.Column>
+                                            <CourseListItem key={course.id} course={course}/>
+                                        </Grid.Column>
+                                    )
+                                })}
+                            </Grid>
+                        </div>
+                    </div>
                 </div>
-                <br></br><br></br><br></br><br></br><br></br><br></br>
+                <br></br><br></br><br></br>
             </div>
-                </div>
-                <br></br><br></br>
-                <div className="course-container">
-                    <Grid relaxed columns={4}>
-                        {this.props.courses.map(course => {
-                            return ( 
-                                <Grid.Column>
-                                    <CourseListItem key={course.id} course={course}/>
-                                </Grid.Column>
-                            )
-                        })}
-                    </Grid>
-                </div>
-            </div>
-        </div>
-        <br></br><br></br><br></br>
-    </div>
         )
     }
 }
@@ -86,3 +86,5 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, null)(CourseList)
+// export default connect(mapStateToProps, null)(CourseContainer)
+// export default CourseList
