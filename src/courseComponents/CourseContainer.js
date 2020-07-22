@@ -16,7 +16,7 @@ class CourseList extends React.Component{
     }
 
     componentDidMount(){
-        console.log("mounted", this.props)
+        // console.log("mounted", this.props)
     }
 
     handleChange = (event) => {
@@ -59,7 +59,7 @@ class CourseList extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-    console.log("the state you need to manipulate", state)
+    // console.log("the state you need to manipulate", state)
     if(state.dropdownPrice[1] > 0){
         return {
             courses: state.courses.filter(
