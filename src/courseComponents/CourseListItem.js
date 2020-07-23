@@ -4,8 +4,8 @@ import { Card, Icon, Image, Grid } from 'semantic-ui-react'
 import { Link, Route } from "react-router-dom"
 import Course from "./Course"
 
-class CourseListItem extends React.Component{
-    render(){
+const CourseListItem = () => {
+    // render(){
         return (
             <div className="course-card-div">
                 <Link to={`/course-list/${this.props.course.id}/`} >
@@ -24,7 +24,7 @@ class CourseListItem extends React.Component{
                 </Link>
             </div>
         )
-    }
+    // }
 }
 
 export default CourseListItem
