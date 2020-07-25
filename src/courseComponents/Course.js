@@ -24,7 +24,7 @@ class Course extends React.Component{
                 <div style={{textAlign: "left"}}>
                     <h1>{this.props.course.name}</h1>
                     {localStorage.user_or_company === "user" ? 
-                    <Button onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
+                    <Button id="add-to-cart-button" onClick={() => this.addToCart(this.props)}>Add to cart </Button> 
                     : 
                     null}
                 </div>

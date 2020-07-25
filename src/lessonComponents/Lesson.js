@@ -9,18 +9,13 @@ class Lesson extends React.Component {
     constructor(){
         super()
         this.state = {
-            // courseId: "",
             lessonId: "",
         }
     }
 
     componentDidMount(){
-        // debugger
-        // this.props.selectingLesson(this.props.lessonId)
         let lessonId = this.props.lId
         this.setState({
-            // courseId: courseId,
-            // lessonId: this.props.lessonId
             lessonId: lessonId,
         })
     }
