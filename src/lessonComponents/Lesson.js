@@ -21,8 +21,8 @@ class Lesson extends React.Component {
     }
 
     render(){
-        console.log("lesson state", this.state)
-        console.log("lesson props", this.props)
+        // console.log("lesson state", this.state)
+        // console.log("lesson props", this.props)
         // debugger
         return !this.props.selectedLesson ? null : (
             <div>
@@ -34,7 +34,6 @@ class Lesson extends React.Component {
                     : 
                     null}
                     <br></br><br></br>
-                    {/* <p>{this.props.selectedLesson.text_content}</p> */}
                     <div className="lesson-content-text-area-div">
                         <textarea className="lesson-content-text-area" value={this.props.selectedLesson.text_content}></textarea>
                     </div>
@@ -48,7 +47,6 @@ class Lesson extends React.Component {
 const mapStateToProps = (state) => {
     return {
         selectedLesson: state.selectedLesson,
-        // lessons: state.lessons
     };
 };
 
