@@ -363,7 +363,9 @@ function checkingOutCart(cart){
                     updated.course = cart[j].course
                 }
             }
-            dispatch(checkedOutCart(updated))
+            // dispatch(checkedOutCart(updated))
+            debugger
+            dispatch(checkedOutCart())
             window.location.reload()
             // dispatch(gotProfileFetch(currentUser))
         })
@@ -373,11 +375,9 @@ function checkingOutCart(cart){
     }
 }
 
-function checkedOutCart(updatedPurchase){
-    return {
-        type: "CHECKOUT_CART",
-        payload: updatedPurchase
-    }
+// function checkedOutCart(updatedPurchase){
+function checkedOutCart(){
+    return {type: "CHECKOUT_CART", payload: []}
 }
 
 function fetchingCompany(email, password){

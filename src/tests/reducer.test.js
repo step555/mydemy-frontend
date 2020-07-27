@@ -26,6 +26,7 @@ describe('reducer', () => {
             user: [],
         })
     })
+
     it('should update cart when adding a course to cart', () => {
         const action = { type: 'ADD_TO_CART', payload: ['Learn Python'] }
         const result = reducer({ cart: [] }, action)
@@ -33,6 +34,7 @@ describe('reducer', () => {
         expect(result.cart.length).toEqual(1)
         expect(result.cart[0]).toEqual(action.payload[0])
     })
+
     it('should update cart when removing a course from cart', () => {
         const mockState = {
             cart: [
@@ -45,6 +47,26 @@ describe('reducer', () => {
         expect(result.cart).toBeDefined()
         expect(result.cart.length).toBe(mockState.cart.length - 1)
     })
+
+    it('if an item is already in the cart, does not add it twice', () => {
+        const action = {type: "ALREADY_OWNED", payload: "This item is already in your cart"}
+        const result = reducer({ cart: [] }, action)
+        expect(result.cart.length).toEqual(0)
+    })
+
+    // it('cart can be sucessfully checked out', () => { // does not work properly. likely because of page refresh upon cart checkout
+    //     const mockCart = {
+    //         purchases: [
+    //                 {id: 1, name: "Learn Python"},
+    //             ]
+    //     }
+    //     const action = {type: "CHECKOUT_CART", payload: mockCart}
+    //     const result = reducer(mockCart, action)
+    //     console.log(result.cart.purchases)
+    //     expect(result.cart.purchases).toBeDefined()
+    //     expect(result.cart.purchases.length).toEqual(0)
+    // })
+
     it('should update when creating a new course', () => {
         const action = { type: "CREATED_NEW_COURSE", payload: ["Gardening"] }
         const result = reducer ({ courses: [] }, action)
@@ -52,6 +74,7 @@ describe('reducer', () => {
         expect(result.courses.length).toEqual(1)
         expect(result.courses[0]).toEqual(action.payload)
     })
+
     it('should update when deleting a course', () => {
         const mockState = {
             courses: [
@@ -64,10 +87,46 @@ describe('reducer', () => {
         expect(result.courses).toBeDefined()
         expect(result.courses.length).toBe(mockState.courses.length - 1)
     })
-    // test for already owned item (cart stuff)
-    // test for checked out cart
-    // it('update current user when editing user details')
-    // it('update current company when editing company details')
+
+    it('update current user when editing user details', () => {
+        const mockUser = {
+            user: [
+                {name: "Bob"},
+                {email: "bob@hotmail.com"}
+            ]
+        }
+        const mockEditUser = {
+            user: [
+                {name: "Bobb"},
+                {email: "bobb@hotmail.com"}
+            ]
+        }
+        const action = { type: "EDITED_USER_INFO", payload: mockEditUser}
+        const result = reducer(mockUser, action)
+        expect(result.user.currentUser).toBeDefined()
+        expect(result.user.currentUser.name).toEqual(action.payload.name)
+        expect(result.user.currentUser.email).toEqual(action.payload.email)
+    })
+    
+    it('update current company when editing company details', () => {
+        const mockCompany = {
+            company: [
+                {name: "MIT"},
+                {email: "mit@hotmail.com"}
+            ]
+        }
+        const mockEditCompany = {
+            company: [
+                {name: "MITt"},
+                {email: "mitt@hotmail.com"}
+            ]
+        }
+        const action = { type: "EDITED_COMPANY_INFO", payload: mockEditCompany}
+        const result = reducer(mockCompany, action)
+        expect(result.company.currentCompany).toBeDefined()
+        expect(result.company.currentCompany.name).toEqual(action.payload.name)
+        expect(result.company.currentCompany.email).toEqual(action.payload.email)
+    })
     // it('logs in properly')
     // it('handles search filter')
     // it('handles errors when logging in')
