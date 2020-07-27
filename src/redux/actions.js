@@ -333,14 +333,12 @@ function addedToCart(purchase){
 
     console.log("UPDATED CART", purchase)
     return { 
-        type: "ADD_TO_CART", 
-        payload: purchase}
+        type: "ADD_TO_CART", payload: purchase}
 }
 
 function alreadyOwned(){
     return {
         type: "ALREADY_OWNED",
-
     }
 }
 
