@@ -144,6 +144,14 @@ describe('reducer', () => {
         expect(result.company.currentCompany.name).toEqual(mockCompany.name)
         expect(result.company.currentCompany.email).toEqual(mockCompany.email)
     })
-    // it('handles errors when logging in')
-    // it('handles search filter')
+
+    it('handles search filter', () => {
+        const mockSearch = "french"
+        const action = {type: "CHANGE_SEARCH_TEXT", payload: mockSearch}
+        const result = reducer('', action)
+        expect(result.searchText).toEqual("french")
+    })
+
+    
+
 })

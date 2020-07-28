@@ -265,8 +265,7 @@ function totalRevenue(){
         .then(resp => resp.json())
         .then(courses => {
             let total = 0
-            // const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
-            // const userCart = userPurchases.filter(p => p.is_purchased === false)
+
             const companyCourses = courses.filter(c => c.company_id === currentCompanyId)
             const purchasedCourses = companyCourses.filter(c => {
             for(let i = 0; i < c.purchases.length; i++){
