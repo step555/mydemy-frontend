@@ -145,13 +145,19 @@ describe('reducer', () => {
         expect(result.company.currentCompany.email).toEqual(mockCompany.email)
     })
 
+    it('calculates total revenue', () => {
+        const mockTotal = 100
+        const action = {type: "FETCHED_TOTAL_REVENUE", payload: mockTotal}
+        const result = reducer('', action)
+        expect(result.totalRevenue.totalRevenue).toBeDefined()
+        expect(result.totalRevenue.totalRevenue).toEqual(mockTotal)
+    })
+
     it('handles search filter', () => {
         const mockSearch = "french"
         const action = {type: "CHANGE_SEARCH_TEXT", payload: mockSearch}
         const result = reducer('', action)
         expect(result.searchText).toEqual("french")
     })
-
-    
 
 })
