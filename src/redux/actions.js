@@ -43,7 +43,6 @@ function fetchedUser(user){
 
 function fetchingUser(email, password, face){
     return (dispatch) => {
-    let faceArr = face
     let obj = {
         email: email,
         password: password
@@ -56,12 +55,10 @@ function fetchingUser(email, password, face){
             },
             body: JSON.stringify(obj)
             }).then(resp => resp.json())
-            .then(user => { // does not fetch courses and purchases of user
-                
+            .then(user => { // does not fetch courses and purchases of user         
                 if(user.user.email === "nofacialrec@demo.com"){ // prevent facial recognition being used on this user
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
-                    // currentUser = user.user
                     currentUserId = user.user.id
                 fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 .then(resp => resp.json())
@@ -81,18 +78,19 @@ function fetchingUser(email, password, face){
                             alert("Your face was not recognized as belonging to this user. Please try again.")
                         }
                         else{
-                        localStorage.setItem("token", user.token)
-                        localStorage.setItem("user_or_company", "user")
-                        // currentUser = user.user
-                        currentUserId = user.user.id
-                    fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
-                    .then(resp => resp.json())
-                    .then(user => {
-                        if(!user.status){
-                            currentUser = user
-                            dispatch(fetchedUser(user))
-                        }
-                    })
+                            localStorage.setItem("token", user.token)
+                            localStorage.setItem("user_or_company", "user")
+                            // currentUser = user.user
+                            currentUserId = user.user.id
+                            fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
+                            .then(resp => resp.json())
+                            .then(user => {
+                                if(!user.status){
+                                    currentUser = user
+                                    dispatch(fetchedUser(user))
+                                }
+                            }
+                        )
                 // dispatch(fetchedUser(user.user))
                 }}
             } // else statement closing bracket for !== nofacialrec@demo.com

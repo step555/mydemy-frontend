@@ -107,7 +107,7 @@ describe('reducer', () => {
         expect(result.user.currentUser.name).toEqual(action.payload.name)
         expect(result.user.currentUser.email).toEqual(action.payload.email)
     })
-    
+
     it('update current company when editing company details', () => {
         const mockCompany = {
             company: [
@@ -127,7 +127,23 @@ describe('reducer', () => {
         expect(result.company.currentCompany.name).toEqual(action.payload.name)
         expect(result.company.currentCompany.email).toEqual(action.payload.email)
     })
-    // it('logs in properly')
-    // it('handles search filter')
+
+    it('a user can log in', () => {
+        const mockUser = {name: "bob", email: "bob@hotmail.com"}
+        const action = { type: "FETCHED_USER", payload: mockUser}
+        const result = reducer({user: null}, action)
+        expect(result.user.currentUser).toBeDefined()
+        expect(result.user.currentUser.name).toEqual(mockUser.name)
+        expect(result.user.currentUser.email).toEqual(mockUser.email)
+    })
+    it('a company can log in', () => {
+        const mockCompany = {name: "google", email: "google@hotmail.com"}
+        const action = { type: "FETCHED_COMPANY", payload: mockCompany}
+        const result = reducer({company: null}, action)
+        expect(result.company.currentCompany).toBeDefined()
+        expect(result.company.currentCompany.name).toEqual(mockCompany.name)
+        expect(result.company.currentCompany.email).toEqual(mockCompany.email)
+    })
     // it('handles errors when logging in')
+    // it('handles search filter')
 })
