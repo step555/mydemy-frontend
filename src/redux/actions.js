@@ -63,7 +63,6 @@ function fetchingUser(email, password, face){
                 // fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                 // .then(resp => resp.json())
                 // .then(user => {
-                    // debugger
                     if(!user.status){
                         currentUser = user.user
                         dispatch(fetchedUser(user.user))
@@ -86,7 +85,6 @@ function fetchingUser(email, password, face){
                             // fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
                             // .then(resp => resp.json())
                             // .then(user => {
-                            // debugger
                                 if(!user.status){
                                     currentUser = user.user
                                     dispatch(fetchedUser(user.user))
@@ -363,7 +361,6 @@ function checkingOutCart(cart){
                 }
             }
             // dispatch(checkedOutCart(updated))
-            debugger
             dispatch(checkedOutCart())
             window.location.reload()
             // dispatch(gotProfileFetch(currentUser))
@@ -394,7 +391,6 @@ function fetchingCompany(email, password){
                 body: JSON.stringify(obj)
                 }).then(resp => resp.json())
                 .then(company => { 
-                    // debugger
                     if(company.error_message){
                         alert(company.error_message)
                     }else{
@@ -405,7 +401,6 @@ function fetchingCompany(email, password){
                         // fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches company courses and purchases
                         // .then(resp => resp.json())
                 //         .then(company => {
-                //             debugger
                             if(!company.status){
                                 currentCompany = company.company
                                 dispatch(gotCompanyProfileFetch(company.company))
@@ -424,23 +419,23 @@ function fetchedCompany(company){
 function gettingCompanyProfileFetch(){
     return (dispatch) => {
             if(localStorage.token && localStorage.user_or_company === "company") {
-            fetch(COMPANY_LOGIN_URL, { // fetches user minus courses and purchases
+            fetch(COMPANY_LOGIN_URL, { // fetches company minus courses and purchases
                 // method: "GET",
                 headers: {"Authenticate": localStorage.token}
             })
             .then(resp => resp.json())
-            .then(company =>{ 
-                // debugger
-                currentCompanyId = company.id
-                if(company.message){
+            .then(company => { 
+                // currentCompanyId = company.id
+                currentCompanyId = company.company.id
+                if(company.message || company.company.message){
                     localStorage.removeItem("token")
                 }else{
-                fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches user courses and purchases
-                .then(resp => resp.json())
-                .then(company => {
-                    currentCompany = company
-                    dispatch(gotCompanyProfileFetch(company))
-                })
+                // fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches company courses and purchases
+                // .then(resp => resp.json())
+                // .then(company => {
+                    currentCompany = company.company
+                    dispatch(gotCompanyProfileFetch(company.company))
+                // })
                 }
             })
         }
@@ -513,7 +508,6 @@ function creatingNewCourse(courseInfo){
                             lessonObj.lesson_number = courseInfo.lessonsArray[i][i-1]
                             }
                             console.log("lessonObj", lessonObj)
-                            // debugger
                             const settings = {
                                 method: 'POST',
                                 headers: {
@@ -631,7 +625,6 @@ function deletedCourse(course){
 function editingCourse(courseInfo){
     return (dispatch) => {
         let contentCovered
-        debugger
         if(typeof(courseInfo.contentCovered) === "string"){
             courseInfo.contentCovered = [courseInfo.contentCovered]
         }else if(courseInfo.contentCovered.includes("")){
