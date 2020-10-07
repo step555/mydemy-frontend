@@ -55,7 +55,7 @@ function fetchingUser(email, password, face){
             },
             body: JSON.stringify(obj)
             }).then(resp => resp.json())
-            .then(user => { // does not fetch courses and purchases of user    
+            .then(user => { 
                 if(user.user.email === "nofacialrec@demo.com"){ // prevent facial recognition being used on this user
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
@@ -394,7 +394,7 @@ function fetchingCompany(email, password){
                 body: JSON.stringify(obj)
                 }).then(resp => resp.json())
                 .then(company => { 
-                    debugger
+                    // debugger
                     if(company.error_message){
                         alert(company.error_message)
                     }else{
@@ -402,14 +402,15 @@ function fetchingCompany(email, password){
                         localStorage.setItem("user_or_company", "company")
                         // currentCompany = company.company
                         currentCompanyId = company.company.id
-                        fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches company courses and purchases
-                        .then(resp => resp.json())
-                        .then(company => {
+                        // fetch(COMPANY_URL + `/${currentCompanyId}`) // fetches company courses and purchases
+                        // .then(resp => resp.json())
+                //         .then(company => {
+                //             debugger
                             if(!company.status){
-                                currentCompany = company
-                                dispatch(gotCompanyProfileFetch(company))
+                                currentCompany = company.company
+                                dispatch(gotCompanyProfileFetch(company.company))
                             }
-                })
+                // })
             }
         })
     }
