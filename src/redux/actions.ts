@@ -37,11 +37,11 @@ function fetchingCourses(){
     }
 }
 
-function fetchedUser(user){
+function fetchedUser(user: object){
     return {type: "FETCHED_USER", payload: user}
 }
 
-function fetchingUser(email, password, face){
+function fetchingUser(email: string, password: string, face:object){
     return (dispatch) => {
     let obj = {
         email: email,
@@ -505,7 +505,7 @@ function creatingNewCourse(courseInfo){
                             }
 
                             if(lessonObj.lesson_number === ""){ // previously final lesson number was just "". this code gives it the correct number
-                            lessonObj.lesson_number = courseInfo.lessonsArray[i][i-1]
+                                lessonObj.lesson_number = courseInfo.lessonsArray[i][i-1]
                             }
                             console.log("lessonObj", lessonObj)
                             const settings = {
