@@ -1,3 +1,5 @@
+import { ObjectFlags } from "typescript"
+
 const BASE_URL = 'http://localhost:3000'
 const COURSES_URL = 'http://localhost:3000/courses'
 const USER_URL = 'http://localhost:3000/users'
@@ -207,33 +209,34 @@ function editingCompanyInfo(newCompanyInfo: newCompanyInfoTs){
     }
 }
 
-function editedCompanyInfo(updatedCompany){
+function editedCompanyInfo(updatedCompany: object){
     return {type: "EDITED_COMPANY_INFO", payload: updatedCompany}
 }
 
-function changedCompanyNameOfCourse(updatedCourse){
+function changedCompanyNameOfCourse(updatedCourse: object){
     return {type: "CHANGED_COMPANY_NAME_OF_COURSE", payload: updatedCourse}
 }
 
-function logoutUser(currentUser){
+function logoutUser(currentUser: object){
     return {type: 'LOGOUT_USER', payload: currentUser}
 }
 
-function fetchedUserCart(cart){
+function fetchedUserCart(cart: object){
     return {type: "FETCHED_USER_CART", payload: cart}
 }
 
 function fetchingUserCart(){
-    return (dispatch) => {
+    return (dispatch: any) => {
         fetch(PURCHASES_URL)
         .then(resp => resp.json())
         .then(purchases => {
             // debugger // below line is prone to having errors
             // const userPurchases = purchases.filter(p => p.user_id === currentUser.id)
-            const userPurchases = purchases.filter(p => p.user_id === currentUserId)
-            const userCart = userPurchases.filter(p => p.is_purchased === false)
+            const userPurchases = purchases.filter((p: {user_id: number}) => p.user_id === currentUserId)
+            const userCart = userPurchases.filter((p: {is_purchased: boolean}) => p.is_purchased === false)
             let total = 0
-            userCart.forEach(p => total += p.course.price)
+            // userCart.forEach((p: {course {price: number}}) => total += p.course.price)
+            userCart.forEach((p: {course: {price: number}}) => total += p.course.price)
 
             let currentUserCart = userCart
 
@@ -243,7 +246,7 @@ function fetchingUserCart(){
     }
 }
 
-function cartTotal(total) {
+function cartTotal(total: number) {
     // total is correct
     return { type: "CART_TOTAL", payload: total };
 }
