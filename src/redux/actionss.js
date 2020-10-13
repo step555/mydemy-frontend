@@ -7,13 +7,13 @@ const COMPANY_LOGIN_URL = 'http://localhost:3000/company-login'
 const COMPANY_URL = 'http://localhost:3000/companies'
 const LESSON_URL = 'http://localhost:3000/lessons'
 
-let currentUser: any
-let currentUserId: number
-let currentCompany: any
-let currentCompanyId: number
-let allCourses: any
-let currentUserCart: any
-let newlyCreatedCourse: any
+let currentUser
+let currentUserId
+let currentCompany
+let currentCompanyId
+let allCourses
+let currentUserCart
+let newlyCreatedCourse
 
 // function fetchingLessons(){
 //     return (dispatch) => {
@@ -21,12 +21,12 @@ let newlyCreatedCourse: any
 //     }
 // }
 
-function fetchedCourses(courses: any[]){
+function fetchedCourses(courses){
     return {type: "FETCHED_COURSES", payload: courses}
 } 
 
 function fetchingCourses(){
-    return (dispatch: any) => {
+    return (dispatch) => {
         fetch(COURSES_URL)
         .then(resp => resp.json())
         .then(courses => {
@@ -37,13 +37,12 @@ function fetchingCourses(){
     }
 }
 
-function fetchedUser(user: object){
+function fetchedUser(user){
     return {type: "FETCHED_USER", payload: user}
 }
 
-function fetchingUser(email: string, password: string, face: object){
-    return (dispatch: any) => {
-    // return (dispatch) => {
+function fetchingUser(email, password, face){
+    return (dispatch) => {
     let obj = {
         email: email,
         password: password
@@ -100,7 +99,7 @@ function fetchingUser(email: string, password: string, face: object){
 }
 
 function gettingProfileFetch(){
-    return (dispatch: any) => {
+    return dispatch => {
             if(localStorage.token && localStorage.user_or_company === "user") {
             fetch(LOGIN_URL, { // fetches user minus courses and purchases
                 headers: {"Authenticate": localStorage.token}
@@ -126,24 +125,16 @@ function gettingProfileFetch(){
     }
 }
 
-function gotProfileFetch(user: object){
+function gotProfileFetch(user){
     return {type: "GOT_PROFILE_FETCH", payload: user}
 }
 
-
-interface newUserInfoTs {
-    name: string,
-    email: string
-}
-
-function editingUserInfo(newUserInfo: newUserInfoTs){
-    return (dispatch: any) => {
+function editingUserInfo(newUserInfo){
+    return dispatch => {
     console.log("GOT TO EDIT USER INFO", newUserInfo)
     let obj = {
         name: newUserInfo.name,
         email: newUserInfo.email
-        // name: newUserInfo,
-        // email: newUserInfo
     }
     fetch(USER_URL + `/${currentUserId}`, {
         method: "PATCH",
@@ -165,17 +156,12 @@ function editingUserInfo(newUserInfo: newUserInfoTs){
     }
 }
 
-function editedUserInfo(updatedUser: object){
+function editedUserInfo(updatedUser){
     return {type: "EDITED_USER_INFO", payload: updatedUser}
 }
 
-interface newCompanyInfoTs {
-    name: string,
-    email: string
-}
-
-function editingCompanyInfo(newCompanyInfo: newCompanyInfoTs){
-    return (dispatch: any) => {
+function editingCompanyInfo(newCompanyInfo){
+    return dispatch => {
         let obj = {
             name: newCompanyInfo.name,
             email: newCompanyInfo.email
