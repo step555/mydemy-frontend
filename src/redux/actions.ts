@@ -43,7 +43,7 @@ function fetchedUser(user: object){
     return {type: "FETCHED_USER", payload: user}
 }
 
-function fetchingUser(email: string, password: string, face: object){
+function fetchingUser(email: string, password: string, face: any[]){
     return (dispatch: any) => {
     // return (dispatch) => {
     let obj = {
@@ -251,8 +251,12 @@ function cartTotal(total: number) {
     return { type: "CART_TOTAL", payload: total };
 }
 
-function removingFromCart(item){
-    return (dispatch) => {
+interface itemTs {
+    id: number
+}
+
+function removingFromCart(item: itemTs){
+    return (dispatch: any) => {
     fetch(PURCHASES_URL + `/${item.id}`, {
         method: "DELETE",
         headers: {"Content-Type": "application/json",
@@ -261,30 +265,38 @@ function removingFromCart(item){
     .then(purchase => {
         // console.log(purchase)
         // debugger // below line is prone to errors
-        currentUser.purchases = currentUser.purchases.filter(p => p.id !== purchase.id)
+        currentUser.purchases = currentUser.purchases.filter((p: {id: number}) => p.id !== purchase.id)
         dispatch(removedFromCart(purchase))
         // dispatch(removedFromCart(currentUser.purchases))
         })
     }
 }
 
-function removedFromCart(purchase){
+function removedFromCart(purchase: object){
     return {type: "REMOVED_FROM_CART", payload: purchase}
 }
 
-function fetchedTotalCompanyRevenue(total){
+function fetchedTotalCompanyRevenue(total: number){
     return {type: "FETCHED_TOTAL_REVENUE", payload: total}
 }
 
 function totalRevenue(){
-    return(dispatch) => {
+    return(dispatch: any) => {
         fetch(COURSES_URL)
         .then(resp => resp.json())
         .then(courses => {
             let total = 0
 
-            const companyCourses = courses.filter(c => c.company_id === currentCompanyId)
-            const purchasedCourses = companyCourses.filter(c => {
+            const companyCourses = courses.filter((c: {company_id: number}) => c.company_id === currentCompanyId)
+
+            interface cTs {
+                // purchases: {
+                    // is_purchased: boolean
+                // }
+                purchases: any[]
+                price: number
+            }
+            const purchasedCourses = companyCourses.filter((c: cTs) => {
             for(let i = 0; i < c.purchases.length; i++){
                 if(c.purchases[i].is_purchased === true){
                     total += c.price
@@ -296,8 +308,12 @@ function totalRevenue(){
     }
 }
 
-function addingToCart(course){
-    return (dispatch, getState) => {
+interface courseTs {
+    id: number
+}
+
+function addingToCart(course: courseTs){
+    return (dispatch: any) => {
         let alreadyInCartOrPurchased = false
         // for(let i = 0; i < course.users.length; i++){
             // if(course.users[i].id === currentUserId){
