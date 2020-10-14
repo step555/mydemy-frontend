@@ -359,8 +359,7 @@ function addingToCart(course: courseTs){
     }
 }
 
-function addedToCart(purchase){
-
+function addedToCart(purchase: object){
     console.log("UPDATED CART", purchase)
     return { 
         type: "ADD_TO_CART", payload: purchase}
@@ -372,8 +371,16 @@ function alreadyOwned(){
     }
 }
 
-function checkingOutCart(cart){
-    return (dispatch, getState) => {
+interface cartTs {
+    length: number
+    id: number,
+    course: {
+        id: number
+    },
+}
+
+function checkingOutCart(cart: Array<cartTs>){
+    return (dispatch: any) => {
     let i = 0
     while(i < cart.length){
         let obj = {
@@ -409,8 +416,8 @@ function checkedOutCart(){
     return {type: "CHECKOUT_CART", payload: []}
 }
 
-function fetchingCompany(email, password){
-    return (dispatch) => {
+function fetchingCompany(email: string, password: string){
+    return (dispatch: any) => {
         let obj = {
             email: email,
             password: password
@@ -445,12 +452,12 @@ function fetchingCompany(email, password){
 }
 
 
-function fetchedCompany(company){
+function fetchedCompany(company: object){
     return {type: "FETCHED_COMPANY", payload: company}
 }
 
 function gettingCompanyProfileFetch(){
-    return (dispatch) => {
+    return (dispatch: any) => {
             if(localStorage.token && localStorage.user_or_company === "company") {
             fetch(COMPANY_LOGIN_URL, { // fetches company minus courses and purchases
                 // method: "GET",
@@ -475,13 +482,26 @@ function gettingCompanyProfileFetch(){
     }
 }
 
-function gotCompanyProfileFetch(company){
+function gotCompanyProfileFetch(company: object){
     return {type: "GOT_COMPANY_PROFILE_FETCH", payload: company}
 }
 
-function creatingNewCourse(courseInfo){
+interface courseInfoTs {
+    courseName: string,
+    courseDescription: string,
+    videoPreview: string,
+    price: number,
+    duration: string,
+    subject: string,
+    difficultyLevel: string,
+    contentCovered: string,
+    picture: string,
+    lessonsArray: []
+}
+
+function creatingNewCourse(courseInfo: courseInfoTs){
     console.log("before dispatch", courseInfo)
-    return (dispatch) => {
+    return (dispatch: any) => {
         let courseObj = {
             name: courseInfo.courseName,
             text_preview: courseInfo.courseDescription,
@@ -510,9 +530,32 @@ function creatingNewCourse(courseInfo){
             newlyCreatedCourse.lessons = []
             dispatch(createdNewCompanyCourse(currentCompany))
 
-            async function creatingNewLessons(courseInfo, course){
+            
+
+            async function creatingNewLessons(courseInfo: {lessonsArray: any}, course: {id: number}){
                 // return async (dispatch) => {
-                    let lessonObj = {}
+                    
+                    interface lessonObjTs {
+                        lesson_number: number|string,
+                        course_id: number,
+                        lesson_name: {
+                                courseInfo: {
+                                lessonsArray: any[]
+                            }
+                        },
+                        text_content: {
+                            courseInfo: {
+                                lessonsArray: any[]
+                            }
+                        },
+                        video?: {
+                            courseInfo: {
+                                lessonsArray: any[]
+                            }
+                        }
+                    }
+
+                    let lessonObj: lessonObjTs
                     for(let i = 0; i < courseInfo.lessonsArray.length; i++){ // [i][0] === lesson name, [i][1] === text content, [i][2] === video, lesson number === [i][i]
                         // post request(s) that happen inside this for loop are somehow acting in an async manner?
                         // if video === "" then obj excludes video
@@ -561,20 +604,20 @@ function creatingNewCourse(courseInfo){
         }
     }
 
-function createdNewLesson(lesson){
+function createdNewLesson(lesson: object){
     return {type: "CREATED_NEW_LESSON", payload: lesson}
 }
 
-function createdNewCourse(course){
+function createdNewCourse(course: object){
     return {type: "CREATED_NEW_COURSE", payload: course}
 }
 
-function createdNewCompanyCourse(currentCompany){
+function createdNewCompanyCourse(currentCompany: object){
     return {type: "CREATED_NEW_COMPANY_COURSE", payload: currentCompany}
 }
 
-function selectingCourseLessons(id){
-    return (dispatch) => {
+function selectingCourseLessons(id: number){
+    return (dispatch: any) => {
         fetch(COURSES_URL + `/${id}`)
         .then(resp => resp.json())
         .then(course => {
@@ -584,12 +627,12 @@ function selectingCourseLessons(id){
     }
 }
 
-function selectedCourseLessons(lessons){
+function selectedCourseLessons(lessons: object){
     return {type: "FETCHED_LESSONS", payload: lessons}
 }
 
-function selectingCourse(id){
-    return (dispatch) => {
+function selectingCourse(id: number){
+    return (dispatch: any) => {
         fetch(COURSES_URL + `/${id}`)
         .then(resp => resp.json())
         .then(course => {
@@ -598,12 +641,12 @@ function selectingCourse(id){
     }
 }
 
-function selectedCourse(course){
+function selectedCourse(course: object){
     return {type: "EDIT_SELECTED_COURSE", payload: course}
 }
 
-function selectingLesson(lessonId){
-    return (dispatch) => {
+function selectingLesson(lessonId: number){
+    return (dispatch: any) => {
         // console.log("selecting", lessonId)
         fetch(LESSON_URL + `/${lessonId}`)
         .then(resp => resp.json())
@@ -613,12 +656,20 @@ function selectingLesson(lessonId){
     }
 }
 
-function selectedLesson(lesson){
+function selectedLesson(lesson: object){
     return {type: "SELECTED_LESSON", payload: lesson}
 }
 
-function deletingCourse(courseIdAndLessons){
-    return (dispatch) => {
+interface courseIdAndLessonsTs {
+    courseId: number,
+    lessons: Array<{
+        length: number,
+        id: number
+    }>
+}
+
+function deletingCourse(courseIdAndLessons: courseIdAndLessonsTs){
+    return (dispatch: any) => {
         fetch(COURSES_URL + `/${courseIdAndLessons.courseId}`, {
             method: "DELETE",
             headers: {"Content-Type": "application/json",
@@ -627,7 +678,7 @@ function deletingCourse(courseIdAndLessons){
         .then(course => {
             console.log(course)
             dispatch(deletedCourse(course))
-            let updatedCourses = currentCompany.courses.filter(course => {
+            let updatedCourses = currentCompany.courses.filter((course: {id: number}) => {
                 return course.id !== courseIdAndLessons.courseId
             })
             
@@ -647,21 +698,37 @@ function deletingCourse(courseIdAndLessons){
     }
 }
 
-function deletedCompanyCourse(currentCompany){
+function deletedCompanyCourse(currentCompany: object){
     return {type: "DELETED_COURSE_FROM_COMPANY", payload: currentCompany}
 }
 
-function deletedCourse(course){
+function deletedCourse(course: object){
     return {type: "DELETED_COURSE", payload: course}
 }
 
-function editingCourse(courseInfo){
-    return (dispatch) => {
-        let contentCovered
+interface editingCourseInfoTs {
+    name: string,
+    textPreview: string,
+    videoPreview: string,
+    price: number,
+    duration: string,
+    subject: string,
+    difficultyLevel: string,
+    picture: string,
+    courseId: number,
+    contentCovered: string|Array<string>,
+}
+
+function editingCourse(courseInfo: editingCourseInfoTs){
+// function editingCourse(courseInfo: any){
+    return (dispatch: any) => {
+        // let contentCovered
         if(typeof(courseInfo.contentCovered) === "string"){
             courseInfo.contentCovered = [courseInfo.contentCovered]
+            // contentCovered = [courseInfo.contentCovered]
         }else if(courseInfo.contentCovered.includes("")){
-            courseInfo.contentCovered = courseInfo.contentCovered.filter(i => i !== "")
+            courseInfo.contentCovered = courseInfo.contentCovered.filter((i: string) => i !== "")
+            // contentCovered = courseInfo.contentCovered.filter((i: string) => i !== "")
         }
         let obj = {
             name: courseInfo.name,
@@ -691,13 +758,20 @@ function editingCourse(courseInfo){
     }
 }
 
-function editedCourse(course){
+function editedCourse(course: object){
     return {type: "EDITED_COURSE", payload: course}
 }
 
-function creatingNewUser(userInfo){
-    return (dispatch) => {
-        let floatArray = userInfo.descriptors[0]
+interface userInfoTs {
+    name: string,
+    email: string,
+    password: string,
+    descriptors: any // not number to avoid array not being read as an array
+}
+
+function creatingNewUser(userInfo: userInfoTs){
+    return (dispatch: any) => {
+        let floatArray: Array<number> = userInfo.descriptors[0]
         let array = Array.from(floatArray)
         let obj = {
             user: { // must be nested to avoid "password can't be blank" in backend create action
@@ -734,8 +808,14 @@ function creatingNewUser(userInfo){
     }
 }
 
-function creatingNewCompany(companyInfo){
-    return (dispatch) => {
+interface companyInfoTs {
+    name: string,
+    email: string,
+    password: string
+}
+
+function creatingNewCompany(companyInfo: companyInfoTs){
+    return (dispatch: any) => {
         let obj = {
             company: {// must be nested to avoid "password can't be blank" in backend create action
             name: companyInfo.name,
@@ -760,7 +840,7 @@ function creatingNewCompany(companyInfo){
 }
 
 function fetchingAllUsers(){
-    return (dispatch) => {
+    return (dispatch: any) => {
         fetch(USER_URL)
         .then(resp => resp.json())
         .then(users => {
@@ -769,12 +849,12 @@ function fetchingAllUsers(){
     }
 }
 
-function fetchedAllUsers(users){
+function fetchedAllUsers(users: object){
     return {type: "FETCHED_ALL_USERS", payload: users}
 }
 
-function openingEnlargedCourse(course){
-    return (dispatch) => {
+function openingEnlargedCourse(course: {id: number}){
+    return (dispatch: any) => {
         fetch(COURSES_URL + `/${course.id}`)
         .then(resp => resp.json())
         .then(course => {
@@ -787,25 +867,25 @@ function closeEnlargedCourse(){
     return { type: "FETCHED_ENLARGED_COURSE", payload: false}
 }
 
-function fetchedEnlargedCourse(value){
+function fetchedEnlargedCourse(value: object){ // I think it's object. otherwise probably string
     return { type: "FETCHED_ENLARGED_COURSE", payload: value }
 }
 
-function changeSearchText(value) {
+function changeSearchText(value: string) {
     return { type: "CHANGE_SEARCH_TEXT", payload: value };
 }
 
-function sortByDuration(value){
+function sortByDuration(value: string){
     return { type: "SORTED_BY_DURATION", payload: value }
 }
 
-function sortByPrice(value){
+function sortByPrice(value: string){
     const priceRangeArr = value.replace("$", "").replace("$", "").split("-")
     let priceRangeArrToInteger = [parseInt(priceRangeArr[0]), parseInt(priceRangeArr[1])]
     return { type: "SORTED_BY_PRICE", payload: priceRangeArrToInteger}
 }
 
-function sortByDifficultyLevel(value){
+function sortByDifficultyLevel(value: object){
     return { type: "SORTED_BY_DIFFICULTY_LEVEL", payload: value }
 }
 
