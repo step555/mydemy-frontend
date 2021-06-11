@@ -59,7 +59,7 @@ function fetchingUser(email: string, password: string, face: any[]){
             body: JSON.stringify(obj)
             }).then(resp => resp.json())
             .then(user => { 
-                if(user.user.email === "nofacialrec@demo.com"){ // prevent facial recognition being used on this user
+                if(email === "nofacialrec@demo.com"){ // prevent facial recognition being used on this user
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
                     currentUserId = user.user.id
