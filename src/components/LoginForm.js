@@ -134,7 +134,6 @@ class LoginForm extends React.Component{
 
     handleChange = (e, { name, value }) => {
         this.setState({ [name]: value });
-        console.log(this.state)
     };
 
     handleLoginSubmit = () => {
@@ -147,7 +146,11 @@ class LoginForm extends React.Component{
     }
 
     toggleCamera = () => {
-        this.setState({toggleCam: !this.state.toggleCam})
+        if (this.state.email === 'nofacialrec@demo.com') {
+            this.setState({toggleCam: false})
+        } else {
+            this.setState({toggleCam: !this.state.toggleCam})
+        }
     }
 
     fMatch = (descriptors) => {

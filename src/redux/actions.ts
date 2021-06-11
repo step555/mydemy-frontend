@@ -63,15 +63,11 @@ function fetchingUser(email: string, password: string, face: any[]){
                     localStorage.setItem("token", user.token)
                     localStorage.setItem("user_or_company", "user")
                     currentUserId = user.user.id
-                // fetch(USER_URL + `/${currentUserId}`) // fetches user courses and purchases
-                // .then(resp => resp.json())
-                // .then(user => {
+                    window.location.reload();
                     if(!user.status){
                         currentUser = user.user
                         dispatch(fetchedUser(user.user))
                     }
-                // })
-
                 }else{
                 
                     if(user.error_message){
