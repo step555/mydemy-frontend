@@ -3,9 +3,6 @@ import { withRouter } from 'react-router-dom';
 import Webcam from 'react-webcam';
 import { loadModels, getFullFaceDescription, createMatcher } from '../api/face';
 
-// Import face profile
-// const JSON_PROFILE = require('../descriptors/bnk48.json');
-
 const WIDTH = 420;
 const HEIGHT = 420;
 const inputSize = 160;
@@ -25,25 +22,8 @@ class VideoInput extends Component {
   }
 
   componentWillMount = async () => {
-    // let userInfo
-    // const response = await fetch('http://localhost:3000/users')
-    // const users = await response.json()
-    //   for(let i = 0; i < users.length; i++){
-    //     if(users[i].email === this.props.email){
-
-    //       users[i].face = [users[i].face]
-    //       userInfo = users[i]
-          
-
-          await loadModels();
-          //{Me: {…}, Cherprang: {…}}
-          // console.log(JSON_PROFILE)
-          
-          // this.setState({ faceMatcher: await createMatcher(  {userInfo}  ) });
-          // this.setState({ faceMatcher: await createMatcher(  JSON_PROFILE  ) });
-          this.setInputDevice();
-      //   }
-      // }
+    await loadModels();
+    this.setInputDevice();
   };
 
 
